@@ -30,6 +30,13 @@ public class EIOTeleport extends CheatModule {
         utils.sendPacket("enderio", (byte) 56, x, y, z, 0, false, entID, 3);
     }
     
+    @Override public void onPreInit() {
+        coords.add("0");
+        coords.add("0");
+        coords.add("0");
+        onView = true;
+    }
+    
     @Override public PerformMode performMode() {
         return PerformMode.SINGLE;
     }
