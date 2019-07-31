@@ -9,7 +9,7 @@
   
 <a href="https://github.com/N1nt4nd0/Xenobyte/blob/master/xenobyte_eloader.dll"><b>xenobyte_eloader.dll</b></a> - инжект by <a href="https://github.com/radioegor146">radioegor146</a> (по такому же принципу что и на видео от Qmaks, но соглашаясь со всеми (кроме inject by Left4Dead) пунктами в окошках при инжекте)
 
-# Важные моменты по использованию
+# Важные моменты использования
 
   - Открытие главного меню на клавишу <b>B</b> (далее можно переназначить)
   - В панелиях настроек модуля: ScrollSlider - изменяет значение через прокрутку колёсика мыши (с зажатым Shift ускоряет процесс)
