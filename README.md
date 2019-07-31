@@ -40,11 +40,11 @@
   
 # Ссылки
 
-- VK - https://vk.com/forgefuck
-- Discord - https://discord.gg/dtQGYZa
+  - Discord - https://discord.gg/dtQGYZa
+  - VK - https://vk.com/forgefuck
 
 # Благодарности
 
-- Left4Dead - помощь при написании некоторых "ванильных" модулей
-- radioegor146 - аудит по GitHub
-- SongJ - автор арта и logo
+  - Left4Dead - помощь при написании некоторых "ванильных" модулей
+  - radioegor146 - аудит по GitHub
+  - SongJ - автор арта и logo
