@@ -19,7 +19,7 @@ public class AdvertHack extends CheatModule {
     @Cfg private List<String> urls;
     
     public AdvertHack() {
-        urls = new ArrayList<String>();
+        (urls = new ArrayList<String>()).add("");
     }
     
     @Override public PerformMode performMode() {
@@ -46,9 +46,9 @@ public class AdvertHack extends CheatModule {
     @Override public Panel settingPanel() {
         return new Panel(
             new Button("AdvertUrl") {
-                   @Override public void onLeftClick() {
-                       new UserInput("Advert url", urls, InputType.SINGLE_STRING).showFrame();
-                   }
+                @Override public void onLeftClick() {
+                    new UserInput("Advert url", urls, InputType.SINGLE_STRING).showFrame();
+                }
             }
         );
     }

@@ -22,7 +22,7 @@ public class RedBarrelGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в Бочку на которую смотрит игрок";
+        return "Выдача предмета в Бочку (ProjectRed) на которую смотрит игрок";
     }
     
     @Override public boolean isWorking() {

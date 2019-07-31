@@ -17,7 +17,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 
-public class EIOTeleport extends CheatModule {
+public class EIOTeleport extends CheatModule { //TODO крашит при активаци из гуи
     
     @Cfg private boolean intercept, onView, items;
     @Cfg private List<String> coords;
@@ -28,6 +28,13 @@ public class EIOTeleport extends CheatModule {
     
     private void doTeleport(int entID, int x, int y, int z) {
         utils.sendPacket("enderio", (byte) 56, x, y, z, 0, false, entID, 3);
+    }
+    
+    @Override public void onPreInit() {
+        coords.add("0");
+        coords.add("0");
+        coords.add("0");
+        onView = true;
     }
     
     @Override public PerformMode performMode() {

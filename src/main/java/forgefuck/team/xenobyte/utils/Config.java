@@ -21,9 +21,9 @@ import forgefuck.team.xenobyte.handlers.ModuleHandler;
 
 public class Config {
     
-    private static final File configDir = new File(System.getProperty("user.home"), ".".concat(Rand.str(System.getProperty("user.name") + System.getProperty("user.home") + System.getProperty("os.name") + System.getProperty("os.version") + System.getProperty("os.arch"))));
-    private static final File configFile = new File(configDir, Xeno.mod_name + "-cfg.json");
-    private static final File logFile = new File(configDir, Xeno.mod_name + "-log.txt");
+    private static final File configDir = new File(System.getProperty("user.home"), Xeno.mod_id);
+    private static final File configFile = new File(configDir, "config.json");
+    private static final File logFile = new File(configDir, "log_latest.txt");
     private static final Gson gson = new GsonBuilder().create();
     private static ConfigData data = new ConfigData();
     private static final FileProvider fileProvider;
