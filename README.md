@@ -8,7 +8,7 @@
   - Положив JAR файл в папку mods
   
 <a href="https://github.com/N1nt4nd0/Xenobyte/blob/master/xenobyte_eloader.dll"><b>xenobyte_eloader.dll</b></a> - инжект by <a href="https://github.com/radioegor146">radioegor146</a>. Установка:
-  - По такому же принципу что и на видео от Qmaks, но соглашаясь со всеми (кроме inject by Left4Dead) пунктами в окошках при инжекте
+  - По такому же принципу что и на видео от Qmaks, но соглашаясь со всеми (кроме тестового inject by Left4Dead) пунктами в окошках при инжекте
 
 # Важные моменты использования
 
