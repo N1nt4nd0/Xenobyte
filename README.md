@@ -2,9 +2,7 @@
   <img src="https://github.com/N1nt4nd0/Xenobyte/blob/master/logo.png">
 </p>
 
-<p align="center"><h1>X3N0BYT3 - Hack pack for Minecraft 1.7.10 with Forge by N1nt3nd0 (ForgeFuck - Team)</h1></p>
-
-Файлы:
+<p align="center"><h1>X3N0BYT3 - Hack Pack for Minecraft 1.7.10 Forge</h1></p>
 
 <a href="https://github.com/N1nt4nd0/Xenobyte/blob/master/xenobyte.jar">xenobyte.jar</a> - в виде мода. Способы установки:
   - <a href="https://yadi.sk/d/VRL1rF5E3KQHzb">Старый добрый HZR</a> - инструкция внутри архива
