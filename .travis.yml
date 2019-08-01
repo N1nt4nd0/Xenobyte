@@ -5,5 +5,5 @@ install:
   - export PATH=${JAVA_HOME}/bin:${PATH}
   - choco install jdk8 -params 'installdir=c:\\jdk' -y
 script:
-  - ./gradlew build --console=plain
+  - ./gradlew build
   - ./build_dll.sh
