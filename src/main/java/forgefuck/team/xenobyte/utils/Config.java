@@ -142,7 +142,6 @@ public class Config {
                 }
             }
         }
-        
     }
     
     private String parseModuleValue(Object val) throws Exception {
