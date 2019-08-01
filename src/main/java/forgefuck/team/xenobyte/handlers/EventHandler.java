@@ -35,7 +35,9 @@ public class EventHandler {
     }
     
     @SubscribeEvent(priority = EventPriority.HIGHEST) public void drawGuiScreen(DrawScreenEvent.Pre e) {
-        GuiScaler.updateMouse(e.mouseX, e.mouseY);
+        if (GuiScaler.isGuiCreated()) {
+            GuiScaler.updateMouse(e.mouseX, e.mouseY);
+        }
     }
     
     @SubscribeEvent public void logOut(ClientDisconnectionFromServerEvent e) {
