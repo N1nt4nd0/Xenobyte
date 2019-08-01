@@ -10,8 +10,8 @@ java -jar packer.jar xenobyte-1.0.0.jar
 rm -f eloader/eloader/classes.h
 cp classes.h eloader/eloader/classes.h
 cd eloader
-msbuild eloader.sln /p:Configuration=Release /p:Platform=x86
-msbuild eloader.sln /p:Configuration=Release /p:Platform=x64
+msbuild.exe eloader.sln /p:Configuration=Release /p:Platform=x86
+msbuild.exe eloader.sln /p:Configuration=Release /p:Platform=x64
 cd ../..
 rm -d -f output-total
 mkdir output-total
