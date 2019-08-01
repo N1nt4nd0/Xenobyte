@@ -1,5 +1,5 @@
 language: shell
 os: windows
 script:
-  - gradlew.bat build --console=plain
-  - build_dll.bat
+  - ./gradlew build --console=plain
+  - ./build_dll.sh
