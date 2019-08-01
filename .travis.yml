@@ -1,5 +1,7 @@
 language: shell
 os: windows
+install:
+  - choco install jdk8
 script:
   - ./gradlew build --console=plain
   - ./build_dll.sh
