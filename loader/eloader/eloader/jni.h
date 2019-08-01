@@ -49,12 +49,16 @@
 
 #define JNICALL
 
-typedef int32_t jint;
-typedef int64_t jlong;
-typedef int8_t jbyte;
+typedef int jint;
+#ifdef _LP64 /* 64-bit Solaris */
+typedef long jlong;
+#else
+typedef long long jlong;
+#endif
+
+typedef signed char jbyte;
 
 #endif /* !_JAVASOFT_JNI_MD_H_ */
-
 
 #ifndef _JAVASOFT_JNI_H_
 #define _JAVASOFT_JNI_H_
@@ -64,8 +68,6 @@ typedef int8_t jbyte;
 
 /* jni_md.h contains the machine-dependent typedefs for jbyte, jint
    and jlong */
-
-#include "jni_md.h"
 
 #ifdef __cplusplus
 extern "C" {

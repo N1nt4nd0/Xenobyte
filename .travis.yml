@@ -1,4 +1,5 @@
 language: generic
+os: windows
 script:
-  - ./gradlew build
-  - ./build_dll.sh
+  - gradlew.bat build --console=plain
+  - build_dll.bat
