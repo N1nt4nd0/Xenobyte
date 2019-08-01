@@ -54,7 +54,7 @@ public class EventHandler {
     }
     
     @SubscribeEvent public void drawGuiOverlay(RenderGameOverlayEvent.Post e) {
-        if (e.type == ElementType.ALL) {
+        if (e.type == ElementType.ALL && GuiScaler.isGuiCreated()) {
             GL11.glPushMatrix();
             GuiScaler.setOnTop();
             GuiScaler.setGuiScale();
