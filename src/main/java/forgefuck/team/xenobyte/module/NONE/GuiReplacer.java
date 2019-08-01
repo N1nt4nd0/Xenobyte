@@ -14,9 +14,9 @@ public class GuiReplacer extends CheatModule {
     
     private void replaceSplash(GuiScreen gui) {
         if (gui instanceof GuiMainMenu) {
-        	try {
-        		Reflections.setPrivateValue(GuiMainMenu.class, (GuiMainMenu) gui, Rand.splash(), 3);
-        	} catch(Exception e) {}
+            try {
+                Reflections.setPrivateValue(GuiMainMenu.class, (GuiMainMenu) gui, Rand.splash(), 3);
+            } catch(Exception e) {}
         }
     }
     
