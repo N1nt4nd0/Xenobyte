@@ -2,8 +2,6 @@ package forgefuck.team.xenobyte.module.MODS;
 
 import java.lang.reflect.Array;
 
-import com.pixelmonmod.pixelmon.client.ServerStorageDisplay;
-
 import cpw.mods.fml.common.Loader;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
