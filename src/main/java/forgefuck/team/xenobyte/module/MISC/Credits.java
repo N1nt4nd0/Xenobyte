@@ -16,7 +16,6 @@ public class Credits extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        String test;
         return "Информация о продукте + ссылки";
     }
 
