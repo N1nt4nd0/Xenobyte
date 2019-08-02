@@ -18,7 +18,7 @@ import forgefuck.team.xenobyte.api.Xeno;
 
 public class InfoGui extends XenoJFrame {
     
-    private JLabel author, desc, vkLink, disLink;
+    private JLabel author, desc, vkLink, disLink, gitHubLink;
     private MouseAdapter linkClicker;
     private JPanel fieldsPanel;
     
@@ -47,20 +47,24 @@ public class InfoGui extends XenoJFrame {
             }
         };
         author = new JLabel("  " + Xeno.mod_name + " version " + Xeno.mod_version + " (C) " + Xeno.author + "  ");
-        desc = new JLabel("Special for ForgeFuck - Team");
+        gitHubLink = new JLabel("https://github.com/N1nt4nd0/Xenobyte");
         disLink = new JLabel("https://discord.gg/dtQGYZa");
+        desc = new JLabel("Special for ForgeFuck - Team");
         vkLink = new JLabel("https://vk.com/forgefuck");
         fieldsPanel = new JPanel();
     }
 
     @Override public void configurate() {
+    	gitHubLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         disLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         vkLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         author.setHorizontalAlignment(JTextField.CENTER);
         desc.setHorizontalAlignment(JTextField.CENTER);
         fieldsPanel.setLayout(new GridBagLayout());
+        gitHubLink.addMouseListener(linkClicker);
         disLink.addMouseListener(linkClicker);
         vkLink.addMouseListener(linkClicker);
+        gitHubLink.setFont(FONT);
         accept.setText(" ОК ");
         disLink.setFont(FONT);
         vkLink.setFont(FONT);
@@ -71,6 +75,7 @@ public class InfoGui extends XenoJFrame {
     @Override public void addElements() {
         fieldsPanel.add(author, GBC);
         fieldsPanel.add(desc, GBC);
+        fieldsPanel.add(gitHubLink, GBC);
         fieldsPanel.add(disLink, GBC);
         fieldsPanel.add(vkLink, GBC);
         buttonsBar.add(accept);

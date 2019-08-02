@@ -35,7 +35,9 @@ public class EventHandler {
     }
     
     @SubscribeEvent(priority = EventPriority.HIGHEST) public void drawGuiScreen(DrawScreenEvent.Pre e) {
-        GuiScaler.updateMouse(e.mouseX, e.mouseY);
+        if (GuiScaler.isGuiCreated()) {
+            GuiScaler.updateMouse(e.mouseX, e.mouseY);
+        }
     }
     
     @SubscribeEvent public void logOut(ClientDisconnectionFromServerEvent e) {
@@ -54,7 +56,7 @@ public class EventHandler {
     }
     
     @SubscribeEvent public void drawGuiOverlay(RenderGameOverlayEvent.Post e) {
-        if (e.type == ElementType.ALL) {
+        if (e.type == ElementType.ALL && GuiScaler.isGuiCreated()) {
             GL11.glPushMatrix();
             GuiScaler.setOnTop();
             GuiScaler.setGuiScale();
