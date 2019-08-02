@@ -34,6 +34,7 @@ import forgefuck.team.xenobyte.module.MODS.NanoTechGive;
 import forgefuck.team.xenobyte.module.MODS.OCShutDown;
 import forgefuck.team.xenobyte.module.MODS.OneWayTicket;
 import forgefuck.team.xenobyte.module.MODS.OpenCreative;
+import forgefuck.team.xenobyte.module.MODS.PokeGive;
 import forgefuck.team.xenobyte.module.MODS.QuestGive;
 import forgefuck.team.xenobyte.module.MODS.RFCellDupe;
 import forgefuck.team.xenobyte.module.MODS.RadioHack;
@@ -149,6 +150,7 @@ public class ModuleList extends ArrayList<CheatModule>  {
         add(new WallHack());
         add(new BlinkCam());
         add(new AutoDrop());
+        add(new PokeGive());
         add(new Credits());
         add(new Ceiling());
         add(new XenoFly());
