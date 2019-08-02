@@ -37,6 +37,8 @@ build_script:
     copy loader\eloader\output\Release\xenobyte.x32.dll output-total\xenobyte.x32.dll
 
     copy loader\eloader\output\Release\xenobyte.x64.dll output-total\xenobyte.x64.dll
+
+    zip -z output-total\xenobyte.jar <mainclass.txt
 artifacts:
 - path: output-total\xenobyte.jar
   name: main
