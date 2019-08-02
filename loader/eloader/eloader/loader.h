@@ -436,4 +436,4 @@ unsigned char class_loader_class[] = {
     0x00, 0x90
 };
 
-jsize class_loader_classize = 6914;
+jsize class_loader_class_size = 6914;
