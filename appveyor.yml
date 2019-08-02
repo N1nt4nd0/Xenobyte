@@ -44,10 +44,3 @@ artifacts:
   name: main
 - path: output-total\xenobyte.x64.dll
   name: main
-deploy:
-- provider: GitHub
-  auth_token:
-    secure: 71GGTI+1/nUzTgTENTMBfr/KC0Eat+e36i9tSlXMUnpry7A4p0QSCYl6CC+9GDiR
-  artifact: main
-  draft: true
-  force_update: true
