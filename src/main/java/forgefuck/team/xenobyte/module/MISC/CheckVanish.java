@@ -25,7 +25,7 @@ public class CheckVanish extends CheatModule {
     private WidgetMessage outMessage;
     
     public CheckVanish() {
-    	outMessage = new WidgetMessage(this, "[...]", WidgetMode.INFO);
+        outMessage = new WidgetMessage(this, "[...]", WidgetMode.INFO);
         vanishHandler = new INetHandlerStatusClient() {
             @Override public void handleServerInfo(S00PacketServerInfo infoPacket) {
                 ServerStatusResponse response = infoPacket.func_149294_c();
