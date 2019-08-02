@@ -1,0 +1,46 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+build_script:
+- cmd: >-
+    gradlew build
+
+    IF NOT EXIST build\libs\xenobyte-1.0.0.jar exit 1
+
+    IF EXIST loader\xenobyte-1.0.0.jar del /F /Q loader\xenobyte-1.0.0.jar
+
+    copy build\libs\xenobyte-1.0.0.jar loader\xenobyte-1.0.0.jar
+
+    cd loader
+
+    IF EXIST classes.h del /F /Q classes.h
+
+    java -jar packer.jar xenobyte-1.0.0.jar
+
+    IF EXIST eloader\eloader\classes.h del /F /Q eloader\eloader\classes.h
+
+    copy classes.h eloader\eloader\classes.h
+
+    cd eloader
+
+    msbuild eloader.sln /p:Configuration=Release /p:Platform=x86 /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+    msbuild eloader.sln /p:Configuration=Release /p:Platform=x64 /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+    cd ..\..
+
+    IF EXIST output-total rmdir /S /Q output-total
+
+    mkdir output-total
+
+    copy build\libs\xenobyte-1.0.0.jar output-total\xenobyte.jar
+
+    copy loader\eloader\output\Release\xenobyte.x32.dll output-total\xenobyte.x32.dll
+
+    copy loader\eloader\output\Release\xenobyte.x64.dll output-total\xenobyte.x64.dll
+artifacts:
+- path: output-total\xenobyte.jar
+  name: main
+- path: output-total\xenobyte.x32.dll
+  name: main
+- path: output-total\xenobyte.x64.dll
+  name: main

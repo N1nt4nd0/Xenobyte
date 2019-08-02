@@ -1,2 +1,8 @@
 .gradle
 build/
+
+loader/classes.h
+loader/xenobyte-1.0.0.jar
+loader/eloader/.vs/
+loader/eloader/output/
+loader/eloader/temp/
