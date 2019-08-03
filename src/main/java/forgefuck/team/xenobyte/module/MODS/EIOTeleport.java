@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.InputType;
 import forgefuck.team.xenobyte.api.module.PerformMode;
@@ -16,8 +17,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C01PacketChatMessage;
+import net.minecraftforge.client.event.MouseEvent;
 
-public class EIOTeleport extends CheatModule { //TODO крашит при активаци из гуи
+public class EIOTeleport extends CheatModule {
     
     @Cfg private boolean intercept, onView, items;
     @Cfg private List<String> coords;
@@ -37,35 +39,25 @@ public class EIOTeleport extends CheatModule { //TODO крашит при акт
         onView = true;
     }
     
-    @Override public PerformMode performMode() {
-        return PerformMode.SINGLE;
-    }
-    
-    @Override public void onPerform(PerformSource src) {
-        int[] mop = utils.mop();
-        if (!onView) {
-            mop[0] = Integer.parseInt(coords.get(0));
-            mop[1] = Integer.parseInt(coords.get(1));
-            mop[2] = Integer.parseInt(coords.get(2));
-        }
-        if (items) {
-            utils.nearEntityes().filter(e -> e instanceof EntityItem).forEach(e -> doTeleport(e.getEntityId(), mop[0], mop[1], mop[2]));
-        } else {
-            Entity ent = utils.entity();
-            doTeleport(ent == null ? -1 : ent.getEntityId(), mop[0], mop[1], mop[2]);
+    @SubscribeEvent public void mouseEvent(MouseEvent ev) {
+        if (ev.button == 1 && ev.buttonstate) {
+            int[] mop = utils.mop();
+            if (!onView) {
+                mop[0] = Integer.parseInt(coords.get(0));
+                mop[1] = Integer.parseInt(coords.get(1));
+                mop[2] = Integer.parseInt(coords.get(2));
+            }
+            if (items) {
+                utils.nearEntityes().filter(e -> e instanceof EntityItem).forEach(e -> doTeleport(e.getEntityId(), mop[0], mop[1], mop[2]));
+            } else {
+                Entity ent = utils.entity();
+                doTeleport(ent == null ? -1 : ent.getEntityId(), mop[0], mop[1], mop[2]);
+            }
         }
     }
 
     @Override public boolean isWorking() {
         return Loader.isModLoaded("EnderIO");
-    }
-    
-    @Override public boolean forceEnabled() {
-        return true;
-    }
-    
-    @Override public boolean provideStateEvents() {
-        return false;
     }
     
     @Override public boolean doSendPacket(Packet packet) {
@@ -82,7 +74,7 @@ public class EIOTeleport extends CheatModule { //TODO крашит при акт
     }
     
     @Override public String moduleDesc() {
-        return "Телепортирует объект с заданными настройками по кейбинду";
+        return "Телепортирует объект с заданными настройками по ПКМ";
     }
     
     @Override public Panel settingPanel() {
