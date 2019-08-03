@@ -26,7 +26,7 @@ public class WallHack extends CheatModule {
             chunkCache[2] = renderChunks[2];
             chunkCache[3] = renderChunks[3];
             renderChunks[0].isVisible = isVisible;
-            renderChunks[1].isVisible = true; //TODO NPE SUCC
+            renderChunks[1].isVisible = true;
             renderChunks[2].isVisible = true;
             renderChunks[3].isVisible = true;
             for (int i = 1; i <= 3; i++) {
