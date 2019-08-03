@@ -21,9 +21,6 @@ public class GuiReplacer extends CheatModule {
     }
     
     @Override public void onPostInit() {
-        try {
-            EventRegisterer.unregister(Class.forName("lumien.custommainmenu.CustomMainMenu").getField("EVENT_HANDLER").get(null));
-        } catch(Exception e) {}
         replaceSplash(utils.currentScreen());
     }
     
@@ -33,12 +30,6 @@ public class GuiReplacer extends CheatModule {
     
     @Override public boolean provideStateEvents() {
         return false;
-    }
-    
-    @Override public void onTicksStart() {
-        if (utils.isGuiOpen("lumien.custommainmenu.gui.GuiCustom")) {
-            utils.openGui(new GuiMainMenu());
-        }
     }
     
     @SubscribeEvent public void guiOpen(GuiOpenEvent e) {
