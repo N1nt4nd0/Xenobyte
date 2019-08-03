@@ -8,6 +8,7 @@ import forgefuck.team.xenobyte.module.MISC.ChatBind;
 import forgefuck.team.xenobyte.module.MISC.CheckVanish;
 import forgefuck.team.xenobyte.module.MISC.CmdTest;
 import forgefuck.team.xenobyte.module.MISC.Credits;
+import forgefuck.team.xenobyte.module.MISC.Keyabled;
 import forgefuck.team.xenobyte.module.MISC.ScreenProtect;
 import forgefuck.team.xenobyte.module.MISC.TextRadar;
 import forgefuck.team.xenobyte.module.MODS.AdvertHack;
@@ -146,6 +147,7 @@ public class ModuleList extends ArrayList<CheatModule>  {
         add(new CacheGive());
         add(new MekOpener());
         add(new FakeItem());
+        add(new Keyabled());
         add(new ChatBind());
         add(new WallHack());
         add(new BlinkCam());
