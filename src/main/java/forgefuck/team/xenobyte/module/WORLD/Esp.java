@@ -38,19 +38,21 @@ public class Esp extends CheatModule {
     
     @Override public void onTick(boolean inGame) {
         if (inGame) {
-            objects.clear();
+            List<EspObject> out = new ArrayList<EspObject>();
             utils.nearEntityes(radius)
             .forEach(e -> {
                 if (players && utils.isPlayer(e)) {
-                    objects.add(new EspObject(e, 1, 0, 1));
+                    out.add(new EspObject(e, 1, 0, 1));
                 } else if (monsters && utils.isMonster(e)) {
-                    objects.add(new EspObject(e, 1, 0, 0));
+                    out.add(new EspObject(e, 1, 0, 0));
                 } else if (animals && utils.isAnimal(e)) {
-                    objects.add(new EspObject(e, 0, 1, 0));
+                    out.add(new EspObject(e, 0, 1, 0));
                 } else if (drop && e instanceof EntityItem) {
-                    objects.add(new EspObject(e, 1, 1, 0));
+                    out.add(new EspObject(e, 1, 1, 0));
                 }
             });
+            objects.clear();
+            objects.addAll(out);
             utils.mc().gameSettings.viewBobbing =  !lines || !bindLines || objects.isEmpty();
         }
     }
@@ -158,7 +160,7 @@ public class Esp extends CheatModule {
                 startLines[2] = RenderManager.instance.viewerPosZ;
             }
             if (blocks) {
-                render.WORLD.drawEspBlock(x - 0.5, y, z - 0.5, r, g, b, 0.5F, 1);
+                render.WORLD.drawEspBlock(x - 0.5, y, z - 0.5, r, g, b, 0.3F, 1);
             }
             if (lines) {
                 render.WORLD.drawEspLine(startLines[0], startLines[1], startLines[2], x, y, z, r, g, b, 0.5F, 1.5F);
