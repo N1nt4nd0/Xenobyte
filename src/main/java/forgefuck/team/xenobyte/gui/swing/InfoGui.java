@@ -23,7 +23,7 @@ public class InfoGui extends XenoJFrame {
     private JPanel fieldsPanel;
     
     public InfoGui() {
-        super("Credits", DISPOSE_ON_CLOSE);
+        super("Инфо", DISPOSE_ON_CLOSE);
     }
 
     @Override public void createObjects() {
