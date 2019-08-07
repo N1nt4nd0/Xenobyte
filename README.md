@@ -4,12 +4,12 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/qjnhgxe3cmcy0y6y/branch/master?svg=true)](https://ci.appveyor.com/project/N1nt4nd0/xenobyte/branch/master)
 
-<a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.37/xenobyte.jar"><b>xenobyte.jar</b></a> - в виде мода. Установка:
+<a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.50/xenobyte.jar"><b>xenobyte.jar</b></a> - в виде мода. Установка:
   - <a href="https://yadi.sk/d/l-bIC0a-grPrgA">JavaInjector by Qmaks</a> - по инструкции на <a href="https://www.youtube.com/watch?v=hmquFs06PlU">ВИДЕО</a>, только инжектить <b>ПОСЛЕ</b> загрузки клиента (в главном меню или в самой игре)
   - <a href="https://yadi.sk/d/VRL1rF5E3KQHzb">Старый добрый HZR</a> - инструкция внутри архива
   - Положив JAR файл в папку mods
   
-<a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.37/xenobyte.x32.dll"><b>xenobyte.x32.dll</b></a>, <a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.37/xenobyte.x64.dll"><b>xenobyte.x64.dll</b></a> - инжект by <a href="https://github.com/radioegor146">radioegor146</a>. Установка:
+<a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.50/xenobyte.x32.dll"><b>xenobyte.x32.dll</b></a>, <a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.50/xenobyte.x64.dll"><b>xenobyte.x64.dll</b></a> - инжект by <a href="https://github.com/radioegor146">radioegor146</a>. Установка:
   - По такому же принципу что и на видео от Qmaks, но соглашаясь со всеми (кроме тестового inject by Left4Dead) пунктами в окошках при инжекте
 
 # Важные моменты использования
@@ -39,7 +39,8 @@
   - <b>TravellersGive</b> - выдача предмета в обычный сундук на который смотрит игрок
   - <b>ScreenProtect</b> - отключит на пару секунд активные модули при скриншоте (FMLProxy каналы задаются вручную)
   - <b>Ceiling</b> - телепортация по оси Y через блоки вверх/низ по взгляду
-  - <b>PokeGive</b> - Выдача предмета в инвентарь (первая активация - в покемона, последующие - в инвентарь игрока)
+  - <b>PokeGive</b> - выдача предмета в инвентарь (первая активация - в покемона, последующие - в инвентарь игрока)
+  - <b>EIOXpGrab - высасывает опыт из всех обелисков опыта в радиусе
   
 # Ссылки
 
