@@ -45,7 +45,7 @@ public class AdvertHack extends CheatModule {
         return new Panel(
             new Button("AdvertUrl") {
                 @Override public void onLeftClick() {
-                    new UserInput("Advert url", urls, InputType.SINGLE_STRING).showFrame();
+                    new UserInput("Ссылки", urls, InputType.SINGLE_STRING).showFrame();
                 }
             }
         );

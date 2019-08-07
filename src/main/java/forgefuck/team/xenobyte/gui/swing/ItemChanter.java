@@ -43,7 +43,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     private Color errorColor;
     
     public ItemChanter() {
-        super("Item Chanter", DISPOSE_ON_CLOSE);
+        super("Чантер", DISPOSE_ON_CLOSE);
         loadDefaults();
     }
     

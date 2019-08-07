@@ -34,7 +34,7 @@ public class ChatBind extends CheatModule {
         return new Panel(
             new Button("Commands") {
                 @Override public void onLeftClick() {
-                    new UserInput("Commands", commands, InputType.CUSTOM).showFrame();
+                    new UserInput("Команды", commands, InputType.CUSTOM).showFrame();
                 }
             }
         );

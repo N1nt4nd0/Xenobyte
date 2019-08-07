@@ -83,7 +83,7 @@ public class EIOTeleport extends CheatModule {
         return new Panel(
             new Button("Coords") {
                 @Override public void onLeftClick() {
-                    new UserInput("Coords", coords, InputType.COORDS).showFrame();
+                    new UserInput("Координаты", coords, InputType.COORDS).showFrame();
                 }
                 @Override public String elementDesc() {
                     return "Заданные x y z";

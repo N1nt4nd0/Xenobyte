@@ -91,7 +91,7 @@ public class XenAura extends CheatModule {
             },
             new Button("Friends") {
                 @Override public void onLeftClick() {
-                    new UserInput("Friends", friendsList, InputType.CUSTOM).showFrame();
+                    new UserInput("Друзья", friendsList, InputType.CUSTOM).showFrame();
                 }
                 @Override public String elementDesc() {
                     return "Вайтлист друзей по никнеймам";

@@ -25,7 +25,7 @@ public class ModidChanger extends XenoJFrame {
     private JTextField modIDField, nameField, modVerField;
     
     public ModidChanger() {
-        super(Xeno.mod_name + " modid changer", DO_NOTHING_ON_CLOSE);
+        super("ModId changer", DO_NOTHING_ON_CLOSE);
     }
 
     @Override public void createObjects() {

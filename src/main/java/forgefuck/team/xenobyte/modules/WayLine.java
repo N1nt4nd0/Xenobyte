@@ -65,7 +65,7 @@ public class WayLine extends CheatModule {
         return new Panel(
             new Button("LineColor") {
                 @Override public void onLeftClick() {
-                    new ColorPickerGui("WayLine цвет", picker).showFrame();
+                    new ColorPickerGui("Цвет линии", picker).showFrame();
                 }
                 @Override public String elementDesc() {
                     return "Цвет линии";
