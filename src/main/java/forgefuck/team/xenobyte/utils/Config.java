@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.JsonSyntaxException;
 
 import forgefuck.team.xenobyte.api.Xeno;
@@ -87,10 +88,10 @@ public class Config {
             for (Class clazz : new Class[] { moduleClass, moduleClass.getSuperclass() }) {
                 for (Field field : clazz.getDeclaredFields()) {
                     if (field.isAnnotationPresent(Cfg.class)) {
-                        field.setAccessible(true);
                         String name = field.getAnnotation(Cfg.class).value();
                         Object value = null;
                         try {
+                            field.setAccessible(true);
                             value = field.get(module);
                             if (!data.moduleData.containsKey(id)) {
                                 data.moduleData.put(id, new HashMap<String, List<String>>());
@@ -178,8 +179,10 @@ public class Config {
     
     public static class ConfigData {
         
-        Map<String, Map<String, List<String>>> moduleData;
-        public String fakeMODID, fakeVER, fakeNAME;
+        @SerializedName("moduleData") Map<String, Map<String, List<String>>> moduleData;
+        @SerializedName("fakeMODID") public String fakeMODID;
+        @SerializedName("fakeNAME") public String fakeNAME;
+        @SerializedName("fakeVER") public String fakeVER;
         
         ConfigData() {
             moduleData = new HashMap<String, Map<String, List<String>>>();
