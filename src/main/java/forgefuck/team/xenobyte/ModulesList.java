@@ -26,6 +26,7 @@ import forgefuck.team.xenobyte.modules.CrayfishNuker;
 import forgefuck.team.xenobyte.modules.CreativeGive;
 import forgefuck.team.xenobyte.modules.Credits;
 import forgefuck.team.xenobyte.modules.EIOTeleport;
+import forgefuck.team.xenobyte.modules.EIOXpGrab;
 import forgefuck.team.xenobyte.modules.Esp;
 import forgefuck.team.xenobyte.modules.ExtraFakeSlot;
 import forgefuck.team.xenobyte.modules.FactoryDupe;
@@ -138,6 +139,7 @@ public class ModulesList extends ArrayList<CheatModule>  {
         add(new AdvertHack());
         add(new RFCellDupe());
         add(new TainedAura());
+        add(new EIOXpGrab());
         add(new QuestGive());
         add(new FastPlace());
         add(new FakeBreak());
