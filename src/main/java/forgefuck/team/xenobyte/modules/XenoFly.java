@@ -92,7 +92,7 @@ public class XenoFly extends CheatModule {
                 @Override public void onLeftClick() {
                     buttonValue(noclip = !noclip);
                 }
-                   @Override public String elementDesc() {
+                @Override public String elementDesc() {
                     return "Сквозь стены (лучше работает в BlinkCam)";
                 }
             },
