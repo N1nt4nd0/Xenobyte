@@ -8,7 +8,7 @@
   - Положив JAR файл в папку mods
   
 <a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.50/xenobyte.x32.dll"><b>xenobyte.x32.dll</b></a>, <a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.50/xenobyte.x64.dll"><b>xenobyte.x64.dll</b></a> - инжект by <a href="https://github.com/radioegor146">radioegor146</a>. Установка:
-  - По такому же принципу что и на видео от Qmaks, но соглашаясь со всеми (кроме тестового inject by Left4Dead) пунктами в окошках при инжекте
+  - По такому же принципу что и на видео от Qmaks
 
 # Важные моменты использования
 
@@ -38,7 +38,7 @@
   - <b>ScreenProtect</b> - отключит на пару секунд активные модули при скриншоте (FMLProxy каналы задаются вручную)
   - <b>Ceiling</b> - телепортация по оси Y через блоки вверх/низ по взгляду
   - <b>PokeGive</b> - выдача предмета в инвентарь (первая активация - в покемона, последующие - в инвентарь игрока)
-  - <b>EIOXpGrab - высасывает опыт из всех обелисков опыта в радиусе
+  - <b>EIOXpGrab</b> - высасывает опыт из всех обелисков опыта в радиусе
   
 # Ссылки
 
