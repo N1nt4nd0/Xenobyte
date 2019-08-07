@@ -643,6 +643,7 @@ public class Utils {
     
     public void closeGuis() {
         openGui(null);
+        mc().setIngameFocus();
     }
     
     public boolean isInGameGui() {
