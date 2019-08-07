@@ -24,7 +24,7 @@ public abstract class CheatModule extends ModuleAbility {
     
     public CheatModule(String name, Category category, PerformMode mode) {
         forgeEvents = Stream.of(getClass().getDeclaredMethods()).filter(f -> f.isAnnotationPresent(SubscribeEvent.class)).findFirst().isPresent();
-        this.id = String.valueOf((name + category + mode).hashCode());
+        this.id = category + "_" + name;
         this.category = category;
         this.mode = mode;
         this.name = name;
