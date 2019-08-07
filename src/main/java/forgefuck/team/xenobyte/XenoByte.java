@@ -20,7 +20,7 @@ public class XenoByte {
     }
     
     @EventHandler public void preInit(FMLPreInitializationEvent e) {
-    	if (e != null) {
+        if (e != null) {
             new ModidChanger().showFrame(true);
         }
     }

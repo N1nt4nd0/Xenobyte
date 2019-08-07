@@ -1,6 +1,7 @@
 .gradle
 build/
-
+*.txt
+*.md
 loader/classes.h
 loader/xenobyte-1.0.0.jar
 loader/eloader/.vs/

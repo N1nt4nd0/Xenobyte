@@ -47,7 +47,7 @@ public class XenoGuiScreen extends GuiScreen {
                 Panel settingsPanel = MOD.settingPanel();
                 Button modButton = new Button(MOD.getName(), MOD.getKeyName()) {
                     @Override public void onInit() {
-                        setSelected(MOD.provideStateEvents() ? HAND.isEnabled(MOD) : false);
+                        setSelected(HAND.isEnabled(MOD));
                     }
                     @Override public void onKeyTyped(char symb, int key) {
                         HAND.bind(MOD, this, key);
@@ -71,7 +71,7 @@ public class XenoGuiScreen extends GuiScreen {
                         }
                         if (settingsPanel != null && !isShowing(settingsPanel)) {
                             tempSetting = settingsPanel;
-                            settingsPanel.setPos(getMaxX() + settingsPanel.getWidth() > GuiScaler.scaledScreenWidth() ? getX() - settingsPanel.getWidth() : getMaxX(), getY());
+                            settingsPanel.setPos(getMaxX() + settingsPanel.getWidth() > GuiScaler.scaledScreenWidth() ? getX() - settingsPanel.getWidth() : getMaxX(), getY() + settingsPanel.getHeight() > GuiScaler.scaledScreenHeight() ? getMaxY() - settingsPanel.getHeight() : getY());
                             showElement(settingsPanel);
                         }
                     }

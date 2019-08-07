@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.InputType;
@@ -15,6 +16,7 @@ import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.swing.UserInput;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.client.event.MouseEvent;
 
 public class RadioHack extends CheatModule {
     
@@ -40,28 +42,18 @@ public class RadioHack extends CheatModule {
         }
     }
     
-    @Override public PerformMode performMode() {
-        return PerformMode.SINGLE;
-    }
-    
-    @Override public void onPerform(PerformSource src) {
-        for (TileEntity tile : utils.nearTiles()) {
-            if (kick && !isRadioTile(tile)) {
-                sendRadioPacket(tile, true);
-                break;
-            } else if (isRadioTile(tile)) {
-                sendRadioPacket(tile, false);
-                sendRadioPacket(tile, true);
+    @SubscribeEvent public void mouseEvent(MouseEvent e) {
+        if (e.button == 1 && e.buttonstate) {
+            for (TileEntity tile : utils.nearTiles()) {
+                if (kick && !isRadioTile(tile)) {
+                    sendRadioPacket(tile, true);
+                    break;
+                } else if (isRadioTile(tile)) {
+                    sendRadioPacket(tile, false);
+                    sendRadioPacket(tile, true);
+                }
             }
         }
-    }
-    
-    @Override public boolean forceEnabled() {
-        return true;
-    }
-    
-    @Override public boolean provideStateEvents() {
-        return false;
     }
     
     @Override public boolean isWorking() {
@@ -80,7 +72,7 @@ public class RadioHack extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Замена ссылки в находящихся вблизи блоках радио";
+        return "Замена ссылки в находящихся вблизи блоках радио по ПКМ";
     }
     
     @Override public Panel settingPanel() {

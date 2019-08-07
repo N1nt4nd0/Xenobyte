@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.lwjgl.input.Keyboard;
 
+import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.api.module.PerformSource;
@@ -27,6 +28,7 @@ public class ModuleHandler {
 
     public ModuleHandler() {
         modulesList = new ModuleList();
+        enabledList = new CopyOnWriteArrayList<CheatModule>();
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
         workingModules().forEach(m -> m.handleInit(this));
         new Config(this);
@@ -146,7 +148,7 @@ public class ModuleHandler {
                 enable(module);
             }
             boolean enabled = isEnabled(module);
-            if (button != null && module.provideStateEvents()) {
+            if (button != null) {
                 button.setSelected(enabled);
             }
             if (module.allowStateMessages()) {

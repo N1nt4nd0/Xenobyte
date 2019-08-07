@@ -22,6 +22,7 @@ public class ScreenProtect extends CheatModule {
     
     public ScreenProtect() {
         channels = new ArrayList<String>();
+        isReady = true;
     }
     
     public void doProtect(String channel) {

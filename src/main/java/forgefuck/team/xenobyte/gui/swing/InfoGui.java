@@ -55,7 +55,7 @@ public class InfoGui extends XenoJFrame {
     }
 
     @Override public void configurate() {
-    	gitHubLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        gitHubLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         disLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         vkLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         author.setHorizontalAlignment(JTextField.CENTER);
