@@ -21,7 +21,11 @@ public class AdvertHack extends CheatModule {
     
     public AdvertHack() {
         super("AdvertHack", Category.MODS, PerformMode.SINGLE);
-        (urls = new ArrayList<String>()).add("");
+        urls = new ArrayList<String>();
+    }
+    
+    @Override public void onPreInit() {
+    	urls.add("");
     }
     
     @Override public void onPerform(PerformSource src) {

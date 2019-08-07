@@ -31,7 +31,7 @@ public class ModuleHandler {
         modulesList = new ModulesList();
         enabledList = new CopyOnWriteArrayList<CheatModule>();
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
-        workingModules().forEach(m -> m.handleInit(this));
+        allModules().forEach(m -> m.handleInit(this));
         new Config(this);
         enabledList = workingModules().filter(m -> m.cfgState || m.getMode() == PerformMode.ON_START).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
         workingModules().forEach(CheatModule::onPostInit);
