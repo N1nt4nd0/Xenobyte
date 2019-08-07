@@ -28,23 +28,6 @@ public class ScreenProtect extends CheatModule {
         isReady = true;
     }
     
-    public void doProtect(String channel) {
-        utils.closeGuis();
-        new Thread(() -> {
-            isReady = false;
-            ModuleHandler hand = moduleHandler();
-            List<CheatModule> moduleHash = new ArrayList<CheatModule>();
-            moduleHash.addAll(hand.enabledModules().collect(Collectors.toList()));
-            hand.enabledModules().forEach(hand::disable);
-            try {
-                Thread.sleep(2000);
-            } catch(Exception e) {}
-            moduleHash.forEach(hand::enable);
-            widgetMessage("Сработал скриншотер: " + channel, WidgetMode.SUCCESS);
-            isReady = true;
-        }).start();
-    }
-    
     @Override public void onPreInit() {
         channels.add("screener");
         channels.add("nGuard");
@@ -53,8 +36,21 @@ public class ScreenProtect extends CheatModule {
     @Override public boolean doReceivePacket(Packet packet) {
         if (packet instanceof FMLProxyPacket) {
             String channel = ((FMLProxyPacket) packet).channel();
-            if (channels.contains(channel) && isReady) {
-                doProtect(channel);
+            if (isReady && utils.isInGame() && channels.contains(channel)) {
+                utils.closeGuis();
+                new Thread(() -> {
+                    isReady = false;
+                    ModuleHandler hand = moduleHandler();
+                    List<CheatModule> moduleHash = new ArrayList<CheatModule>();
+                    moduleHash.addAll(hand.enabledModules().collect(Collectors.toList()));
+                    hand.enabledModules().forEach(hand::disable);
+                    try {
+                        Thread.sleep(2000);
+                    } catch(Exception e) {}
+                    moduleHash.forEach(hand::enable);
+                    widgetMessage("Сработал скриншотер: " + channel, WidgetMode.SUCCESS);
+                    isReady = true;
+                }).start();
             }
         }
         return true;
@@ -68,7 +64,7 @@ public class ScreenProtect extends CheatModule {
         return new Panel(
             new Button("Channels") {
                    @Override public void onLeftClick() {
-                       new UserInput("Screen channels", channels, InputType.CUSTOM).showFrame();
+                       new UserInput("Каналы", channels, InputType.CUSTOM).showFrame();
                    }
                    @Override public String elementDesc() {
                     return "Блэклист FMLProxy каналов (изменять только по назначению)";
