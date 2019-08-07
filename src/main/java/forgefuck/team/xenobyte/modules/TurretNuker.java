@@ -13,8 +13,8 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class TurretNuker extends CheatModule {
     
-    @Cfg private boolean onView;
-    @Cfg private int radius;
+    @Cfg("onView") private boolean onView;
+    @Cfg("radius") private int radius;
     
     public TurretNuker() {
         super("TurretNuker", Category.MODS, PerformMode.TOGGLE);

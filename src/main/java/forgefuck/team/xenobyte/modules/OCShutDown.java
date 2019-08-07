@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class OCShutDown extends CheatModule {
     
-    @Cfg private boolean inRadius;
+    @Cfg("inRadius") private boolean inRadius;
     private boolean state;
     
     public OCShutDown() {

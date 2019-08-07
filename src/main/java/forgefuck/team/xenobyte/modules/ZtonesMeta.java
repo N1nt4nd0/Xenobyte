@@ -11,7 +11,7 @@ import forgefuck.team.xenobyte.gui.click.elements.Panel;
 
 public class ZtonesMeta extends CheatModule {
     
-    @Cfg private boolean metaUp;
+    @Cfg("metaUp") private boolean metaUp;
     
     public ZtonesMeta() {
         super("ZtonesMeta", Category.MODS, PerformMode.SINGLE);

@@ -21,8 +21,8 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class RadioHack extends CheatModule {
     
-    @Cfg private List<String> urls;
-    @Cfg private boolean kick;
+    @Cfg("urls") private List<String> urls;
+    @Cfg("kick") private boolean kick;
     
     public RadioHack() {
         super("RadioHack", Category.MODS, PerformMode.TOGGLE);

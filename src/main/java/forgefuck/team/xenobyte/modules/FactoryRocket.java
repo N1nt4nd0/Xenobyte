@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class FactoryRocket extends CheatModule {
     
-    @Cfg private boolean inRadius;
+    @Cfg("inRadius") private boolean inRadius;
     
     public FactoryRocket() {
         super("FactoryRocket", Category.MODS, PerformMode.TOGGLE);

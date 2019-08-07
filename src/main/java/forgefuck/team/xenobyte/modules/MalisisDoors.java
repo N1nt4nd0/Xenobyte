@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class MalisisDoors extends CheatModule {
     
-    @Cfg private boolean inRadius;
+    @Cfg("inRadius") private boolean inRadius;
     
     public MalisisDoors() {
         super("MalisisDoors", Category.MODS, PerformMode.TOGGLE);

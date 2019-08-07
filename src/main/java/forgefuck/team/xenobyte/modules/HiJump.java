@@ -12,7 +12,7 @@ import net.minecraft.potion.PotionEffect;
 
 public class HiJump extends CheatModule {
     
-    @Cfg private int power;
+    @Cfg("power") private int power;
     
     public HiJump() {
         super("HiJump", Category.PLAYER, PerformMode.TOGGLE);

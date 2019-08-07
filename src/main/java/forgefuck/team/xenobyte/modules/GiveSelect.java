@@ -19,10 +19,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class GiveSelect extends CheatModule {
     
-    @Cfg private boolean withChant, fillSlots;
+    @Cfg("withChant") private boolean withChant;
+    @Cfg("fillSlots") private boolean fillSlots;
+    @Cfg("count") private int count;
     private ItemStack givedItem;
     private ItemChanter chanter;
-    @Cfg private int count;
 
     public GiveSelect() {
         super("GiveSelect", Category.NEI, PerformMode.SINGLE);

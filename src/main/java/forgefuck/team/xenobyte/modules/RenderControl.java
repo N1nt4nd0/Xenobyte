@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 
 public class RenderControl extends CheatModule {
     
-    @Cfg private boolean living;
+    @Cfg("living") private boolean living;
     
     public RenderControl() {
         super("RenderControl", Category.WORLD, PerformMode.TOGGLE);

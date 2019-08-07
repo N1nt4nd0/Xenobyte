@@ -23,7 +23,8 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class XRay extends CheatModule {
     
-    @Cfg private int radius, height;
+    @Cfg("radius") private int radius;
+    @Cfg("height") private int height;
     private List<XRayBlock> blocks;
     private XRaySelect selector;
     

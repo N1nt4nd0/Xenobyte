@@ -11,8 +11,9 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging;
 
 public class VanilaNuker extends CheatModule {
     
-    @Cfg private boolean onView, handshake;
-    @Cfg private int radius;
+    @Cfg("handshake") private boolean handshake;
+    @Cfg("onView") private boolean onView;
+    @Cfg("radius") private int radius;
     
     public VanilaNuker() {
         super("VanilaNuker", Category.WORLD, PerformMode.TOGGLE);

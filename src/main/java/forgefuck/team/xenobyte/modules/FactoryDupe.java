@@ -13,7 +13,8 @@ import net.minecraft.tileentity.TileEntity;
 
 public class FactoryDupe extends CheatModule {
     
-    @Cfg private boolean inRadius, fillSlots;
+    @Cfg("fillSlots") private boolean fillSlots;
+    @Cfg("inRadius") private boolean inRadius;
     
     public FactoryDupe() {
         super("FactoryDupe", Category.MODS, PerformMode.SINGLE);

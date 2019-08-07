@@ -11,8 +11,8 @@ import forgefuck.team.xenobyte.utils.TickHelper;
 
 public class AutoDrop extends CheatModule {
     
-    @Cfg private boolean allStacks;
-    @Cfg private int delay;
+    @Cfg("allStacks") private boolean allStacks;
+    @Cfg("delay") private int delay;
     
     public AutoDrop() {
         super("AutoDrop", Category.PLAYER, PerformMode.TOGGLE);

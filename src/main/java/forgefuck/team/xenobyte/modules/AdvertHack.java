@@ -17,7 +17,7 @@ import forgefuck.team.xenobyte.utils.Rand;
 
 public class AdvertHack extends CheatModule {
     
-    @Cfg private List<String> urls;
+    @Cfg("urls") private List<String> urls;
     
     public AdvertHack() {
         super("AdvertHack", Category.MODS, PerformMode.SINGLE);

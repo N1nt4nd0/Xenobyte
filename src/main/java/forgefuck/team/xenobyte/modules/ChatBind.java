@@ -15,7 +15,7 @@ import forgefuck.team.xenobyte.gui.swing.UserInput;
 
 public class ChatBind extends CheatModule {
     
-    @Cfg private List<String> commands;
+    @Cfg("commands") private List<String> commands;
     
     public ChatBind() {
         super("ChatBind", Category.MISC, PerformMode.SINGLE);

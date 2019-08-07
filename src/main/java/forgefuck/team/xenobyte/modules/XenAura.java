@@ -22,9 +22,16 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 
 public class XenAura extends CheatModule {
     
-    @Cfg private boolean monsters, animals, players, handshake, pointed, criticals, ignoreWalls;
-    @Cfg private List<String> friendsList;
-    @Cfg private int radius, delay;
+    @Cfg("friendsList") private List<String> friendsList;
+    @Cfg("ignoreWalls") private boolean ignoreWalls;
+    @Cfg("criticals") private boolean criticals;
+    @Cfg("handshake") private boolean handshake;
+    @Cfg("monsters") private boolean monsters;
+    @Cfg("animals") private boolean animals;
+    @Cfg("players") private boolean players;
+    @Cfg("pointed") private boolean pointed;
+    @Cfg("radius") private int radius;
+    @Cfg("radius") private int delay;
     
     public XenAura() {
         super("XenAura", Category.PLAYER, PerformMode.TOGGLE);

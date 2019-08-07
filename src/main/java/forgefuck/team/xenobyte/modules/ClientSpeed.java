@@ -12,7 +12,7 @@ import net.minecraft.util.Timer;
 
 public class ClientSpeed extends CheatModule {
     
-    @Cfg private int tickRate; 
+    @Cfg("tickRate") private int tickRate; 
     private Timer vanilaTimer;
     
     public ClientSpeed() {

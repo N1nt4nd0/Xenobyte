@@ -14,7 +14,7 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class GalacticFire extends CheatModule {
     
-    @Cfg private boolean inRadius;
+    @Cfg("inRadius") private boolean inRadius;
     
     public GalacticFire() {
         super("GalacticFire", Category.MODS, PerformMode.TOGGLE);

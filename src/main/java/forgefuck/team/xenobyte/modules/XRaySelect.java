@@ -43,10 +43,10 @@ import net.minecraftforge.common.util.RotationHelper;
 
 public class XRaySelect extends CheatModule {
     
-    @Cfg private List<String> configBlocks;
+    @Cfg("configBlocks") private List<String> configBlocks;
+    @Cfg("guiHint") public boolean guiHint;
     private List<String> missingBlocks;
     public List<SelectedBlock> blocks;
-    @Cfg public boolean guiHint;
     private String neiSubset;
     
     public XRaySelect() {

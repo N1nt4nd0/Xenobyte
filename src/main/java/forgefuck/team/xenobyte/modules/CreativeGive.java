@@ -10,7 +10,7 @@ import forgefuck.team.xenobyte.gui.click.elements.Panel;
 
 public class CreativeGive extends CheatModule {
     
-    @Cfg boolean drop;
+    @Cfg("drop") boolean drop;
     
     public CreativeGive() {
         super("CreativeGive", Category.PLAYER, PerformMode.SINGLE);

@@ -19,9 +19,9 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class WayLine extends CheatModule {
     
+    @Cfg("color") private int color;
     private List<double[]> poses;
     private ColorPicker picker;
-    @Cfg private int color;
     
     public WayLine() {
         super("WayLine", Category.WORLD, PerformMode.TOGGLE);

@@ -17,7 +17,7 @@ import forgefuck.team.xenobyte.utils.Reflections;
 
 public class ThaumResearch extends CheatModule {
     
-    @Cfg private boolean aspectMode;
+    @Cfg("aspectMode") private boolean aspectMode;
     
     public ThaumResearch() {
         super("ThaumResearch", Category.MODS, PerformMode.SINGLE);

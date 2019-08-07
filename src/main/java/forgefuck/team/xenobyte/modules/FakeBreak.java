@@ -20,7 +20,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 public class FakeBreak extends CheatModule {
     
     private List<BreakedBlock> breakedBlocks;
-    @Cfg private boolean drawEsp;
+    @Cfg("drawEsp") private boolean drawEsp;
     
     public FakeBreak() {
         super("FakeBreak", Category.WORLD, PerformMode.TOGGLE);

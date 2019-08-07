@@ -15,7 +15,8 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class TainedAura extends CheatModule {
     
-    @Cfg private boolean inRadius, withSound;
+    @Cfg("withSound") private boolean withSound;
+    @Cfg("inRadius") private boolean inRadius;
     
     public TainedAura() {
         super("TainedAura", Category.MODS, PerformMode.TOGGLE);

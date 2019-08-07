@@ -88,6 +88,7 @@ public class Config {
                 for (Field field : clazz.getDeclaredFields()) {
                     if (field.isAnnotationPresent(Cfg.class)) {
                         field.setAccessible(true);
+                        String name = field.getAnnotation(Cfg.class).value();
                         Object value = null;
                         try {
                             value = field.get(module);
@@ -95,7 +96,7 @@ public class Config {
                                 data.moduleData.put(id, new HashMap<String, List<String>>());
                             }
                             List values = new ArrayList<String>();
-                            String fName = (moduleClass == clazz ? "this:" : "super:").concat(field.getName());
+                            String fName = (moduleClass == clazz ? "this:" : "super:").concat(name);
                             values.add(field.getType().getName());
                             values.add(parseModuleValue(value));
                             data.moduleData.get(id).put(fName, values);
@@ -110,27 +111,31 @@ public class Config {
     }
     
     private void modulesLoad() {
-        for (String ID : data.moduleData.keySet()) {
-            Map<String, List<String>> fields = data.moduleData.get(ID);
+        data.moduleData.forEach((ID, FLDS) -> {
             CheatModule module = moduleHandler.getModuleByID(ID);
             if (module != null) {
-                for (String FLD : fields.keySet()) {
-                    List<String> values = fields.get(FLD);
+                FLDS.forEach((FLD, DATA) -> {
                     Class clazz = FLD.startsWith("super:") ? module.getClass().getSuperclass() : module.getClass();
+                    String cField = FLD.replaceFirst(".+:", "");
                     try {
-                        Field field = clazz.getDeclaredField(FLD.replaceFirst(".+:", ""));
-                        field.setAccessible(true);
-                        if (field.getType().getName().equals(values.get(0)) && field.isAnnotationPresent(Cfg.class)) {
-                            Object value = parseModuleValue(values.get(0), values.get(1));
-                            field.set(module, value);
+                        for (Field field : clazz.getDeclaredFields()) {
+                            if (field.isAnnotationPresent(Cfg.class)) {
+                                String realField = field.getAnnotation(Cfg.class).value();
+                                if (cField.equals(realField) && field.getType().getName().equals(DATA.get(0))) {
+                                    Object value = parseModuleValue(DATA.get(0), DATA.get(1));
+                                    field.setAccessible(true);
+                                    field.set(module, value);
+                                    break;
+                                }
+                            }
                         }
                     } catch (Exception e) {
-                        XenoLogger.info("ошибка при чтении поля ModuleConfig: " + module + " -> " + FLD);
+                        XenoLogger.info("ошибка при чтении поля ModuleConfig: " + module + " -> " + cField);
                         e.printStackTrace();
                     }
-                }
+                });
             }
-        }
+        });
     }
     
     private String parseModuleValue(Object val) throws Exception {

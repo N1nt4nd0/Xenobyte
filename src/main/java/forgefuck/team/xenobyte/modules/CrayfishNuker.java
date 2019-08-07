@@ -13,8 +13,8 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class CrayfishNuker extends CheatModule {
     
-    @Cfg private boolean onView;
-    @Cfg private int radius;
+    @Cfg("onView") private boolean onView;
+    @Cfg("radius") private int radius;
     
     public CrayfishNuker() {
         super("CrayfishNuker", Category.MODS, PerformMode.TOGGLE);

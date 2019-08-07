@@ -10,7 +10,7 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange;
 
 public class FakeItem extends CheatModule {
     
-    @Cfg private int slot;
+    @Cfg("slot") private int slot;
     
     public FakeItem() {
         super("FakeItem", Category.PLAYER, PerformMode.TOGGLE);

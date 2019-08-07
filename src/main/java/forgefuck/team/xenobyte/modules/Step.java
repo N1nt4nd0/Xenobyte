@@ -9,7 +9,7 @@ import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
 
 public class Step extends CheatModule {
     
-    @Cfg private int stepHeight;
+    @Cfg("stepHeight") private int stepHeight;
     
     public Step() {
         super("Step", Category.PLAYER, PerformMode.TOGGLE);

@@ -19,11 +19,17 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class Esp extends CheatModule {
     
-    @Cfg private boolean monsters, players, animals, drop, blocks, lines, bindLines;
+    @Cfg("bindLines") private boolean bindLines;
+    @Cfg("monsters") private boolean monsters;
+    @Cfg("players") private boolean players;
+    @Cfg("animals") private boolean animals;
+    @Cfg("blocks") private boolean blocks;
+    @Cfg("lines") private boolean lines;
+    @Cfg("radius") private int radius;
+    @Cfg("drop") private boolean drop;
     private List<EspObject> objects;
     private double startLines[];
     private boolean bobbing;
-    @Cfg private int radius;
     
     public Esp() {
         super("Esp", Category.WORLD, PerformMode.TOGGLE);

@@ -12,7 +12,7 @@ import net.minecraft.potion.PotionEffect;
 
 public class FullBright extends CheatModule {
     
-    @Cfg private boolean withPotion;
+    @Cfg("withPotion") private boolean withPotion;
     
     public FullBright() {
         super("FullBright", Category.WORLD, PerformMode.TOGGLE);

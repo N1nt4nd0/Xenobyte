@@ -25,7 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class OpenCreative extends CheatModule {
     
-    @Cfg private boolean inRadius;
+    @Cfg("inRadius") private boolean inRadius;
     
     public OpenCreative() {
         super("OpenCreative", Category.MODS, PerformMode.SINGLE);

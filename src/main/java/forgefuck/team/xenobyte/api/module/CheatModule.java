@@ -14,12 +14,12 @@ import forgefuck.team.xenobyte.modules.GiveSelect;
 public abstract class CheatModule extends ModuleAbility {
     
     private boolean forgeEvents, ticksStarted;
+    @Cfg("cfgState") public boolean cfgState;
     private final Category category;
     private final PerformMode mode;
     private final String name, id;
     private ModuleHandler handler;
-    @Cfg public boolean cfgState;
-    @Cfg private int key;
+    @Cfg("key") private int key;
     private int counter;
     
     public CheatModule(String name, Category category, PerformMode mode) {

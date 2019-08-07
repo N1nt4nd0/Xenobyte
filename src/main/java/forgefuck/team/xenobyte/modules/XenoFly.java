@@ -13,8 +13,10 @@ import net.minecraft.util.MathHelper;
 
 public class XenoFly extends CheatModule {
     
-    @Cfg private boolean inGui, noclip;
-    @Cfg private float vSpeed, hSpeed;
+    @Cfg("noclip") private boolean noclip;
+    @Cfg("inGui") private boolean inGui;
+    @Cfg("vSpeed") private float vSpeed;
+    @Cfg("hSpeed") private float hSpeed;
     
     public XenoFly() {
         super("XenoFly", Category.PLAYER, PerformMode.TOGGLE);

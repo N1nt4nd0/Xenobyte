@@ -19,7 +19,7 @@ import net.minecraft.network.Packet;
 
 public class ScreenProtect extends CheatModule {
     
-    @Cfg private List<String> channels;
+    @Cfg("channels") private List<String> channels;
     private boolean isReady;
     
     public ScreenProtect() {

@@ -22,8 +22,10 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class EIOTeleport extends CheatModule {
     
-    @Cfg private boolean intercept, onView, items;
-    @Cfg private List<String> coords;
+    @Cfg("intercept") private boolean intercept;
+    @Cfg("coords") private List<String> coords;
+    @Cfg("onView") private boolean onView;
+    @Cfg("items") private boolean items;
     
     public EIOTeleport() {
         super("EIOTeleport", Category.MODS, PerformMode.TOGGLE);
