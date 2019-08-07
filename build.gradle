@@ -9,9 +9,11 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        flatDir dirs: "$projectDir/proguard/lib/"
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT"
+        classpath "net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT"        
+        classpath ":proguard:"
     }
 }
 
@@ -22,7 +24,7 @@ targetCompatibility = "1.8"
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
 version = "1.0.0"
-group = "forgefuck.team" 
+group = "forgefuck.team.xenobyte" 
 archivesBaseName = "xenobyte"
 
 minecraft {
@@ -63,3 +65,76 @@ processResources {
         exclude "mcmod.info"
     }
 }
+
+def generateString(String alphabet, int n) {
+    return new Random().with {
+        (1..n).collect { alphabet[nextInt(alphabet.length())] }.join()
+    }
+}
+
+def generateDictionaryFile(String name) {
+    File dictionaryFile = new File(name)
+    if (dictionaryFile.exists())
+        return;
+    String outputData = ""
+    for (int i = 0; i < 10000; i++)
+        outputData += generateString((('a'..'z') + ('A'..'Z') + ('0'..'9')).join(), 16) + "\n"
+    dictionaryFile.getParentFile().mkdirs()
+    dictionaryFile.delete()
+    dictionaryFile.write outputData
+}
+
+task generateDictionary {
+    doFirst {
+        generateDictionaryFile("$buildDir/proguard/class-dictionary.txt")
+        generateDictionaryFile("$buildDir/proguard/package-dictionary.txt")
+        generateDictionaryFile("$buildDir/proguard/fieldmethod-dictionary.txt")
+    }
+}
+
+task obfuscateProGuard(type: proguard.gradle.ProGuardTask) {
+    doFirst {
+        injars "$buildDir/libs/" + project.tasks["jar"].archiveName
+        outjars "$buildDir/libs/final-" + project.tasks["jar"].archiveName
+        libraryjars "${System.getProperty("java.home")}/lib/rt.jar"
+        libraryjars "${System.getProperty("java.home")}/lib/jce.jar"
+        libraryjars sourceSets.main.compileClasspath
+        keepattributes "RuntimeVisibleAnnotations,RuntimeVisibleParameterAnnotations,RuntimeVisibleTypeAnnotations"
+        keep "class !forgefuck.team.xenobyte.** { *; }"
+        classobfuscationdictionary "$buildDir/proguard/class-dictionary.txt"
+        packageobfuscationdictionary "$buildDir/proguard/package-dictionary.txt"
+        obfuscationdictionary "$buildDir/proguard/fieldmethod-dictionary.txt"
+        dontshrink
+        dontoptimize
+        printmapping "$buildDir/libs/proguard-" + project.tasks["jar"].archiveName + ".map"
+    }
+}
+
+task createJavaInjectorComment {
+    doFirst {
+        File mainClassFile = new File("$projectDir/mainclass.txt")
+        if (mainClassFile.exists())
+            mainClassFile.delete()
+        String mappingsText = new File("$buildDir/libs/proguard-" + project.tasks["jar"].archiveName + ".map").text
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile("forgefuck\\.team\\.xenobyte\\.api\\.integration\\.JavaInjector -> (.*?):")
+        java.util.regex.Matcher m = p.matcher(mappingsText)
+        m.find();
+        new File("$projectDir/mainclass.txt").write m.group(1);
+    }
+}
+
+task copyJar {
+    doFirst {
+        copy {
+            from "$buildDir/libs"
+            include "final-" + project.tasks["jar"].archiveName
+            into "$buildDir/libs"
+            rename "final-" + project.tasks["jar"].archiveName, project.tasks["jar"].archiveName
+        }
+    }
+}
+
+obfuscateProGuard.dependsOn generateDictionary
+createJavaInjectorComment.dependsOn obfuscateProGuard
+copyJar.dependsOn createJavaInjectorComment
+reobf.dependsOn copyJar
