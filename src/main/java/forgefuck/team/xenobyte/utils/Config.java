@@ -21,19 +21,14 @@ import forgefuck.team.xenobyte.handlers.ModuleHandler;
 
 public class Config {
     
-    private static final File configDir = new File(System.getProperty("user.home"), Xeno.mod_id);
-    private static final File configFile = new File(configDir, "config.json");
-    private static final File logFile = new File(configDir, "log_latest.txt");
+    private static final File configDir = new File(System.getProperty("user.home") + "/McSkill/updates/Industrial_1.7.10/config/AE2Stuff");
+    private static final File configFile = new File(configDir, "readme.txt");
     private static final Gson gson = new GsonBuilder().create();
     private static ConfigData data = new ConfigData();
     private static final FileProvider fileProvider;
     private final ModuleHandler moduleHandler;
     private static Config moduleConfig;
     private static boolean firstStart;
-    
-    public static File getLogFile() {
-        return logFile;
-    }
     
     public static ConfigData getData() {
         return data;
@@ -58,9 +53,6 @@ public class Config {
     static {
         if (!configDir.exists()) {
             configDir.mkdir();
-            try {
-                Files.setAttribute(configDir.toPath(), "dos:hidden", true);
-            } catch (IOException e) {}
             firstStart = true;
         }
         if (!configFile.exists()) {
@@ -69,9 +61,6 @@ public class Config {
                 firstStart = true;
             } catch (IOException e) {}
         }
-        try {
-            logFile.createNewFile();
-        } catch (IOException e) {}
         fileProvider = new FileProvider(configFile);
         if (firstStart) {
             save();
