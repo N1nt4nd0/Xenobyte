@@ -2,6 +2,8 @@
 
 # X3N0BYT3 - Hack Pack for Minecraft 1.7.10 Forge
 
+[![Build status](https://ci.appveyor.com/api/projects/status/qjnhgxe3cmcy0y6y/branch/master?svg=true)](https://ci.appveyor.com/project/N1nt4nd0/xenobyte/branch/master)
+
 <a href="https://github.com/N1nt4nd0/Xenobyte/releases/download/1.0.37/xenobyte.jar"><b>xenobyte.jar</b></a> - в виде мода. Установка:
   - <a href="https://yadi.sk/d/l-bIC0a-grPrgA">JavaInjector by Qmaks</a> - по инструкции на <a href="https://www.youtube.com/watch?v=hmquFs06PlU">ВИДЕО</a>, только инжектить <b>ПОСЛЕ</b> загрузки клиента (в главном меню или в самой игре)
   - <a href="https://yadi.sk/d/VRL1rF5E3KQHzb">Старый добрый HZR</a> - инструкция внутри архива
