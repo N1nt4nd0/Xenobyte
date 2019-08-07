@@ -18,7 +18,7 @@ public class WidgetMessage {
     }
     
     public WidgetMessage(CheatModule module, String text, WidgetMode mode) {
-        this.text = module != null ? "[" + module + "] " + text : text;
+        this.text = module != null ? module + " " + text : text;
         this.module = module;
         this.mode = mode;
     }

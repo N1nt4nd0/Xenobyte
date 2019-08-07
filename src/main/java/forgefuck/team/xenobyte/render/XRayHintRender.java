@@ -3,8 +3,8 @@ package forgefuck.team.xenobyte.render;
 import org.lwjgl.opengl.GL11;
 
 import forgefuck.team.xenobyte.api.Xeno;
-import forgefuck.team.xenobyte.module.NEI.XRaySelect;
-import forgefuck.team.xenobyte.module.NEI.XRaySelect.SelectedBlock;
+import forgefuck.team.xenobyte.modules.XRaySelect;
+import forgefuck.team.xenobyte.modules.XRaySelect.SelectedBlock;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;

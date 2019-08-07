@@ -12,6 +12,7 @@ import forgefuck.team.xenobyte.api.gui.ElementAligment;
 import forgefuck.team.xenobyte.api.gui.GuiElement;
 import forgefuck.team.xenobyte.api.gui.PanelLayout;
 import forgefuck.team.xenobyte.api.gui.PanelSorting;
+import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
@@ -37,59 +38,60 @@ public class XenoGuiScreen extends GuiScreen {
             @Override public void onKeyTyped(char symb, int key) {
                 HAND.bind(HAND.xenoGui(), this, key);
             }
-        }, PanelLayout.HORIZONTAL, PanelSorting.WIDTH);
-        HAND.categoryedModules()
-        .collect(Collectors.groupingBy(CheatModule::getCategory))
-        .forEach((CAT, MODS) -> {
-            Panel categoryPanel = new Panel(PanelLayout.VERTICAL, PanelSorting.ALPHABET);
-            MODS.stream().
-            forEach(MOD -> {
-                Panel settingsPanel = MOD.settingPanel();
-                Button modButton = new Button(MOD.getName(), MOD.getKeyName()) {
-                    @Override public void onInit() {
-                        setSelected(HAND.isEnabled(MOD));
-                    }
-                    @Override public void onKeyTyped(char symb, int key) {
-                        HAND.bind(MOD, this, key);
-                    }
-                    @Override public void onLeftClick() {
-                        HAND.perform(MOD, this);
-                    }
-                    @Override public String elementDesc() {
-                        return MOD.moduleDesc();
-                    }
-                    @Override public void onDraw() {
-                        super.onDraw();
-                        if (settingsPanel != null) {
-                            int startX = isShowing(settingsPanel) ? getMaxX() + settingsPanel.getWidth() : getMaxX() - 1;
-                            render.GUI.drawRect(startX , getY(), startX + 1, isShowing(settingsPanel) ? settingsPanel.getMaxY() : getMaxY(), Colors.ORANGE);
+        }, PanelLayout.HORIZONTAL, PanelSorting.DEFAULT);
+        for (Category CAT : Category.values()) {
+            List<CheatModule> categoryed = HAND.categoryedModules().filter(m -> m.getCategory() == CAT).collect(Collectors.toList());
+            if (!categoryed.isEmpty()) {
+                Panel categoryPanel = new Panel(PanelLayout.VERTICAL, PanelSorting.ALPHABET);
+                categoryed.forEach(MOD -> {
+                    Panel settingsPanel = MOD.settingPanel();
+                    Button modButton = new Button(MOD.getName(), MOD.getKeyName()) {
+                        @Override public void onInit() {
+                            setSelected(HAND.isEnabled(MOD));
                         }
-                    }
+                        @Override public void onKeyTyped(char symb, int key) {
+                            HAND.bind(MOD, this, key);
+                        }
+                        @Override public void onLeftClick() {
+                            HAND.perform(MOD, this);
+                        }
+                        @Override public String elementDesc() {
+                            return MOD.moduleDesc();
+                        }
+                        @Override public void onDraw() {
+                            super.onDraw();
+                            if (settingsPanel != null) {
+                                int startX = isShowing(settingsPanel) ? getMaxX() + settingsPanel.getWidth() : getMaxX() - 1;
+                                render.GUI.drawRect(startX , getY(), startX + 1, isShowing(settingsPanel) ? settingsPanel.getMaxY() : getMaxY(), Colors.ORANGE);
+                            }
+                        }
+                        @Override public void onHovered() {
+                            if (tempSetting != null && tempSetting != settingsPanel) {
+                                hideElement(tempSetting);
+                            }
+                            if (settingsPanel != null && !isShowing(settingsPanel)) {
+                                tempSetting = settingsPanel;
+                                settingsPanel.setPos(getMaxX() + settingsPanel.getWidth() > GuiScaler.scaledScreenWidth() ? getX() - settingsPanel.getWidth() : getMaxX(), getY() + settingsPanel.getHeight() > GuiScaler.scaledScreenHeight() ? getMaxY() - settingsPanel.getHeight() : getY());
+                                showElement(settingsPanel);
+                            }
+                        }
+                    };
+                    categoryPanel.add(modButton);
+                });
+                categoryPanel.pack();
+                mainPanel.add(new Button(CAT.toString()) {
+                    @Override public void playClick() {}
                     @Override public void onHovered() {
-                        if (tempSetting != null && tempSetting != settingsPanel) {
-                            hideElement(tempSetting);
-                        }
-                        if (settingsPanel != null && !isShowing(settingsPanel)) {
-                            tempSetting = settingsPanel;
-                            settingsPanel.setPos(getMaxX() + settingsPanel.getWidth() > GuiScaler.scaledScreenWidth() ? getX() - settingsPanel.getWidth() : getMaxX(), getY() + settingsPanel.getHeight() > GuiScaler.scaledScreenHeight() ? getMaxY() - settingsPanel.getHeight() : getY());
-                            showElement(settingsPanel);
+                        if(!isShowing(categoryPanel)) {
+                            hideElements();
+                            setSelected(true);
+                            categoryPanel.setPos(getX(), getMaxY());
+                            showElement(categoryPanel);
                         }
                     }
-                };
-                categoryPanel.add(modButton);
-            });
-            categoryPanel.pack();
-            mainPanel.add(new Button(CAT) {
-                @Override public void onHovered() {
-                    if(!isShowing(categoryPanel)) {
-                        hideElements();
-                        setSelected(true);
-                        categoryPanel.setPos(getX(), getMaxY());
-                        showElement(categoryPanel);
-                    }
-                }
-            });
-        });
+                });
+            }
+        }
         mainPanel.pack();
         showElement(mainPanel);
     }

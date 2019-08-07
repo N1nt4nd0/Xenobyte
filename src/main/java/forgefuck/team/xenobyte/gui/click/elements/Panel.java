@@ -23,7 +23,7 @@ public class Panel extends GuiElement {
     private int maxW;
     
     public Panel(GuiElement ... es) {
-        this(null, PanelLayout.VERTICAL, PanelSorting.NONE);
+        this(null, PanelLayout.VERTICAL, PanelSorting.DEFAULT);
         add(es);
         pack();
     }
@@ -53,7 +53,7 @@ public class Panel extends GuiElement {
         case ALPHABET:
             sorter = Comparator.comparing(Objects::toString);
             break;
-        case NONE:
+        case DEFAULT:
             break;
         }
         if (title != null) {

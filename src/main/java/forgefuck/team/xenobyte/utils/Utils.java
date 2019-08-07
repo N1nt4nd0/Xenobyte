@@ -18,7 +18,7 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import forgefuck.team.xenobyte.api.Xeno;
-import forgefuck.team.xenobyte.module.NEI.GiveSelect;
+import forgefuck.team.xenobyte.modules.GiveSelect;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;

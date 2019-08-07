@@ -2,7 +2,6 @@ package forgefuck.team.xenobyte.api.module;
 
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -10,36 +9,46 @@ import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.handlers.ModuleHandler;
-import forgefuck.team.xenobyte.module.NEI.GiveSelect;
+import forgefuck.team.xenobyte.modules.GiveSelect;
 
 public abstract class CheatModule extends ModuleAbility {
     
     private boolean forgeEvents, ticksStarted;
-    private final String name, id, category;
+    private final Category category;
+    private final PerformMode mode;
+    private final String name, id;
     private ModuleHandler handler;
     @Cfg public boolean cfgState;
     @Cfg private int key;
     private int counter;
     
-    public CheatModule() {
-        String catPack = StringUtils.substringBeforeLast(getClass().getName(), ".");
-        category = catPack.endsWith("NONE") ? null : catPack.contains(modules_package) && !modules_package.startsWith(catPack) ? StringUtils.substringAfterLast(catPack, ".") : null;
+    public CheatModule(String name, Category category, PerformMode mode) {
         forgeEvents = Stream.of(getClass().getDeclaredMethods()).filter(f -> f.isAnnotationPresent(SubscribeEvent.class)).findFirst().isPresent();
-        id = String.valueOf(getClass().getName().hashCode());
-        name = getClass().getSimpleName();
+        this.id = String.valueOf((name + category + mode).hashCode());
+        this.category = category;
+        this.mode = mode;
+        this.name = name;
         setLastCounter();
-    }
-    
-    public String getName() {
-        return name;
     }
     
     public String getID() {
         return id;
     }
     
+    public String getName() {
+        return name;
+    }
+    
+    public PerformMode getMode() {
+        return mode;
+    }
+    
+    public Category getCategory() {
+        return category;
+    }
+    
     public boolean hasCategory() {
-        return category != null;
+        return category != Category.NONE;
     }
     
     public void setKeyBind(int key) {
@@ -89,10 +98,6 @@ public abstract class CheatModule extends ModuleAbility {
             onTick(utils.isInGame());
         }
         counter ++;
-    }
-
-    public String getCategory() {
-        return category;
     }
     
     protected ModuleHandler moduleHandler() {

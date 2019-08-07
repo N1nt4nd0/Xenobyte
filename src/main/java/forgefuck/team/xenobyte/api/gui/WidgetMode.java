@@ -4,7 +4,7 @@ import forgefuck.team.xenobyte.render.Colors;
 
 public enum WidgetMode {
     
-    INFO(Colors.SKY), SUCCESS(Colors.GREEN), FAIL(Colors.RED), NONE(Colors.NONE);
+    INFO(Colors.SKY), SUCCESS(Colors.GREEN), FAIL(Colors.RED);
     
     private int color;
     

@@ -9,26 +9,22 @@ public class GuiWidget extends TextElement {
 
     private static int indicatorWidth = 2;
     private ElementAligment aligment;
+    private final int bgColor;
     private WidgetMode mode;
     public int delay;
     
-    public GuiWidget(String text, WidgetMode mode, ElementAligment indicatorAligment) {
-        this(text, mode, indicatorAligment, 0);
-    }
-    
-    public GuiWidget(String text, WidgetMode mode, ElementAligment indicatorAligment, int delay) {
-        super(text, mode == WidgetMode.NONE ? ElementAligment.LEFT : indicatorAligment == ElementAligment.LEFT ? ElementAligment.RIGHT : ElementAligment.LEFT, mode == WidgetMode.NONE ? 0 : indicatorWidth + (indicatorAligment == ElementAligment.LEFT ? 1 : 0), 0);
-        this.aligment = indicatorAligment; 
+    public GuiWidget(String text, WidgetMode mode, ElementAligment indicatorAligment, int bgColor, int delay) {
+        super(text, indicatorAligment == ElementAligment.LEFT ? ElementAligment.RIGHT : ElementAligment.LEFT, indicatorWidth + (indicatorAligment == ElementAligment.LEFT ? 1 : 0), 0);
+        this.aligment = indicatorAligment;
+        this.bgColor = bgColor;
         this.delay = delay;
         this.mode = mode;
     }
     
     @Override public void draw() {
-        render.GUI.drawRect(getX(), getY(), getMaxX(), getMaxY(), Colors.TRANSPARENT_DARK);
-        if (mode != WidgetMode.NONE) {
-            int indicatorX = aligment == ElementAligment.LEFT ? getX() : getMaxX() - indicatorWidth;
-            render.GUI.drawRect(indicatorX, getY(), indicatorX + indicatorWidth, getMaxY(), mode.getColor());
-        }
+        render.GUI.drawRect(getX(), getY(), getMaxX(), getMaxY(), bgColor);
+        int indicatorX = aligment == ElementAligment.LEFT ? getX() : getMaxX() - indicatorWidth;
+        render.GUI.drawRect(indicatorX, getY(), indicatorX + indicatorWidth, getMaxY(), mode.getColor());
         render.GUI.xenoFont().drawString(getText(), getTextX(), getY(), Colors.WHITE);
     }
 

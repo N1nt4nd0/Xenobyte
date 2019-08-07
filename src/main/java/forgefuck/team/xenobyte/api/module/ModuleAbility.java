@@ -112,22 +112,6 @@ public abstract class ModuleAbility implements Xeno {
     }
     
     /**
-     * Определяет режим активации модуля
-     * @return SINGLE - одиночный, TOGGLE - режим переключения
-     */
-    public PerformMode performMode() {
-        return PerformMode.TOGGLE;
-    }
-    
-    /**
-     * Определяет будет ли модуль активирован при загрузке чит-пака
-     * @return boolean
-     */
-    public boolean forceEnabled() {
-        return false;
-    }
-    
-    /**
      * Определяет будет ли модуль срабатывать по кейбинду в GuiScreen
      * @return boolean
      */

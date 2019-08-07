@@ -9,15 +9,16 @@ import java.util.stream.Stream;
 
 import org.lwjgl.input.Keyboard;
 
+import forgefuck.team.xenobyte.ModulesList;
 import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
-import forgefuck.team.xenobyte.module.ModuleList;
-import forgefuck.team.xenobyte.module.NONE.Widgets;
-import forgefuck.team.xenobyte.module.NONE.XenoGui;
+import forgefuck.team.xenobyte.modules.Widgets;
+import forgefuck.team.xenobyte.modules.XenoGui;
 import forgefuck.team.xenobyte.utils.Config;
 import forgefuck.team.xenobyte.utils.EventRegisterer;
 import net.minecraft.client.Minecraft;
@@ -27,12 +28,12 @@ public class ModuleHandler {
     private List<CheatModule> modulesList, workingList, enabledList;
 
     public ModuleHandler() {
-        modulesList = new ModuleList();
+        modulesList = new ModulesList();
         enabledList = new CopyOnWriteArrayList<CheatModule>();
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
         workingModules().forEach(m -> m.handleInit(this));
         new Config(this);
-        enabledList = workingModules().filter(m -> m.cfgState || m.forceEnabled()).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+        enabledList = workingModules().filter(m -> m.cfgState || m.getMode() == PerformMode.ON_START).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
         workingModules().forEach(CheatModule::onPostInit);
         new PacketHandler(this, Minecraft.getMinecraft().getNetHandler());
         new EventHandler(this);
@@ -140,8 +141,8 @@ public class ModuleHandler {
     }
     
     public void perform(CheatModule module, Button button) {
-        switch (module.performMode()) {
-        case TOGGLE:
+        PerformMode mode = module.getMode();
+        if (mode == PerformMode.TOGGLE) {
             if (isEnabled(module)) {
                 disable(module);
             } else {
@@ -154,12 +155,10 @@ public class ModuleHandler {
             if (module.allowStateMessages()) {
                 widgets().widgetMessage(new WidgetMessage(module, enabled ? "ON" : "OFF", enabled ? WidgetMode.SUCCESS : WidgetMode.FAIL));
             }
-            break;
-        case SINGLE:
+        } else if (mode == PerformMode.SINGLE) {
             if (module.allowStateMessages()) {
                 widgets().widgetMessage(new WidgetMessage(module, "выполнен", WidgetMode.INFO));
             }
-            break;
         }
         module.onPerform(button == null ? PerformSource.KEY : PerformSource.BUTTON);
     }
