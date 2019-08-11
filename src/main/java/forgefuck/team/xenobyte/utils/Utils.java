@@ -15,10 +15,15 @@ import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
+import cpw.mods.fml.common.network.FMLIndexedMessageToMessageCodec;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
+import cpw.mods.fml.common.network.simpleimpl.SimpleIndexedCodec;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.modules.GiveSelect;
+import gnu.trove.map.hash.TByteObjectHashMap;
+import gnu.trove.map.hash.TObjectByteHashMap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
@@ -666,6 +671,18 @@ public class Utils {
         ByteBuf buf = Unpooled.buffer(0).writeShort(id).writeByte(count).writeShort(meta);
         ByteBufUtils.writeTag(buf, nbt);
         return buf;
+    }
+    
+    public Object getPacket(SimpleNetworkWrapper wrapper, int id) {
+        SimpleIndexedCodec codec = Reflections.getPrivateValue(SimpleNetworkWrapper.class, wrapper, 1);
+        TByteObjectHashMap descs = Reflections.getPrivateValue(FMLIndexedMessageToMessageCodec.class, codec, 0);
+        return descs.get((byte) id);
+    }
+    
+    public int getPacket(SimpleNetworkWrapper wrapper, Class packet) {
+        SimpleIndexedCodec codec = Reflections.getPrivateValue(SimpleNetworkWrapper.class, wrapper, 1);
+        TObjectByteHashMap types = Reflections.getPrivateValue(FMLIndexedMessageToMessageCodec.class, codec, 1);
+        return types.get(packet);
     }
     
     public void sendPacket(Packet packet) {
