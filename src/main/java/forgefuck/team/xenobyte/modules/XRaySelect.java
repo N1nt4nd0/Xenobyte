@@ -55,6 +55,7 @@ public class XRaySelect extends CheatModule {
         missingBlocks = new ArrayList<String>();
         configBlocks = new ArrayList<String>();
         neiSubset = "X-Ray";
+        guiHint = true;
     }
     
     private void updateNEI() {
@@ -82,10 +83,6 @@ public class XRaySelect extends CheatModule {
             return 0;
         }
         return meta;
-    }
-    
-    @Override public void onPreInit() {
-        guiHint = true;
     }
     
     @Override public void onPostInit() {

@@ -25,9 +25,6 @@ public class FakeBreak extends CheatModule {
     public FakeBreak() {
         super("FakeBreak", Category.WORLD, PerformMode.TOGGLE);
         breakedBlocks = new ArrayList<BreakedBlock>();
-    }
-    
-    @Override public void onPreInit() {
         drawEsp = true;
     }
     

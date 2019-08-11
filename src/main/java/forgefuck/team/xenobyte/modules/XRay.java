@@ -31,6 +31,8 @@ public class XRay extends CheatModule {
     public XRay() {
         super("XRay", Category.WORLD, PerformMode.TOGGLE);
         blocks = new CopyOnWriteArrayList<XRayBlock>();
+        height = 100;
+        radius = 25;
     }
     
     private void updateBlocks() {
@@ -58,10 +60,8 @@ public class XRay extends CheatModule {
         }).start();
     }
 
-    @Override public void onPreInit() {
+    @Override public void onHandlerInit() {
         selector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
-        height = 100;
-        radius = 25;
     }
     
     @Override public int tickDelay() {

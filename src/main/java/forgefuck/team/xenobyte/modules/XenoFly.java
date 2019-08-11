@@ -20,9 +20,6 @@ public class XenoFly extends CheatModule {
     
     public XenoFly() {
         super("XenoFly", Category.PLAYER, PerformMode.TOGGLE);
-    }
-    
-    @Override public void onPreInit() {
         vSpeed = 0.4F;
         hSpeed = 0.8F;
     }

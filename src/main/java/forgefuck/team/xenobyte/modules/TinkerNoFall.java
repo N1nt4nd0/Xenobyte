@@ -12,7 +12,7 @@ public class TinkerNoFall extends CheatModule {
     }
     
     @Override public void onTick(boolean inGame) {
-        if (inGame) {
+        if (inGame && utils.player().fallDistance > 2) {
             utils.sendPacket("TConstruct", (byte) 4);
         }
     }

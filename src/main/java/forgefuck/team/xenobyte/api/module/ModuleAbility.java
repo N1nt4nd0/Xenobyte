@@ -12,11 +12,6 @@ public abstract class ModuleAbility implements Xeno {
     public void onEnabled() {}
     
     /**
-     * Вызывается при загрузке модуля (перед конфигом)
-     */
-    public void onPreInit() {}
-    
-    /**
      * Вызывается при загрузке модуля (после конфига и до загрузки EventHandler)
      */
     public void onPostInit() {}
@@ -27,9 +22,14 @@ public abstract class ModuleAbility implements Xeno {
     public void onDisabled() {}
     
     /**
-     * Вызывается при первом старте тиков в модуле
+     * Вызывается при первом старте клиентских тиков
      */
     public void onTicksStart() {}
+    
+    /**
+     * Вызывается при загрузке модуля (перед конфигом)
+     */
+    public void onHandlerInit() {}
     
     /**
      * Последний тик отрисовки гуи элементов

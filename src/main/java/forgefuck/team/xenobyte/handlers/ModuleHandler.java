@@ -23,10 +23,10 @@ import forgefuck.team.xenobyte.utils.Config;
 import forgefuck.team.xenobyte.utils.EventRegisterer;
 import net.minecraft.client.Minecraft;
 
-public class ModuleHandler {
+public class ModuleHandler  {
     
     private List<CheatModule> modulesList, workingList, enabledList;
-
+    
     public ModuleHandler() {
         modulesList = new ModulesList();
         enabledList = new CopyOnWriteArrayList<CheatModule>();

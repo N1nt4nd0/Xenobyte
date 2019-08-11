@@ -14,9 +14,6 @@ public class FakeItem extends CheatModule {
     
     public FakeItem() {
         super("FakeItem", Category.PLAYER, PerformMode.TOGGLE);
-    }
-    
-    @Override public void onPreInit() {
         slot = 1;
     }
     

@@ -16,14 +16,11 @@ public class HiJump extends CheatModule {
     
     public HiJump() {
         super("HiJump", Category.PLAYER, PerformMode.TOGGLE);
+        power = 5;
     }
     
     private void removePotion() {
         utils.player().removePotionEffect(Potion.jump.getId());
-    }
-    
-    @Override public void onPreInit() {
-        power = 5;
     }
     
     @Override public void onDisabled() {

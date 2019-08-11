@@ -8,6 +8,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.gui.swing.ModidChanger;
 import forgefuck.team.xenobyte.handlers.ModuleHandler;
+import forgefuck.team.xenobyte.handlers.PacketHandler;
+import net.minecraft.client.Minecraft;
 
 @Mod(modid = Xeno.mod_id, name = Xeno.mod_name, version = Xeno.mod_version)
 

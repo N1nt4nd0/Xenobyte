@@ -18,9 +18,6 @@ public class TurretNuker extends CheatModule {
     
     public TurretNuker() {
         super("TurretNuker", Category.MODS, PerformMode.TOGGLE);
-    }
-    
-    @Override public void onPreInit() {
         radius = 1;
     }
     

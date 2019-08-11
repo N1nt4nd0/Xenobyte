@@ -18,9 +18,6 @@ public class CrayfishNuker extends CheatModule {
     
     public CrayfishNuker() {
         super("CrayfishNuker", Category.MODS, PerformMode.TOGGLE);
-    }
-    
-    @Override public void onPreInit() {
         radius = 1;
     }
     

@@ -42,6 +42,7 @@ import forgefuck.team.xenobyte.modules.GiveSelect;
 import forgefuck.team.xenobyte.modules.GuiReplacer;
 import forgefuck.team.xenobyte.modules.HiJump;
 import forgefuck.team.xenobyte.modules.Keyabled;
+import forgefuck.team.xenobyte.modules.MachineChaos;
 import forgefuck.team.xenobyte.modules.MalisisDoors;
 import forgefuck.team.xenobyte.modules.MatterGiveItem;
 import forgefuck.team.xenobyte.modules.MekFire;
@@ -120,6 +121,7 @@ public class ModulesList extends ArrayList<CheatModule>  {
         add(new GalacticFire());
         add(new OneWayTicket());
         add(new ConsoleFlood());
+        add(new MachineChaos());
         add(new TurretNuker());
         add(new GuiReplacer());
         add(new VanilaNuker());

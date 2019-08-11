@@ -26,9 +26,6 @@ public class WayLine extends CheatModule {
     public WayLine() {
         super("WayLine", Category.WORLD, PerformMode.TOGGLE);
         poses = new CopyOnWriteArrayList<double[]>();
-    }
-    
-    @Override public void onPreInit() {
         color = new Color(0, 255, 255).getRGB();
     }
     

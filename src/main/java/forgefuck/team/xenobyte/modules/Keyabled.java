@@ -8,10 +8,7 @@ public class Keyabled extends CheatModule {
     
     public Keyabled() {
         super("Keyabled", Category.MISC, PerformMode.TOGGLE);
-    }
-
-    @Override public void onPreInit() {
-        moduleHandler().enable(this);
+        cfgState = true;
     }
     
     @Override public boolean provideStateEvents() {

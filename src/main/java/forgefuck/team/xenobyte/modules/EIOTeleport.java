@@ -30,17 +30,14 @@ public class EIOTeleport extends CheatModule {
     public EIOTeleport() {
         super("EIOTeleport", Category.MODS, PerformMode.TOGGLE);
         coords = new ArrayList<String>();
-    }
-    
-    private void doTeleport(int entID, int x, int y, int z) {
-        utils.sendPacket("enderio", (byte) 56, x, y, z, 0, false, entID, 3);
-    }
-    
-    @Override public void onPreInit() {
         coords.add("0");
         coords.add("0");
         coords.add("0");
         onView = true;
+    }
+    
+    private void doTeleport(int entID, int x, int y, int z) {
+        utils.sendPacket("enderio", (byte) 56, x, y, z, 0, false, entID, 3);
     }
     
     @SubscribeEvent public void mouseEvent(MouseEvent ev) {

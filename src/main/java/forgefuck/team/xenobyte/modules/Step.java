@@ -13,9 +13,6 @@ public class Step extends CheatModule {
     
     public Step() {
         super("Step", Category.PLAYER, PerformMode.TOGGLE);
-    }
-    
-    @Override public void onPreInit() {
         stepHeight = 1;
     }
     

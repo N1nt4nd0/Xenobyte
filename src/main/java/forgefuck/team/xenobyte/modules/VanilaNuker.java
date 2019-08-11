@@ -17,9 +17,6 @@ public class VanilaNuker extends CheatModule {
     
     public VanilaNuker() {
         super("VanilaNuker", Category.WORLD, PerformMode.TOGGLE);
-    }
-    
-    @Override public void onPreInit() {
         radius = 1;
     }
     

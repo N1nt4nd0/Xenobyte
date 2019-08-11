@@ -27,6 +27,7 @@ public class RadioHack extends CheatModule {
     public RadioHack() {
         super("RadioHack", Category.MODS, PerformMode.TOGGLE);
         urls = new ArrayList<String>();
+        urls.add("https://files.catbox.moe/s0wkfi.mp3");
     }
     
     private void sendRadioPacket(TileEntity tile, boolean playing) {
@@ -42,10 +43,6 @@ public class RadioHack extends CheatModule {
         } catch(Exception e) {
             return false;
         }
-    }
-    
-    @Override public void onPreInit() {
-        urls.add("https://files.catbox.moe/s0wkfi.mp3");
     }
     
     @SubscribeEvent public void mouseEvent(MouseEvent e) {

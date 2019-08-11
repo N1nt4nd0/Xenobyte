@@ -12,9 +12,6 @@ public class XenoGui extends CheatModule {
     
     public XenoGui() {
         super("XenoGui", Category.NONE, PerformMode.SINGLE);
-    }
-    
-    @Override public void onPreInit() {
         setKeyBind(Keyboard.KEY_B);
     }
     

@@ -25,12 +25,9 @@ public class ScreenProtect extends CheatModule {
     public ScreenProtect() {
         super("ScreenProtect", Category.MISC, PerformMode.TOGGLE);
         channels = new ArrayList<String>();
-        isReady = true;
-    }
-    
-    @Override public void onPreInit() {
         channels.add("screener");
         channels.add("nGuard");
+        isReady = true;
     }
     
     @Override public boolean doReceivePacket(Packet packet) {

@@ -85,7 +85,7 @@ public abstract class CheatModule extends ModuleAbility {
     
     public void handleInit(ModuleHandler handler) {
         this.handler = handler;
-        onPreInit();
+        onHandlerInit();
     }
     
     public void handleTick() {

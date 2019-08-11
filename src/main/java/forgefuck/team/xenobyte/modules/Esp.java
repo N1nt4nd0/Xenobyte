@@ -35,9 +35,6 @@ public class Esp extends CheatModule {
         super("Esp", Category.WORLD, PerformMode.TOGGLE);
         objects = new ArrayList<EspObject>();
         startLines = new double[3];
-    }
-    
-    @Override public void onPreInit() {
         bindLines = true;
         players = true;
         blocks = true;

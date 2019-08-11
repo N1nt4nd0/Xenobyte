@@ -36,6 +36,10 @@ public class XenAura extends CheatModule {
     public XenAura() {
         super("XenAura", Category.PLAYER, PerformMode.TOGGLE);
         friendsList = new ArrayList<String>();
+        ignoreWalls = true;
+        criticals = true;
+        players = true;
+        radius = 6;
     }
     
     private void attack(Entity e) {
@@ -50,13 +54,6 @@ public class XenAura extends CheatModule {
         if (handshake) {
             pl.swingItem();
         }
-    }
-    
-    @Override public void onPreInit() {
-        ignoreWalls = true;
-        criticals = true;
-        players = true;
-        radius = 6;
     }
     
     @Override public int tickDelay() {

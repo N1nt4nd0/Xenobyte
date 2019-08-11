@@ -29,6 +29,7 @@ public class GiveSelect extends CheatModule {
         super("GiveSelect", Category.NEI, PerformMode.SINGLE);
         givedItem = new ItemStack(Blocks.command_block);
         chanter = new ItemChanter();
+        count = 1;
     }
     
     public ItemStack givedItem() {
@@ -47,10 +48,6 @@ public class GiveSelect extends CheatModule {
     
     public boolean fillAllSlots() {
         return fillSlots;
-    }
-    
-    @Override public void onPreInit() {
-        count = 1;
     }
     
     @Override public void onPerform(PerformSource src) {
