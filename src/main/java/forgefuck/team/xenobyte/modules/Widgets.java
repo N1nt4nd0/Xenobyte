@@ -1,20 +1,24 @@
 package forgefuck.team.xenobyte.modules;
 
-import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.ElementAligment;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.GuiWidget;
+import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.render.Colors;
 import forgefuck.team.xenobyte.render.GuiScaler;
 import forgefuck.team.xenobyte.utils.TickHelper;
@@ -23,21 +27,26 @@ import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 public class Widgets extends CheatModule {
     
     private Map<CheatModule, GuiWidget> keyabled, modulesInfo;
+    @Cfg("showKeyabled") private boolean showKeyabled;
+    @Cfg("showWidget") private boolean showWidget;
+    @Cfg("showInfo") private boolean showInfo;
     private List<GuiWidget> infoWidgets;
-    private Keyabled keyabledInfo;
     private int infoWidgetsDelay;
     
     public Widgets() {
-        super("Widgets", Category.NONE, PerformMode.ON_START);
-        modulesInfo = new LinkedHashMap<CheatModule, GuiWidget>();
-        keyabled = new LinkedHashMap<CheatModule, GuiWidget>();
-        infoWidgetsDelay = TickHelper.fourSeconds();
-        infoWidgets = new ArrayList<GuiWidget>();
+        super("Widgets", Category.MISC, PerformMode.TOGGLE);
+        modulesInfo = new HashMap<CheatModule, GuiWidget>();
+        infoWidgets = new CopyOnWriteArrayList<GuiWidget>();
+        keyabled = new HashMap<CheatModule, GuiWidget>();
+        infoWidgetsDelay = TickHelper.FOUR_SEC;
+        showKeyabled = true;
+        showWidget = true;
+        showInfo = true;
+        cfgState = true;
     }
     
     @Override public void onPostInit() {
         keyabledMessage(moduleHandler().xenoGui());
-        keyabledInfo = (Keyabled) moduleHandler().getModuleByClass(Keyabled.class);
         moduleHandler().categoryedModules().filter(CheatModule::provideStateEvents).forEach(this::keyabledMessage);
     }
     
@@ -110,14 +119,20 @@ public class Widgets extends CheatModule {
     }
     
     @Override public void onDrawGuiLast() {
-        infoWidgets.forEach(GuiWidget::draw);
+         if (showWidget) {
+              infoWidgets.forEach(GuiWidget::draw);
+         }
     }
     
     @Override public void onDrawGuiOverlay() {
-        modulesInfo.values().forEach(GuiWidget::draw);
-        if (moduleHandler().isEnabled(keyabledInfo)) {
-            keyabled.values().forEach(GuiWidget::draw);
-        }
+         try {
+             if (showInfo) {
+                  modulesInfo.values().forEach(GuiWidget::draw);
+             }
+            if (showKeyabled) {
+                keyabled.values().forEach(GuiWidget::draw);
+            }
+         } catch (ConcurrentModificationException e) {}
     }
     
     @Override public void onTick(boolean inGame) {
@@ -143,6 +158,39 @@ public class Widgets extends CheatModule {
     @Override public void onModuleDisabled(CheatModule m) {
         hideInfoMessage(m);
         keyabledMessage(m);
+    }
+    
+    @Override public String moduleDesc() {
+         return "Отображение заданных информационных виджетов";
+    }
+    
+    @Override public Panel settingPanel() {
+        return new Panel(
+            new Button("Keyabled", showKeyabled) {
+                @Override public void onLeftClick() {
+                    buttonValue(showKeyabled = !showKeyabled);
+                }
+                @Override public String elementDesc() {
+                    return "Активные и забинженные модули";
+                }
+            },
+            new Button("Messages", showWidget) {
+                @Override public void onLeftClick() {
+                    buttonValue(showWidget = !showWidget);
+                }
+                @Override public String elementDesc() {
+                    return "Краткие виджет-сообщения (снизу слева)";
+                }
+            },
+            new Button("InfoPanels", showInfo) {
+                @Override public void onLeftClick() {
+                    buttonValue(showInfo = !showInfo);
+                }
+                @Override public String elementDesc() {
+                    return "Инфо панели (снизу справа)";
+                }
+            }
+        );
     }
 
 }
