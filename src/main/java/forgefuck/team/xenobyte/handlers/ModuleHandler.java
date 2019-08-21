@@ -1,5 +1,6 @@
 package forgefuck.team.xenobyte.handlers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -34,7 +35,7 @@ public class ModuleHandler  {
         allModules().forEach(m -> m.handleInit(this));
         new Config(this);
         enabledList = workingModules().filter(m -> m.cfgState || m.getMode() == PerformMode.ON_START).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
-        workingModules().forEach(CheatModule::onPostInit);
+        allModules().forEach(CheatModule::onPostInit);
         new PacketHandler(this, Minecraft.getMinecraft().getNetHandler());
         new EventHandler(this);
     }
@@ -85,7 +86,7 @@ public class ModuleHandler  {
     }
     
     public boolean isEnabled(CheatModule module) {
-        return enabledList.contains(module);
+        return module == null ? false : enabledList.contains(module);
     }
     
     public void enable(CheatModule module) {
