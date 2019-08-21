@@ -13,6 +13,7 @@ import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
+import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
 import forgefuck.team.xenobyte.gui.swing.UserInput;
 import forgefuck.team.xenobyte.handlers.ModuleHandler;
 import net.minecraft.network.Packet;
@@ -20,6 +21,7 @@ import net.minecraft.network.Packet;
 public class ScreenProtect extends CheatModule {
     
     @Cfg("channels") private List<String> channels;
+    @Cfg("delay") private int delay;
     private boolean isReady;
     
     public ScreenProtect() {
@@ -28,6 +30,7 @@ public class ScreenProtect extends CheatModule {
         channels.add("screener");
         channels.add("nGuard");
         isReady = true;
+        delay = 2;
     }
     
     @Override public boolean doReceivePacket(Packet packet) {
@@ -42,7 +45,7 @@ public class ScreenProtect extends CheatModule {
                     moduleHash.addAll(hand.enabledModules().collect(Collectors.toList()));
                     hand.enabledModules().forEach(hand::disable);
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(delay * 1000);
                     } catch(Exception e) {}
                     moduleHash.forEach(hand::enable);
                     widgetMessage("Сработал скриншотер: " + channel, WidgetMode.SUCCESS);
@@ -54,17 +57,25 @@ public class ScreenProtect extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Отключит на пару секунд активные модули при скриншоте";
+        return "Отключит на заданное время активные модули при скриншоте";
     }
     
     @Override public Panel settingPanel() {
         return new Panel(
             new Button("Channels") {
-                   @Override public void onLeftClick() {
-                       new UserInput("Каналы", channels, InputType.CUSTOM).showFrame();
-                   }
-                   @Override public String elementDesc() {
+                @Override public void onLeftClick() {
+                    new UserInput("Каналы", channels, InputType.CUSTOM).showFrame();
+                }
+                @Override public String elementDesc() {
                     return "Блэклист FMLProxy каналов (изменять только по назначению)";
+                }
+            },
+            new ScrollSlider("Delay", delay, 6) {
+                @Override public void onScroll(int dir, boolean withShift) {
+                     delay = processSlider(dir, withShift);
+                }
+                @Override public String elementDesc() {
+                    return "Время в секундах на которое отключатся активные модули при скриншоте";
                 }
             }
         );
