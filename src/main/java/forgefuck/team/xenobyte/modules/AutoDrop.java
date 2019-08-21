@@ -34,7 +34,7 @@ public class AutoDrop extends CheatModule {
     
     @Override public Panel settingPanel() {
         return new Panel(
-            new ScrollSlider("Delay", delay, 0, TickHelper.oneSecond()) {
+            new ScrollSlider("Delay", delay, 0, TickHelper.ONE_SEC) {
                 @Override public void onScroll(int dir, boolean withShift) {
                     delay = processSlider(dir, withShift);
                 }
