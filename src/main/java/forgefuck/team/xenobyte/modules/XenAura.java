@@ -85,7 +85,7 @@ public class XenAura extends CheatModule {
                     return "Радиус киллауры";
                 }
             },
-            new ScrollSlider("Delay", delay, 0, TickHelper.oneSecond()) {
+            new ScrollSlider("Delay", delay, 0, TickHelper.ONE_SEC) {
                 @Override public void onScroll(int dir, boolean withShift) {
                     delay = processSlider(dir, withShift);
                 }
