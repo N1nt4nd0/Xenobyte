@@ -60,7 +60,7 @@ public class CheckVanish extends CheatModule {
     }
     
     @Override public int tickDelay() {
-        return TickHelper.threeSeconds();
+        return TickHelper.THREE_SEC;
     }
     
     @Override public void onTick(boolean inGame) {
