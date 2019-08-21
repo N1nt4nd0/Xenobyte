@@ -24,7 +24,7 @@ public class FullBright extends CheatModule {
     }
     
     @Override public int tickDelay() {
-        return TickHelper.oneSecond();
+        return TickHelper.ONE_SEC;
     }
     
     @Override public void onTick(boolean inGame) {
