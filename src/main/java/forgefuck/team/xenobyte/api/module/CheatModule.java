@@ -117,7 +117,7 @@ public abstract class CheatModule extends ModuleAbility {
     }
     
     protected GiveSelect giveSelector() {
-        return (GiveSelect)handler.getModuleByClass(GiveSelect.class);
+        return (GiveSelect) handler.getModuleByClass(GiveSelect.class);
     }
     
     @Override public String toString() {
