@@ -23,8 +23,9 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
     
     public static final Border BORDER = BorderFactory.createLineBorder(Color.BLACK);
     public static final GridBagConstraints GBC = new GridBagConstraints();
-    public static final JColorChooser colorChooser = new JColorChooser();
     public static final Font FONT = new Font("Terminal", Font.BOLD, 12);
+    public static final Color WHITE = new Color(255, 255, 255);
+    public static final Color FAIL = new Color(255, 200, 200);
     protected final JButton accept, clear;
     protected final JToolBar buttonsBar;
     private static XenoJFrame lastFrame;
@@ -50,11 +51,6 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
         addElements();
         fillData();
         packFrame();
-    }
-    
-    static {
-        colorChooser.setChooserPanels(new AbstractColorChooserPanel[] { ColorChooserComponentFactory.getDefaultChooserPanels()[0] });
-        colorChooser.setPreviewPanel(new JPanel());
     }
     
     public static Border customTitledBorder(String title, int align) {
