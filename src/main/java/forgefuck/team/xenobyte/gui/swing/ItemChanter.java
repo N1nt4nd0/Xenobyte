@@ -40,7 +40,6 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     private ButtonGroup radioGroup;
     private JTextArea nbtArea;
     private String separator;
-    private Color errorColor;
     
     public ItemChanter() {
         super("Чантер", DISPOSE_ON_CLOSE);
@@ -49,7 +48,6 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     
     @Override public void createObjects() {
         nbtScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        errorColor = new Color(255, 200, 200);
         onItem = new JRadioButton("Предмет");
         effDurationField = new JTextField();
         effAmpliferField = new JTextField();
@@ -234,30 +232,30 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         boolean cheked = true;
         try {
             Short.parseShort(enchLevelField.getText());
-            enchLevelField.setBackground(Color.WHITE);
+            enchLevelField.setBackground(WHITE);
         } catch (NumberFormatException e) {
-            enchLevelField.setBackground(errorColor);
+            enchLevelField.setBackground(FAIL);
             cheked = false;
         }
         try {
             Byte.parseByte(effAmpliferField.getText());
-            effAmpliferField.setBackground(Color.WHITE);
+            effAmpliferField.setBackground(WHITE);
         } catch (NumberFormatException e) {
-            effAmpliferField.setBackground(errorColor);
+            effAmpliferField.setBackground(FAIL);
             cheked = false;
         }
         try {
             Integer.parseInt(effDurationField.getText());
-            effDurationField.setBackground(Color.WHITE);
+            effDurationField.setBackground(WHITE);
         } catch (NumberFormatException e) {
-            effDurationField.setBackground(errorColor);
+            effDurationField.setBackground(FAIL);
             cheked = false;
         }
         try { 
             JsonToNBT.func_150315_a(nbtArea.getText());
-            nbtArea.setBackground(Color.WHITE);
+            nbtArea.setBackground(WHITE);
         } catch (NBTException e) {
-            nbtArea.setBackground(errorColor);
+            nbtArea.setBackground(FAIL);
             info(e.getMessage());
             cheked = false;
         }
