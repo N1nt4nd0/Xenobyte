@@ -44,7 +44,7 @@ public class XRay extends CheatModule {
                 for (int x = pos[0] - radius; x <= pos[0] + radius; x++) {
                     for (int z = pos[2] - radius; z <= pos[2] + radius; z++) {
                         Block block = world.getBlock(x, y, z);
-                        if (block instanceof BlockAir || block instanceof BlockStone || block instanceof BlockDirt) {
+                        if (block instanceof BlockAir || block instanceof BlockDirt) {
                             continue;
                         }
                         int meta = world.getBlockMetadata(x, y, z);
@@ -65,7 +65,7 @@ public class XRay extends CheatModule {
     }
     
     @Override public int tickDelay() {
-        return TickHelper.oneSecond();
+        return TickHelper.ONE_SEC;
     }
     
     @Override public void onTick(boolean inGame) {
