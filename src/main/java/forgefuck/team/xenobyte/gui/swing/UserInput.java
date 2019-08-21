@@ -118,10 +118,10 @@ public class UserInput extends XenoJFrame {
         boolean parseIntValue() {
             try {
                 Integer.parseInt(inputField.getText());
-                inputField.setBackground(Color.WHITE);
+                inputField.setBackground(WHITE);
                 return true;
             } catch(NumberFormatException e) {
-                inputField.setBackground(new Color(255, 200, 200));
+                inputField.setBackground(FAIL);
                 return false;
             }
         }
