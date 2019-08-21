@@ -1,6 +1,12 @@
 package forgefuck.team.xenobyte.utils;
 
 public class TickHelper {
+     
+     public static final int ONE_SEC = fromSeconds(1);
+     public static final int TWO_SEC = fromSeconds(2);
+     public static final int THREE_SEC = fromSeconds(3);
+     public static final int FOUR_SEC = fromSeconds(4);
+     public static final int FIVE_SEC = fromSeconds(5);
     
     public static int fromSeconds(int secs) {
         return secs * ticksInSeconds();
@@ -8,26 +14,6 @@ public class TickHelper {
     
     public static int ticksInSeconds() {
         return 40;
-    }
-    
-    public static int oneSecond() {
-        return fromSeconds(1);
-    }
-    
-    public static int twoSeconds() {
-        return fromSeconds(2);
-    }
-    
-    public static int threeSeconds() {
-        return fromSeconds(3);
-    }
-    
-    public static int fourSeconds() {
-        return fromSeconds(4);
-    }
-    
-    public static int fiveSeconds() {
-        return fromSeconds(5);
     }
 
 }
