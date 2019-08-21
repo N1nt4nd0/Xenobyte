@@ -41,7 +41,6 @@ import forgefuck.team.xenobyte.modules.GalacticFire;
 import forgefuck.team.xenobyte.modules.GiveSelect;
 import forgefuck.team.xenobyte.modules.GuiReplacer;
 import forgefuck.team.xenobyte.modules.HiJump;
-import forgefuck.team.xenobyte.modules.Keyabled;
 import forgefuck.team.xenobyte.modules.MachineChaos;
 import forgefuck.team.xenobyte.modules.MalisisDoors;
 import forgefuck.team.xenobyte.modules.MatterGiveItem;
@@ -151,7 +150,6 @@ public class ModulesList extends ArrayList<CheatModule>  {
         add(new CacheGive());
         add(new MekOpener());
         add(new FakeItem());
-        add(new Keyabled());
         add(new ChatBind());
         add(new WallHack());
         add(new BlinkCam());
