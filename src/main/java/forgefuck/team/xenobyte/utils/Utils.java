@@ -437,18 +437,6 @@ public class Utils {
         return "[" + entity.getCommandSenderName() + ": UUID(" + uuid(entity) + "), ID("+ id(entity) + ")]";
     }
     
-    public boolean isPlayer(Entity e) {
-        return e instanceof EntityPlayer;
-    }
-    
-    public boolean isMonster(Entity e) {
-        return e instanceof EntityMob || e instanceof IMob;
-    }
-    
-    public boolean isAnimal(Entity e) {
-        return e instanceof EntityAnimal || e instanceof EntityAmbientCreature || e instanceof EntityWaterMob || e instanceof EntityGolem;
-    }
-    
     public List<TileEntity> nearTiles() {
         List<TileEntity> out = new ArrayList<TileEntity>();
         IChunkProvider chunkProvider = world().getChunkProvider();
@@ -532,6 +520,26 @@ public class Utils {
             }
         }
         return false;
+    }
+    
+    public boolean isPlayer(Entity e) {
+        return e instanceof EntityPlayer;
+    }
+    
+    public boolean isMonster(Entity e) {
+        return e instanceof EntityMob || e instanceof IMob;
+    }
+    
+    public boolean isAnimal(Entity e) {
+        return e instanceof EntityAnimal || e instanceof EntityAmbientCreature || e instanceof EntityWaterMob || e instanceof EntityGolem;
+    }
+    
+    public boolean isCustom(Entity e) {
+        try {
+            return Class.forName("noppes.npcs.entity.EntityNPCInterface").isInstance(e);
+        } catch(Exception ex) {
+            return false;
+        }
     }
     
     private double boxHeight;
