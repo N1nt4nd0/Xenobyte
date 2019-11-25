@@ -4,7 +4,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.utils.EventRegisterer;
+import forgefuck.team.xenobyte.utils.EventHelper;
 import forgefuck.team.xenobyte.utils.Rand;
 import forgefuck.team.xenobyte.utils.Reflections;
 import forgefuck.team.xenobyte.utils.TickHelper;
