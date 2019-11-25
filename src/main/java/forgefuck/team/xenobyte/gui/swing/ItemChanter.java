@@ -112,9 +112,9 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         nameField.setFont(FONT);
         loreField.setFont(FONT);
         logField.setFont(FONT);
-        ffGift.setFont(FONT);
         nbtArea.setFont(FONT);
         enchBox.setFont(FONT);
+        ffGift.setFont(FONT);
         color.setFont(FONT);
     }
     
