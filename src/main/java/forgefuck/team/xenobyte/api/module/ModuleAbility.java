@@ -4,7 +4,7 @@ import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import net.minecraft.network.Packet;
 
-public abstract class ModuleAbility implements Xeno {
+public abstract class ModuleAbility {
     
     /**
      * Вызывается при активации модуля в режиме PerformMode.TOGGLE
