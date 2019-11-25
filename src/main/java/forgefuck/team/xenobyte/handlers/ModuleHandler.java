@@ -21,7 +21,7 @@ import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.modules.Widgets;
 import forgefuck.team.xenobyte.modules.XenoGui;
 import forgefuck.team.xenobyte.utils.Config;
-import forgefuck.team.xenobyte.utils.EventRegisterer;
+import forgefuck.team.xenobyte.utils.EventHelper;
 import net.minecraft.client.Minecraft;
 
 public class ModuleHandler  {
@@ -99,7 +99,7 @@ public class ModuleHandler  {
                 workingModules().forEach(m -> m.onModuleEnabled(module));
             }
             if (module.provideForgeEvents()) {
-                EventRegisterer.register(module);
+                EventHelper.register(module);
             }
         }
     }
@@ -113,7 +113,7 @@ public class ModuleHandler  {
                 workingModules().forEach(m -> m.onModuleDisabled(module));
             }
             if (module.provideForgeEvents()) {
-                EventRegisterer.unregister(module);
+                EventHelper.unregister(module);
             }
         }
     }
