@@ -7,6 +7,7 @@ import forgefuck.team.xenobyte.api.module.PerformMode;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
+import forgefuck.team.xenobyte.utils.TickHelper;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 
 public class VanilaNuker extends CheatModule {
@@ -14,10 +15,15 @@ public class VanilaNuker extends CheatModule {
     @Cfg("handshake") private boolean handshake;
     @Cfg("onView") private boolean onView;
     @Cfg("radius") private int radius;
+    @Cfg("delay") private int delay;
     
     public VanilaNuker() {
         super("VanilaNuker", Category.WORLD, PerformMode.TOGGLE);
         radius = 1;
+    }
+    
+    @Override public int tickDelay() {
+        return delay;
     }
     
     @Override public void onTick(boolean inGame) {
@@ -48,6 +54,14 @@ public class VanilaNuker extends CheatModule {
             new ScrollSlider("Radius", radius, 6) {
                 @Override public void onScroll(int dir, boolean withShift) {
                     radius = processSlider(dir, withShift);
+                }
+            },
+            new ScrollSlider("Delay", delay, 0, TickHelper.ONE_SEC) {
+                @Override public void onScroll(int dir, boolean withShift) {
+                    delay = processSlider(dir, withShift);
+                }
+                @Override public String elementDesc() {
+                    return "Задержка копания";
                 }
             },
             new Button("OnView", onView) {
