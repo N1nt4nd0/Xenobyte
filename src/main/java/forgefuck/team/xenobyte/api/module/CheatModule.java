@@ -1,17 +1,18 @@
 package forgefuck.team.xenobyte.api.module;
 
 import java.util.stream.Stream;
-
 import org.lwjgl.input.Keyboard;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.handlers.ModuleHandler;
 import forgefuck.team.xenobyte.modules.GiveSelect;
 
-public abstract class CheatModule extends ModuleAbility {
+public abstract class CheatModule extends ModuleAbility implements Xeno {
     
     private boolean forgeEvents, ticksStarted;
     @Cfg("cfgState") public boolean cfgState;
@@ -20,10 +21,12 @@ public abstract class CheatModule extends ModuleAbility {
     private final String name, id;
     private ModuleHandler handler;
     @Cfg("key") private int key;
+    protected final Logger log;
     private int counter;
     
     public CheatModule(String name, Category category, PerformMode mode) {
         forgeEvents = Stream.of(getClass().getDeclaredMethods()).filter(f -> f.isAnnotationPresent(SubscribeEvent.class)).findFirst().isPresent();
+        this.log = LogManager.getLogger(this);
         this.id = category + "_" + name;
         this.category = category;
         this.mode = mode;
