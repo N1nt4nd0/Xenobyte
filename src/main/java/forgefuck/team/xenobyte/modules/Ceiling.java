@@ -1,9 +1,9 @@
 package forgefuck.team.xenobyte.modules;
 
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
 
@@ -27,7 +27,7 @@ public class Ceiling extends CheatModule {
         int y = coords[1];
         int z = coords[2];
         if (utils.player().rotationPitch > 0) {
-            do y --; while (isAir(x, y, z) && y > 0);
+            do y --; while (isAir(x, y + 1, z) && y > 0);
             do y --; while (!isAir(x, y, z) && y > 0);
             do y --; while (isAir(x, y, z) && y > 0);
             if (y > 0 && !isLava(x, y, z)) {
