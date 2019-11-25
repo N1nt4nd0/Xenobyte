@@ -12,7 +12,7 @@ import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.render.GuiScaler;
 import forgefuck.team.xenobyte.utils.Config;
-import forgefuck.team.xenobyte.utils.EventRegisterer;
+import forgefuck.team.xenobyte.utils.EventHelper;
 import forgefuck.team.xenobyte.utils.Keys;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
@@ -26,8 +26,8 @@ public class EventHandler {
     
     public EventHandler(ModuleHandler handler) {
         this.handler = handler;
-        handler.enabledModules().filter(CheatModule::provideForgeEvents).forEach(EventRegisterer::register);
-        EventRegisterer.register(this);
+        handler.enabledModules().filter(CheatModule::provideForgeEvents).forEach(EventHelper::register);
+        EventHelper.register(this);
     }
     
     @SubscribeEvent(priority = EventPriority.HIGHEST) public void guiInit(InitGuiEvent.Pre e) {
