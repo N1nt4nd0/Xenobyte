@@ -46,8 +46,8 @@ public class XenoFont {
     public void drawString(String text, int x, int y, int color) {
         int sub = 0;
         float[] rgba = new Color(color, true).getRGBComponents(null);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, Textures.FONT);
         GL11.glPushMatrix();
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, Textures.FONT);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glScalef(0.5F, 0.5F, 0);
         for (char ch : text.toCharArray()) {
@@ -63,6 +63,7 @@ public class XenoFont {
                 sub += charWidth;
             }
         }
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
 
