@@ -1,6 +1,6 @@
 package forgefuck.team.xenobyte.handlers;
 
-import forgefuck.team.xenobyte.api.Xeno;
+import forgefuck.team.xenobyte.utils.Rand;
 import forgefuck.team.xenobyte.utils.XenoLogger;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -12,7 +12,7 @@ public class PacketHandler {
     
     public PacketHandler(ModuleHandler handler, NetHandlerPlayClient clientHandler) {
         if (handler != null && clientHandler != null) {
-            clientHandler.getNetworkManager().channel().pipeline().addBefore("packet_handler", Xeno.mod_id + "_ph", new ChannelDuplexHandler() {
+            clientHandler.getNetworkManager().channel().pipeline().addBefore("packet_handler", Rand.str(), new ChannelDuplexHandler() {
                 @Override public void channelRead(ChannelHandlerContext ctx, Object in) throws Exception {
                     if (handler.enabledModules().allMatch(m -> m.doReceivePacket((Packet) in))) {
                         super.channelRead(ctx, in);
@@ -24,7 +24,7 @@ public class PacketHandler {
                     }
                 }
                 @Override public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-                    XenoLogger.info("PacketHandler зарегистрирован");
+                    XenoLogger.info("PacketHandler channel registered: " + ctx.name());
                 }
             });
         }
