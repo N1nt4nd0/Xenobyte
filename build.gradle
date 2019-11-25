@@ -104,7 +104,7 @@ task obfuscateProGuard(type: proguard.gradle.ProGuardTask) {
         classobfuscationdictionary "$buildDir/proguard/class-dictionary.txt"
         packageobfuscationdictionary "$buildDir/proguard/package-dictionary.txt"
         obfuscationdictionary "$buildDir/proguard/fieldmethod-dictionary.txt"
-        repackageclasses "java.io"
+        repackageclasses "net.minecraftforge.common"
         dontshrink
         dontoptimize
         printmapping "$buildDir/libs/proguard-" + project.tasks["jar"].archiveName + ".map"
