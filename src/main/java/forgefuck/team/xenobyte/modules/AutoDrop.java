@@ -11,11 +11,13 @@ import forgefuck.team.xenobyte.utils.TickHelper;
 
 public class AutoDrop extends CheatModule {
     
-    @Cfg("allStacks") private boolean allStacks;
+    @Cfg("allStack") private boolean allStack;
     @Cfg("delay") private int delay;
+    @Cfg("slot") private int slot;
     
     public AutoDrop() {
         super("AutoDrop", Category.PLAYER, PerformMode.TOGGLE);
+        slot = 1;
     }
     
     @Override public int tickDelay() {
@@ -24,7 +26,7 @@ public class AutoDrop extends CheatModule {
     
     @Override public void onTick(boolean inGame) {
         if (inGame) {
-            utils.dropSlot(utils.activeSlot(), allStacks);
+            utils.dropSlot(utils.mySlotsCount() + (slot - 1), allStack);
         }
     }
     
@@ -42,9 +44,17 @@ public class AutoDrop extends CheatModule {
                     return "Задержка дропа предмета";
                 }
             },
-            new Button("AllStacks", allStacks) {
+            new ScrollSlider("Slot", slot, 9) {
+                @Override public void onScroll(int dir, boolean withShift) {
+                    slot = processSlider(dir, withShift);
+                }
+                @Override public String elementDesc() {
+                    return "Слот из которого дропаются предметы";
+                }
+            },
+            new Button("AllStack", allStack) {
                 @Override public void onLeftClick() {
-                    buttonValue(allStacks = !allStacks);
+                    buttonValue(allStack = !allStack);
                 }
                 @Override public String elementDesc() {
                     return "Дропать весь стак или по одному предмету";
