@@ -15,8 +15,7 @@ public class AdvancedTooltip extends CheatModule {
     }
     
     @SubscribeEvent public void tooltipHook(ItemTooltipEvent e) {
-        ItemStack item = e.itemStack;
-        e.toolTip.add(utils.stringId(item) + " (" + Item.getIdFromItem(item.getItem()) + ":" + item.getItemDamage() + ")");
+        e.toolTip.add(utils.stringId(e.itemStack) + " (" + Item.getIdFromItem(e.itemStack.getItem()) + ":" + e.itemStack.getItemDamage() + ")");
     }
     
     @Override public String moduleDesc() {
