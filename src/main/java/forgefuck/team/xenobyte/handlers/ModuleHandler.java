@@ -2,7 +2,6 @@ package forgefuck.team.xenobyte.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -11,17 +10,18 @@ import java.util.stream.Stream;
 import org.lwjgl.input.Keyboard;
 
 import forgefuck.team.xenobyte.ModulesList;
-import forgefuck.team.xenobyte.api.Xeno;
+import forgefuck.team.xenobyte.api.exceptions.DuplicateModuleException;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.modules.Widgets;
 import forgefuck.team.xenobyte.modules.XenoGui;
 import forgefuck.team.xenobyte.utils.Config;
 import forgefuck.team.xenobyte.utils.EventHelper;
+import forgefuck.team.xenobyte.utils.XenoLogger;
 import net.minecraft.client.Minecraft;
 
 public class ModuleHandler  {
@@ -29,10 +29,19 @@ public class ModuleHandler  {
     private List<CheatModule> modulesList, workingList, enabledList;
     
     public ModuleHandler() {
-        modulesList = new ModulesList();
+        modulesList = new ArrayList<CheatModule>();
+        new ModulesList().forEach(m -> {
+        	if (modulesList.contains(m)) {
+        		DuplicateModuleException dEx = new DuplicateModuleException(m);
+        		XenoLogger.getLogger().error(dEx);
+        		dEx.printStackTrace();
+        		throw dEx;
+        	}
+        	modulesList.add(m);
+        });
         enabledList = new CopyOnWriteArrayList<CheatModule>();
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
-        allModules().forEach(m -> m.handleInit(this));
+        allModules().forEach(m -> m.handlerInit(this));
         new Config(this);
         enabledList = workingModules().filter(m -> m.cfgState || m.getMode() == PerformMode.ON_START).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
         allModules().forEach(CheatModule::onPostInit);
@@ -64,10 +73,6 @@ public class ModuleHandler  {
         return (Widgets) getModuleByClass(Widgets.class);
     }
     
-    public CheatModule getModuleByID(String id) {
-        return moduleGetter(m -> m.getID().equals(id));
-    }
-    
     public CheatModule getModuleByName(String name) {
         return moduleGetter(m -> m.getName().equals(name));
     }
@@ -77,8 +82,7 @@ public class ModuleHandler  {
     }
     
     public CheatModule moduleGetter(Predicate<CheatModule> predicate)  {
-        Optional<CheatModule> module = allModules().filter(predicate).findFirst();
-        return module.isPresent() ? module.get() : null;
+        return allModules().filter(predicate).findFirst().orElse(null);
     }
     
     public void perform(CheatModule module) {
@@ -142,8 +146,8 @@ public class ModuleHandler  {
     }
     
     public void perform(CheatModule module, Button button) {
-        PerformMode mode = module.getMode();
-        if (mode == PerformMode.TOGGLE) {
+    	WidgetMessage mess = new WidgetMessage(module, "выполнен", WidgetMode.INFO);
+        if (module.getMode() == PerformMode.TOGGLE) {
             if (isEnabled(module)) {
                 disable(module);
             } else {
@@ -153,13 +157,10 @@ public class ModuleHandler  {
             if (button != null) {
                 button.setSelected(enabled);
             }
-            if (module.allowStateMessages()) {
-                widgets().widgetMessage(new WidgetMessage(module, enabled ? "ON" : "OFF", enabled ? WidgetMode.SUCCESS : WidgetMode.FAIL));
-            }
-        } else if (mode == PerformMode.SINGLE) {
-            if (module.allowStateMessages()) {
-                widgets().widgetMessage(new WidgetMessage(module, "выполнен", WidgetMode.INFO));
-            }
+            mess = new WidgetMessage(module, enabled ? "ON" : "OFF", enabled ? WidgetMode.SUCCESS : WidgetMode.FAIL);
+        }
+        if (module.allowStateMessages()) {
+        	widgets().widgetMessage(mess);
         }
         module.onPerform(button == null ? PerformSource.KEY : PerformSource.BUTTON);
     }
