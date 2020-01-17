@@ -7,7 +7,7 @@ import forgefuck.team.xenobyte.api.module.PerformMode;
 public class AutoSprint extends CheatModule {
     
     public AutoSprint() {
-        super("AutoSprint", Category.PLAYER, PerformMode.TOGGLE);
+        super("AutoSprint", Category.MOVE, PerformMode.TOGGLE);
     }
     
     @Override public void onTick(boolean inGame) {

@@ -13,7 +13,7 @@ public class BlinkCam extends CheatModule {
     private EntityOtherPlayerMP fake;
     
     public BlinkCam() {
-        super("BlinkCam", Category.PLAYER, PerformMode.TOGGLE);
+        super("BlinkCam", Category.MOVE, PerformMode.TOGGLE);
     }
     
     @Override public void onDisabled() {

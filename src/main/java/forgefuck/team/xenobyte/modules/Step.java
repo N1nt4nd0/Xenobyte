@@ -12,8 +12,8 @@ public class Step extends CheatModule {
     @Cfg("stepHeight") private int stepHeight;
     
     public Step() {
-        super("Step", Category.PLAYER, PerformMode.TOGGLE);
-        stepHeight = 1;
+        super("Step", Category.MOVE, PerformMode.TOGGLE);
+        stepHeight = 5;
     }
     
     @Override public void onTick(boolean inGame) {
@@ -32,9 +32,12 @@ public class Step extends CheatModule {
     
     @Override public Panel settingPanel() {
         return new Panel(
-            new ScrollSlider("Height", stepHeight, 64) {
+            new ScrollSlider("Height", stepHeight, 30) {
                 @Override public void onScroll(int dir, boolean withShift) {
                     stepHeight = processSlider(dir, withShift);
+                }
+                @Override public String elementDesc() {
+                    return "Высота взбирания";
                 }
             }
         );

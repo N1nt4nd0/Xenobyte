@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 public class NoWeb extends CheatModule {
     
     public NoWeb() {
-        super("NoWeb", Category.PLAYER, PerformMode.TOGGLE);
+        super("NoWeb", Category.MOVE, PerformMode.TOGGLE);
     }
     
     @Override public void onTick(boolean inGame) {

@@ -15,7 +15,7 @@ public class HiJump extends CheatModule {
     @Cfg("power") private int power;
     
     public HiJump() {
-        super("HiJump", Category.PLAYER, PerformMode.TOGGLE);
+        super("HiJump", Category.MOVE, PerformMode.TOGGLE);
         power = 5;
     }
     

@@ -4,21 +4,24 @@ import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
 import forgefuck.team.xenobyte.api.module.PerformSource;
-import net.minecraft.block.BlockAir;
 import net.minecraft.block.material.Material;
 
 public class Ceiling extends CheatModule {
-    
-    public Ceiling() {
-        super("Ceiling", Category.PLAYER, PerformMode.SINGLE);
+	
+	public Ceiling() {
+        super("Ceiling", Category.MOVE, PerformMode.SINGLE);
     }
     
-    private boolean isAir(int x, int y, int z) {
-        return utils.block(x, y, z) instanceof BlockAir;
+    private boolean isAcceptableMaterial(Material material) {
+        return material == Material.air || material == Material.water || material == Material.web || material == Material.lava;
+    }
+
+    private boolean isAcceptableBlocks(int x, int y, int z) {
+        return isAcceptableMaterial(utils.block(x, y, z).getMaterial()) && isAcceptableMaterial(utils.block(x, y + 1, z).getMaterial());
     }
     
-    private boolean isLava(int x, int y, int z) {
-        return utils.block(x, y, z).getMaterial() == Material.lava;
+    private boolean isAcceptableCoordinates(int x, int y, int z) {
+        return 0 < y && y < 255;
     }
     
     @Override public void onPerform(PerformSource src) {
@@ -26,24 +29,17 @@ public class Ceiling extends CheatModule {
         int x = coords[0];
         int y = coords[1];
         int z = coords[2];
-        if (utils.player().rotationPitch > 0) {
-            do y --; while (isAir(x, y + 1, z) && y > 0);
-            do y --; while (!isAir(x, y, z) && y > 0);
-            do y --; while (isAir(x, y, z) && y > 0);
-            if (y > 0 && !isLava(x, y, z)) {
-                utils.verticalTeleport(y + 1, true);
-            }
-        } else if (utils.player().rotationPitch < 0) {
-            do y ++; while (isAir(x, y, z) && y < 256);
-            do y ++; while (!isAir(x, y, z) && y < 256);
-            if (y < 256 && !isLava(x, y, z)) {
-                utils.verticalTeleport(y, true);
-            }
+        int step = utils.player().rotationPitch < 0 ? 1 : -1;
+        do y += step; while( isAcceptableBlocks(x, y, z) && isAcceptableCoordinates(x, y, z));
+        do y += step; while(!isAcceptableBlocks(x, y, z) && isAcceptableCoordinates(x, y, z));
+        do y--;       while( isAcceptableBlocks(x, y, z) && isAcceptableCoordinates(x, y, z));
+        if (isAcceptableCoordinates(x, y++, z)) {
+            utils.verticalTeleport(y, true);
         }
     }
     
     @Override public String moduleDesc() {
-        return "Телепортация по оси Y через блоки вверх/низ по взгляду";
+        return "Телепортация по оси Y сквозь блоки вверх/вниз по взгляду";
     }
 
 }

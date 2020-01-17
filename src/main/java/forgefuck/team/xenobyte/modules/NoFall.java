@@ -8,7 +8,7 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 public class NoFall extends CheatModule {
     
     public NoFall() {
-        super("NoFall", Category.PLAYER, PerformMode.TOGGLE);
+        super("NoFall", Category.MOVE, PerformMode.TOGGLE);
     }
     
     @Override public void onTick(boolean inGame) {

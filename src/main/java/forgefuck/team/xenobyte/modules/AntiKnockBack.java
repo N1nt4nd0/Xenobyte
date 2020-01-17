@@ -9,7 +9,7 @@ import net.minecraft.network.play.server.S12PacketEntityVelocity;
 public class AntiKnockBack extends CheatModule {
     
     public AntiKnockBack() {
-        super("AntiKnockBack", Category.PLAYER, PerformMode.TOGGLE);
+        super("AntiKnockBack", Category.MOVE, PerformMode.TOGGLE);
     }
     
     @Override public boolean doReceivePacket(Packet packet) {
@@ -24,5 +24,5 @@ public class AntiKnockBack extends CheatModule {
     @Override public String moduleDesc() {
         return "Выключает эфект отбрасывания у игрока";
     }
-    
+
 }

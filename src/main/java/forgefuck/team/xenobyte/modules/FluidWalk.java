@@ -10,7 +10,7 @@ import net.minecraft.block.BlockLiquid;
 public class FluidWalk extends CheatModule {
     
     public FluidWalk() {
-        super("FluidWalk", Category.PLAYER, PerformMode.TOGGLE);
+        super("FluidWalk", Category.MOVE, PerformMode.TOGGLE);
     }
     
     @Override public void onTick(boolean inGame) {

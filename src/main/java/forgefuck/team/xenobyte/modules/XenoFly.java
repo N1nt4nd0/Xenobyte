@@ -19,7 +19,7 @@ public class XenoFly extends CheatModule {
     @Cfg("hSpeed") private float hSpeed;
     
     public XenoFly() {
-        super("XenoFly", Category.PLAYER, PerformMode.TOGGLE);
+        super("XenoFly", Category.MOVE, PerformMode.TOGGLE);
         vSpeed = 0.4F;
         hSpeed = 0.8F;
     }
