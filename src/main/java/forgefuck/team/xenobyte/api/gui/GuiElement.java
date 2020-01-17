@@ -19,11 +19,6 @@ public abstract class GuiElement extends ElementAbility implements IDraw {
         setY(y);
     }
     
-    public void shift(int x, int y) {
-        this.x += x;
-        this.y += y; 
-    }
-    
     public void setX(int x) {
         this.x = x;
     }
