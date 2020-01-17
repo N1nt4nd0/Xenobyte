@@ -1,9 +1,11 @@
 package forgefuck.team.xenobyte.api.module;
 
 import java.util.stream.Stream;
-import org.lwjgl.input.Keyboard;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Keyboard;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.config.Cfg;
@@ -11,31 +13,29 @@ import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.handlers.ModuleHandler;
 import forgefuck.team.xenobyte.modules.GiveSelect;
+import forgefuck.team.xenobyte.modules.XRaySelect;
 
 public abstract class CheatModule extends ModuleAbility implements Xeno {
     
     private boolean forgeEvents, ticksStarted;
     @Cfg("cfgState") public boolean cfgState;
+    private GiveSelect giveSelector;
+    private XRaySelect xraySelector;
     private final Category category;
     private final PerformMode mode;
-    private final String name, id;
     private ModuleHandler handler;
     @Cfg("key") private int key;
     protected final Logger log;
+    private final String name;
     private int counter;
     
     public CheatModule(String name, Category category, PerformMode mode) {
-        forgeEvents = Stream.of(getClass().getDeclaredMethods()).filter(f -> f.isAnnotationPresent(SubscribeEvent.class)).findFirst().isPresent();
+        this.forgeEvents = Stream.of(getClass().getDeclaredMethods()).filter(f -> f.isAnnotationPresent(SubscribeEvent.class)).findFirst().isPresent();
         this.log = LogManager.getLogger(this);
-        this.id = category + "_" + name;
         this.category = category;
         this.mode = mode;
         this.name = name;
         setLastCounter();
-    }
-    
-    public String getID() {
-        return id;
     }
     
     public String getName() {
@@ -86,8 +86,10 @@ public abstract class CheatModule extends ModuleAbility implements Xeno {
         counter = 0;
     }
     
-    public void handleInit(ModuleHandler handler) {
+    public void handlerInit(ModuleHandler handler) {
         this.handler = handler;
+    	xraySelector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
+    	giveSelector = (GiveSelect) moduleHandler().getModuleByClass(GiveSelect.class);
         onHandlerInit();
     }
     
@@ -107,11 +109,11 @@ public abstract class CheatModule extends ModuleAbility implements Xeno {
         return handler;
     }
     
-    protected void widgetMessage(String mess, WidgetMode mode) {
+    protected void widgetMessage(Object mess, WidgetMode mode) {
         handler.widgets().widgetMessage(new WidgetMessage(this, mess, mode));
     }
     
-    protected void infoMessage(String mess, WidgetMode mode) {
+    protected void infoMessage(Object mess, WidgetMode mode) {
         handler.widgets().infoMessage(new WidgetMessage(this, mess, mode));
     }
     
@@ -120,7 +122,18 @@ public abstract class CheatModule extends ModuleAbility implements Xeno {
     }
     
     protected GiveSelect giveSelector() {
-        return (GiveSelect) handler.getModuleByClass(GiveSelect.class);
+        return giveSelector;
+    }
+    
+    protected XRaySelect xraySelector() {
+    	return xraySelector;
+    }
+    
+    @Override public boolean equals(Object o) {
+    	if (o instanceof CheatModule) {
+    		return ((CheatModule) o).getName().equals(getName());
+    	}
+    	return super.equals(o);
     }
     
     @Override public String toString() {
