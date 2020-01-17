@@ -7,6 +7,7 @@ import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class OneWayTicket extends CheatModule {
     
@@ -18,7 +19,10 @@ public class OneWayTicket extends CheatModule {
         ItemStack ckeckItem = utils.item();
         try {
             if (Class.forName("mods.railcraft.common.util.network.IEditableItem").isInstance(ckeckItem.getItem())) {
-                Class.forName("mods.railcraft.common.util.network.PacketDispatcher").getMethod("sendToServer", Class.forName("mods.railcraft.common.util.network.RailcraftPacket")).invoke(null, Class.forName("mods.railcraft.common.util.network.PacketCurrentItemNBT").getConstructor(EntityPlayer.class, ItemStack.class).newInstance(utils.player(), utils.item(ckeckItem, giveSelector().givedNBT())));
+            	NBTTagCompound nbt = giveSelector().givedNBT();
+            	if (!nbt.hasNoTags()) {
+                    Class.forName("mods.railcraft.common.util.network.PacketDispatcher").getMethod("sendToServer", Class.forName("mods.railcraft.common.util.network.RailcraftPacket")).invoke(null, Class.forName("mods.railcraft.common.util.network.PacketCurrentItemNBT").getConstructor(EntityPlayer.class, ItemStack.class).newInstance(utils.player(), utils.item(ckeckItem, nbt)));
+            	}
             }
         } catch(Exception e) {}
     }
