@@ -50,10 +50,10 @@ public class ColorPickerGui extends XenoJFrame implements ChangeListener {
         g.setPreferredSize(new Dimension(350, 50));
         b.setPreferredSize(new Dimension(350, 50));
         a.setPreferredSize(new Dimension(350, 50));
-        a.setBorder(customTitledBorder("Alpha"));
-        g.setBorder(customTitledBorder("Green"));
-        b.setBorder(customTitledBorder("Blue"));
-        r.setBorder(customTitledBorder("Red"));
+        a.setBorder(customTitledBorder("Прозрачность"));
+        r.setBorder(customTitledBorder("Красный"));
+        g.setBorder(customTitledBorder("Зелёный"));
+        b.setBorder(customTitledBorder("Голубой"));
         sliders.setLayout(new GridBagLayout());
     }
 
