@@ -4,18 +4,19 @@ import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.api.integration.NEI;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
 import forgefuck.team.xenobyte.gui.swing.ItemChanter;
-import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 
 public class GiveSelect extends CheatModule {
     
@@ -51,25 +52,39 @@ public class GiveSelect extends CheatModule {
     }
     
     @Override public void onPerform(PerformSource src) {
-        switch(src) {
-        case BUTTON:
-            utils.openGui(new GuiInventory(utils.player()));
-            break;
-        case KEY:
+    	if (src == PerformSource.KEY) {
             ItemStack checkItem = NEI.getStackMouseOver();
             if (checkItem != null) {
-                givedItem = checkItem;
-                widgetMessage("выбран " + givedItem.getDisplayName() + " [x" + count + "]", WidgetMode.INFO);
-            } else {
-                if (utils.isInGameGui()) {
-                    ItemStack item = utils.item();
-                    if (item != null && item.hasTagCompound()) {
-                        chanter.loadCustomNBT(item.getTagCompound());
-                    }
-                    chanter.showFrame();
+                widgetMessage("выбран " + (givedItem = checkItem).getDisplayName() + " [x" + count + "]", WidgetMode.INFO);
+            } else if (utils.isInGameGui()) {
+            	NBTTagCompound outTag = new NBTTagCompound();
+            	String outMessage = new String();
+                TileEntity tile = Xeno.utils.tile();
+                Entity entity = Xeno.utils.entity();
+                ItemStack item = Xeno.utils.item();
+                if (item != null) {
+                	if (item.hasTagCompound()) {
+                		outTag = item.getTagCompound();
+                		outMessage = "загружен NBT предмета " + item.getDisplayName();
+                	}
+                } else if (tile != null) {
+                	tile.writeToNBT(outTag);
+                	outMessage = "загружен NBT тайла " + Xeno.utils.formatCoords(tile.xCoord, tile.yCoord, tile.zCoord);
+                } else if (entity != null) {
+                	entity.writeToNBT(outTag);
+                	outMessage = "загружен NBT моба " + entity.getCommandSenderName();
+                }
+                if (!outTag.hasNoTags()) {
+                	widgetMessage(outMessage, WidgetMode.INFO);
+                	chanter.loadCustomNBT(outTag);
+                	chanter.showFrame();
+                } else {
+                	widgetMessage("предмет в руке/блок/моб не содержат NBT", WidgetMode.FAIL);
                 }
             }
-        }
+    	} else {
+    		widgetMessage("для выбора предмета необходимо навести на него и нажать кейбинд", WidgetMode.FAIL);
+    	}
     }
     
     @Override public boolean isWorking() {
@@ -103,7 +118,7 @@ public class GiveSelect extends CheatModule {
                     buttonValue(fillSlots = !fillSlots);
                 }
                 @Override public String elementDesc() {
-                    return "По возможности заполнить все слоты в инвентаре при выдаче предмета";
+                    return "По возможности заполнить все слоты в инвентаре при выдаче";
                 }
             },
             new Button("WithChant", withChant) {
@@ -119,7 +134,7 @@ public class GiveSelect extends CheatModule {
                     chanter.showFrame();
                 }
                 @Override public String elementDesc() {
-                    return "Зачаровыватель/редактор NBT предмета (по кейбинду GiveSelect'a откроется с NBT предмета в руке)";
+                    return "Редактор NBT (по кейбинду GiveSelect'a загрузится NBT предмета в рукe, моба или блока в фокусе)";
                 }
             }
         );
