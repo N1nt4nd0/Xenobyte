@@ -44,10 +44,6 @@ public class WallHack extends CheatModule {
         renderChunks(true);
     }
     
-    @Override public int tickDelay() {
-        return 4;
-    }
-    
     @Override public void onTick(boolean inGame) {
         if (inGame) {
             utils.mc().gameSettings.advancedOpengl = false;

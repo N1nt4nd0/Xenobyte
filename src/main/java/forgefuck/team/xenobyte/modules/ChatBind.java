@@ -20,6 +20,7 @@ public class ChatBind extends CheatModule {
     public ChatBind() {
         super("ChatBind", Category.MISC, PerformMode.SINGLE);
         commands = new ArrayList<String>();
+        commands.add("/home");
     }
     
     @Override public void onPerform(PerformSource src) {
@@ -35,6 +36,9 @@ public class ChatBind extends CheatModule {
             new Button("Commands") {
                 @Override public void onLeftClick() {
                     new UserInput("Команды", commands, InputType.CUSTOM).showFrame();
+                }
+                @Override public String elementDesc() {
+                    return "Список команд";
                 }
             }
         );

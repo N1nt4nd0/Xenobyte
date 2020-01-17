@@ -13,6 +13,7 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging;
 public class VanilaNuker extends CheatModule {
     
     @Cfg("handshake") private boolean handshake;
+    @Cfg("onlyXRay") private boolean onlyXRay;
     @Cfg("onView") private boolean onView;
     @Cfg("radius") private int radius;
     @Cfg("delay") private int delay;
@@ -28,7 +29,7 @@ public class VanilaNuker extends CheatModule {
     
     @Override public void onTick(boolean inGame) {
         if (inGame) {
-            utils.nukerList(onView ? utils.mop() : utils.myCoords(), radius).forEach(pos -> {
+            utils.nukerList(onView ? utils.mop() : utils.myCoords(), radius, onlyXRay ? xraySelector() : null).forEach(pos -> {
                 int x = pos[0];
                 int y = pos[1];
                 int z = pos[2];
@@ -46,7 +47,7 @@ public class VanilaNuker extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Ломание блоков в радиусе (в тике)";
+        return "Вскапывание блоков в радиусе (в тике)";
     }
     
     @Override public Panel settingPanel() {
@@ -70,6 +71,14 @@ public class VanilaNuker extends CheatModule {
                 }
                 @Override public String elementDesc() {
                     return "По взгляду или вокруг игрока";
+                }
+            },
+            new Button("OnlyXRay", onlyXRay) {
+                @Override public void onLeftClick() {
+                    buttonValue(onlyXRay = !onlyXRay);
+                }
+                @Override public String elementDesc() {
+                    return "Вскапывание только XRay блоков";
                 }
             },
             new Button("HandShake", handshake) {

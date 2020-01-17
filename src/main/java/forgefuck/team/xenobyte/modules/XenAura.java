@@ -27,6 +27,7 @@ public class XenAura extends CheatModule {
     @Cfg("criticals") private boolean criticals;
     @Cfg("handshake") private boolean handshake;
     @Cfg("customnpc") private boolean customnpc;
+    @Cfg("villagers") private boolean villagers;
     @Cfg("monsters") private boolean monsters;
     @Cfg("animals") private boolean animals;
     @Cfg("players") private boolean players;
@@ -65,7 +66,7 @@ public class XenAura extends CheatModule {
         if (inGame) {
             utils.nearEntityes(radius)
             .filter(e -> e instanceof EntityLivingBase && !e.isDead)
-            .filter(e -> (players && utils.isPlayer(e) && !friendsList.contains(e.getCommandSenderName())) || (monsters && utils.isMonster(e)) || (animals && utils.isAnimal(e)) || (customnpc && utils.isCustom(e)))
+            .filter(e -> (players && utils.isPlayer(e) && !friendsList.contains(e.getCommandSenderName())) || (monsters && utils.isMonster(e)) || (animals && utils.isAnimal(e)) || (customnpc && utils.isCustom(e)) || (villagers && utils.isVillager(e)))
             .filter(e -> ignoreWalls ? true : utils.player().canEntityBeSeen(e))
             .filter(e -> pointed ? e == utils.pointedEntity() : true)
             .forEach(this::attack);
@@ -156,6 +157,14 @@ public class XenAura extends CheatModule {
                 }
                 @Override public String elementDesc() {
                     return "Урон по монстрам";
+                }
+            },
+            new Button("Villagers", villagers) {
+                @Override public void onLeftClick() {
+                    buttonValue(villagers = !villagers);
+                }
+                @Override public String elementDesc() {
+                    return "Урон по жителям";
                 }
             },
             new Button("CustomNPC", customnpc) {

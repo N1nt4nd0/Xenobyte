@@ -34,8 +34,8 @@ public class EventHelper {
     }
     
     private static void registerBus(EventBus bus, Object target) {
-        ConcurrentHashMap<Object, ArrayList<IEventListener>> listeners = ReflectionHelper.getPrivateValue(EventBus.class, bus, 1);
-        Map<Object,ModContainer> listenerOwners = ReflectionHelper.getPrivateValue(EventBus.class, bus, 2);
+    	ConcurrentHashMap<Object, ArrayList<IEventListener>> listeners = ReflectionHelper.getPrivateValue(EventBus.class, bus, 1);
+		Map<Object,ModContainer> listenerOwners = ReflectionHelper.getPrivateValue(EventBus.class, bus, 2);
         if (!listeners.containsKey(target)) {
             ModContainer activeModContainer =  Loader.instance().getMinecraftModContainer();
             listenerOwners.put(target, activeModContainer);

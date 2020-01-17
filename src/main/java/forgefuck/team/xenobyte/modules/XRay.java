@@ -26,7 +26,6 @@ public class XRay extends CheatModule {
     @Cfg("radius") private int radius;
     @Cfg("height") private int height;
     private List<XRayBlock> blocks;
-    private XRaySelect selector;
     
     public XRay() {
         super("XRay", Category.WORLD, PerformMode.TOGGLE);
@@ -48,7 +47,7 @@ public class XRay extends CheatModule {
                             continue;
                         }
                         int meta = world.getBlockMetadata(x, y, z);
-                        SelectedBlock selected = selector.getBlock(block, selector.resetMetaFor(block, meta));
+                        SelectedBlock selected = xraySelector().getBlock(block, xraySelector().resetMetaFor(block, meta));
                         if (selected != null) {
                             out.add(new XRayBlock(selected, x, y, z));
                         }
@@ -58,10 +57,6 @@ public class XRay extends CheatModule {
             blocks.clear();
             blocks.addAll(out);
         }).start();
-    }
-
-    @Override public void onHandlerInit() {
-        selector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
     }
     
     @Override public int tickDelay() {

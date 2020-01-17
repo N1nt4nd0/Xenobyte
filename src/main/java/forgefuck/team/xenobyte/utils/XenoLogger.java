@@ -9,12 +9,8 @@ public class XenoLogger {
     
     private static Logger log = LogManager.getLogger(Xeno.mod_name);
     
-    public static void info(Object message) {
-        getLogger().info(message);
-    }
-    
     public static Logger getLogger() {
-        return log;
+    	return log;
     }
 
 }

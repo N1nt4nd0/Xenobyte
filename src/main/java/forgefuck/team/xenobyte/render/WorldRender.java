@@ -90,6 +90,59 @@ public class WorldRender {
         GL11.glPopMatrix();
     }
     
+    public void drawOutlinedEspBlock(double x, double y, double z, float r, float g, float b, float a, float scale) {
+        double pX = RenderManager.renderPosX;
+        double pY = RenderManager.renderPosY;
+        double pZ = RenderManager.renderPosZ;
+        float tr = (1 - scale) / 2;
+        GL11.glPushMatrix();
+        GL11.glTranslated(-pX, -pY, -pZ);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glColor4f(r, g, b, a);
+        GL11.glTranslated(x, y, z);
+        GL11.glDepthMask(false);
+        GL11.glPushMatrix();
+        GL11.glTranslatef(tr, tr, tr);
+        GL11.glScalef(scale, scale, scale);
+        GL11.glBegin(GL11.GL_LINES);
+        GL11.glVertex3f(0, 0, 0);
+        GL11.glVertex3f(1, 0, 0);
+        GL11.glVertex3f(0, 0, 0);
+        GL11.glVertex3f(0, 1, 0);
+        GL11.glVertex3f(0, 0, 0);
+        GL11.glVertex3f(0, 0, 1);
+        GL11.glVertex3f(0, 1, 1);
+        GL11.glVertex3f(1, 1, 1);
+        GL11.glVertex3f(0, 1, 1);
+        GL11.glVertex3f(0, 0, 1);
+        GL11.glVertex3f(0, 1, 1);
+        GL11.glVertex3f(0, 1, 0);
+        GL11.glVertex3f(1, 0, 1);
+        GL11.glVertex3f(0, 0, 1);
+        GL11.glVertex3f(1, 0, 1);
+        GL11.glVertex3f(1, 1, 1);
+        GL11.glVertex3f(1, 0, 1);
+        GL11.glVertex3f(1, 0, 0);
+        GL11.glVertex3f(1, 1, 0);
+        GL11.glVertex3f(0, 1, 0);
+        GL11.glVertex3f(1, 1, 0);
+        GL11.glVertex3f(1, 0, 0);
+        GL11.glVertex3f(1, 1, 0);
+        GL11.glVertex3f(1, 1, 1);
+        GL11.glEnd();
+        GL11.glPopMatrix();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDepthMask(true);
+        GL11.glPopMatrix();
+    }
+    
     public void drawWayLine(List<double[]> poses, float r, float g, float b, float a) {
         double pX = RenderManager.renderPosX;
         double pY = RenderManager.renderPosY;

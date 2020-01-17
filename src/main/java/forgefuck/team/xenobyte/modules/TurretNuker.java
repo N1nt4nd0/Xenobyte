@@ -13,6 +13,7 @@ import net.minecraftforge.client.event.MouseEvent;
 
 public class TurretNuker extends CheatModule {
     
+	@Cfg("onlyXRay") private boolean onlyXRay;
     @Cfg("onView") private boolean onView;
     @Cfg("radius") private int radius;
     
@@ -23,7 +24,7 @@ public class TurretNuker extends CheatModule {
     
     @SubscribeEvent public void mouseEvent(MouseEvent e) {
         if (e.button == 0 && e.buttonstate) {
-            utils.nukerList(onView ? utils.mop() : utils.myCoords(), radius).forEach(pos -> {
+            utils.nukerList(onView ? utils.mop() : utils.myCoords(), radius, onlyXRay ? xraySelector() : null).forEach(pos -> {
                 utils.sendPacket("openmodularturrets", (byte) 9, pos[0], pos[1], pos[2]);
             });
             e.setCanceled(true);
@@ -50,7 +51,15 @@ public class TurretNuker extends CheatModule {
                     buttonValue(onView = !onView);
                 }
                 @Override public String elementDesc() {
-                    return "Разрушение блоков по взгляду или вокруг игрока";
+                    return "По взгляду или вокруг игрока";
+                }
+            },
+            new Button("OnlyXRay", onlyXRay) {
+                @Override public void onLeftClick() {
+                    buttonValue(onlyXRay = !onlyXRay);
+                }
+                @Override public String elementDesc() {
+                    return "Разрушение только XRay блоков";
                 }
             }
         );

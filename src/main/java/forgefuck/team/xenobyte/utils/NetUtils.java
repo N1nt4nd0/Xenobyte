@@ -9,7 +9,18 @@ import java.net.URLConnection;
 
 import javax.imageio.ImageIO;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
 public class NetUtils {
+	
+    public static JsonObject getServerInfo(String ip) {
+    	try {
+    		return new GsonBuilder().create().fromJson(getContent("https://api.mcsrvstat.us/1/" + ip), JsonObject.class);
+    	} catch(Exception e) {
+    		return new JsonObject();
+    	}
+    }
     
     public static InputStream getInputStream(String address) {
         return getInputStream(address, 5);
@@ -34,7 +45,7 @@ public class NetUtils {
         } catch (Exception e) {
             return null;
         }
-    };
+    }
     
     public static String getContent(String address) {
         try {
@@ -47,7 +58,7 @@ public class NetUtils {
             in.close();
             return response.toString();
         } catch (Exception e) {
-            return null;
+            return new String();
         }
     }
 

@@ -10,7 +10,7 @@ public class Keys {
     
     private static final boolean[] pressed = new boolean[256];
     
-    public static boolean isPressed(int key) {
+    private static boolean isPressed(int key) {
         return isKeyDown(key) != pressed[key] && (pressed[key] = !pressed[key]);
     }
     

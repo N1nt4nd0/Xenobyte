@@ -17,7 +17,7 @@ public class ClientSpeed extends CheatModule {
     
     public ClientSpeed() {
         super("ClientSpeed", Category.PLAYER, PerformMode.TOGGLE);
-        tickRate = 1;
+        tickRate = 5;
     }
     
     @Override public void onPostInit() {

@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -15,10 +14,10 @@ import javax.swing.JSlider;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.ColorPicker;
 import forgefuck.team.xenobyte.api.integration.NEI;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.swing.ColorPickerGui;
@@ -71,11 +70,7 @@ public class XRaySelect extends CheatModule {
     }
     
     private SelectedBlock getBlock(Predicate<SelectedBlock> predicate) {
-        Optional<SelectedBlock> optional = blocks.stream().filter(predicate).findFirst();
-        if (optional.isPresent()) {
-            return optional.get();
-        }
-        return null;
+        return blocks.stream().filter(predicate).findFirst().orElse(null);
     }
     
     public int resetMetaFor(Block block, int meta) {
@@ -166,7 +161,7 @@ public class XRaySelect extends CheatModule {
             this.block = block;
             s = new JSlider(0, 100);
             s.setPreferredSize(new Dimension(350, 50));
-            s.setBorder(customTitledBorder("Scale"));
+            s.setBorder(customTitledBorder("Размер"));
             s.setValue((int)(block.scale * 100));
             s.addChangeListener((e) -> {
                 block.scale = (float) s.getValue() / 100;
@@ -192,7 +187,6 @@ public class XRaySelect extends CheatModule {
             updateNEI();
             dispose();
         }
-
     }
     
     public class SelectedBlock extends ColorPicker {
