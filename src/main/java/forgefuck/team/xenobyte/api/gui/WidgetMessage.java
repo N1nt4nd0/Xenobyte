@@ -7,18 +7,18 @@ public class WidgetMessage {
     
     private CheatModule module;
     private WidgetMode mode;
-    private String text;
+    private Object mess;
     
-    public WidgetMessage(CheatModule module, String text) {
-        this(module, text, WidgetMode.INFO);
+    public WidgetMessage(CheatModule module, Object mess) {
+        this(module, mess, WidgetMode.INFO);
     }
     
-    public WidgetMessage(String text, WidgetMode mode) {
-        this(null, text, mode);
+    public WidgetMessage(Object mess, WidgetMode mode) {
+        this(null, mess, mode);
     }
     
-    public WidgetMessage(CheatModule module, String text, WidgetMode mode) {
-        this.text = module != null ? module + " " + text : text;
+    public WidgetMessage(CheatModule module, Object mess, WidgetMode mode) {
+        this.mess = module != null ? module + " " + mess : mess;
         this.module = module;
         this.mode = mode;
     }
@@ -32,7 +32,7 @@ public class WidgetMessage {
     }
 
     public String getMessage() {
-        return text;
+        return new String() + mess;
     }
     
     public WidgetMode getMode() {
@@ -40,7 +40,7 @@ public class WidgetMessage {
     }
     
     @Override public String toString() {
-        return Xeno.utils.nullHelper(getMessage());
+        return getMessage();
     } 
 
 }
