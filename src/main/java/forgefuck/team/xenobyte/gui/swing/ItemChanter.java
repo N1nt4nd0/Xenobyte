@@ -1,12 +1,12 @@
 package forgefuck.team.xenobyte.gui.swing;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -17,8 +17,6 @@ import javax.swing.border.TitledBorder;
 
 import org.apache.commons.lang3.StringUtils;
 
-import forgefuck.team.xenobyte.api.Xeno;
-import forgefuck.team.xenobyte.render.Images;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.nbt.JsonToNBT;
@@ -31,15 +29,17 @@ import net.minecraft.potion.Potion;
 public class ItemChanter extends XenoJFrame implements KeyListener {
     
     private JTextField nameField, loreField, effDurationField, effAmpliferField, enchLevelField, logField;
-    private JToolBar enchBar, effBar, inputBar, nbtBar;
-    private JButton color, addEnch, addEff, ffGift;
+    private JToolBar enchBar, effBar, inputBar, jsonBar;
     private NBTTagCompound editableNBT, outNBT;
+    private JButton addEnch, addEff, ffGift;
     private JComboBox effectBox, enchBox;
     private JRadioButton onItem, onBook;
     private JScrollPane nbtScrollPane;
+    private JCheckBox keepName, onTop;
     private ButtonGroup radioGroup;
+    private ColorPickBar colorBar;
     private JTextArea nbtArea;
-    private String separator;
+    private String sep;
     
     public ItemChanter() {
         super("Чантер", DISPOSE_ON_CLOSE);
@@ -48,15 +48,18 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     
     @Override public void createObjects() {
         nbtScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        keepName = new JCheckBox("Keep names");
         onItem = new JRadioButton("Предмет");
         effDurationField = new JTextField();
         effAmpliferField = new JTextField();
+        editableNBT = new NBTTagCompound();
         onBook = new JRadioButton("Книга");
-        enchLevelField = new JTextField();
         addEnch = new JButton("Добавить");
-        color = new JButton("Цвето-код");
+        colorBar = new ColorPickBar(this);
+        enchLevelField = new JTextField();
         addEff = new JButton("Добавить");
         nbtArea = new JTextArea(12, 40);
+        onTop = new JCheckBox("On top");
         ffGift = new JButton("FF-Gift");
         radioGroup = new ButtonGroup();
         outNBT = new NBTTagCompound();
@@ -67,26 +70,33 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         enchBox = new JComboBox();
         inputBar = new JToolBar();
         enchBar = new JToolBar();
-        nbtBar = new JToolBar();
+        jsonBar = new JToolBar();
         effBar = new JToolBar();
-        separator = " - ";
+        sep = " - ";
     }
     
     @Override public void configurate() {
         loreField.setBorder(customTitledBorder("Описания (через запятую)", TitledBorder.CENTER));
-        enchLevelField.setBorder(customTitledBorder("LvL зачарования", TitledBorder.CENTER));
         effDurationField.setBorder(customTitledBorder("Время эффекта", TitledBorder.CENTER));
+        enchLevelField.setBorder(customTitledBorder("LvL зачарования", TitledBorder.CENTER));
         effAmpliferField.setBorder(customTitledBorder("Сила эффекта", TitledBorder.CENTER));
         nameField.setBorder(customTitledBorder("Имя", TitledBorder.CENTER));
         enchBar.setBorder(customTitledBorder("Зачарование предмета"));
-        nbtBar.setBorder(customTitledBorder("NBT Json Editor"));
-        effBar.setBorder(customTitledBorder("Эффеект зелья"));
+        keepName.setToolTipText("Не сбрасывать имена (display tag)");
+        jsonBar.setBorder(customTitledBorder("NBT Json Editor"));
+        effBar.setBorder(customTitledBorder("Эффект зелья"));
         logField.setBorder(customTitledBorder("Инфо"));
         ffGift.setToolTipText("Имбовая зелька");
         nbtScrollPane.setViewportView(nbtArea);
+        onTop.addActionListener(e -> {
+        	setAlwaysOnTop(onTop.isSelected());
+        });
         effAmpliferField.addKeyListener(this);
         effDurationField.addKeyListener(this);
         enchLevelField.addKeyListener(this);
+        onTop.setToolTipText("Поверх окон");
+        colorBar.addTextField(nameField);
+        colorBar.addTextField(loreField);
         effectBox.setIgnoreRepaint(true);
         addEnch.addActionListener(this);
         enchBox.setIgnoreRepaint(true);
@@ -94,19 +104,20 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         nbtArea.setWrapStyleWord(true);
         nameField.addKeyListener(this);
         loreField.addKeyListener(this);
-        ffGift.addActionListener(this);
         effAmpliferField.setFont(FONT);
         effDurationField.setFont(FONT);
-        color.addActionListener(this);
+        ffGift.addActionListener(this);
+        onTop.addActionListener(this);
         enchLevelField.setFont(FONT);
         nbtArea.addKeyListener(this);
         inputBar.setFloatable(false);
         effectBox.setEditable(false);
         enchBar.setFloatable(false);
         logField.setEditable(false);
+        jsonBar.setFloatable(false);
         enchBox.setEditable(false);
         effBar.setFloatable(false);
-        nbtBar.setFloatable(false);
+        keepName.setSelected(true);
         nbtArea.setLineWrap(true);
         effectBox.setFont(FONT);
         nameField.setFont(FONT);
@@ -115,20 +126,15 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         nbtArea.setFont(FONT);
         enchBox.setFont(FONT);
         ffGift.setFont(FONT);
-        color.setFont(FONT);
     }
     
     @Override public void addElements() {
         inputBar.add(effAmpliferField);
         inputBar.add(effDurationField);
         inputBar.add(enchLevelField);
-        nbtBar.add(nbtScrollPane);
+        jsonBar.add(nbtScrollPane);
         radioGroup.add(onItem);
         radioGroup.add(onBook);
-        buttonsBar.add(accept);
-        buttonsBar.add(clear);
-        buttonsBar.add(color);
-        buttonsBar.add(ffGift);
         effBar.add(effectBox);
         effBar.addSeparator();
         effBar.add(addEff);
@@ -136,12 +142,17 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         enchBar.add(onItem);
         enchBar.add(onBook);
         enchBar.add(addEnch);
+        buttonsBar.add(ffGift);
+    	buttonsBar.add(clear);
+    	buttonsBar.add(keepName);
+    	buttonsBar.add(onTop);
         add(nameField);
         add(loreField);
+        add(colorBar);
         add(inputBar);
         add(enchBar);
         add(effBar);
-        add(nbtBar);
+        add(jsonBar);
         add(logField);
         add(buttonsBar);
     }
@@ -149,13 +160,21 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     @Override public void fillData() {
         for (Enchantment ench : Enchantment.enchantmentsList) {
             if (ench != null) {
-                enchBox.addItem(ench.effectId + separator + I18n.format(ench.getName()) + " (" + ench.type.name() + ")");
+                enchBox.addItem(ench.effectId + sep + I18n.format(ench.getName()) + " (" + ench.type.name() + ")");
             }
         }
         for (Potion potion : Potion.potionTypes) {
             if (potion != null) {
-                effectBox.addItem(potion.id + separator + I18n.format(potion.getName()));
+                effectBox.addItem(potion.id + sep + I18n.format(potion.getName()));
             }
+        }
+    }
+    
+    public void save() {
+        if (checkInputs()) {
+            try {
+				outNBT = (NBTTagCompound) JsonToNBT.func_150315_a(nbtArea.getText());
+			} catch (Exception e) {}
         }
     }
     
@@ -177,7 +196,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     }
     
     private String getChantID(JComboBox box) {
-        return StringUtils.substringBefore(box.getSelectedItem().toString(), separator);
+        return StringUtils.substringBefore(box.getSelectedItem().toString(), sep);
     }
     
     private void addChantNBT(String key, NBTTagCompound tag) {
@@ -206,7 +225,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         return display;
     }
     
-    private void processDisplayNBT() {
+    public void processDisplayNBT() {
         String name = nameField.getText();
         String lore = loreField.getText();
         if (name.isEmpty() && lore.isEmpty()) {
@@ -214,7 +233,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         } else {
             NBTTagCompound displayTag = new NBTTagCompound();
             if (!name.isEmpty()) {
-                displayTag.setString("Name", name);
+                displayTag.setString("Name", "§r" + name);
             }
             if (!lore.isEmpty()) {
                 NBTTagList loreList = new NBTTagList();
@@ -228,41 +247,42 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         updateNBTArea();
     }
     
-    private boolean checkInputs() {
-        boolean cheked = true;
+    public boolean checkInputs() {
+    	Exception ex = null;
         try {
             Short.parseShort(enchLevelField.getText());
             enchLevelField.setBackground(WHITE);
         } catch (NumberFormatException e) {
             enchLevelField.setBackground(FAIL);
-            cheked = false;
+            ex = e;
         }
         try {
             Byte.parseByte(effAmpliferField.getText());
             effAmpliferField.setBackground(WHITE);
         } catch (NumberFormatException e) {
             effAmpliferField.setBackground(FAIL);
-            cheked = false;
+            ex = e;
         }
         try {
             Integer.parseInt(effDurationField.getText());
             effDurationField.setBackground(WHITE);
         } catch (NumberFormatException e) {
             effDurationField.setBackground(FAIL);
-            cheked = false;
+            ex = e;
         }
         try { 
             JsonToNBT.func_150315_a(nbtArea.getText());
             nbtArea.setBackground(WHITE);
         } catch (NBTException e) {
             nbtArea.setBackground(FAIL);
-            info(e.getMessage());
-            cheked = false;
+            ex = e;
         }
-        if (cheked) {
-            clearInfo();
+        if (ex != null) {
+        	info(ex.getMessage());
+        	return false;
         }
-        return cheked;
+        clearInfo();
+        return true;
     }
     
     public void loadCustomNBT(NBTTagCompound in) {
@@ -270,7 +290,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         nameField.setText(display[0]);
         loreField.setText(display[1]);
         updateNBTArea();
-        checkInputs();
+        save();
     }
     
     public void loadCustomNBT(String json) {
@@ -278,56 +298,49 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
             loadCustomNBT((NBTTagCompound) JsonToNBT.func_150315_a(json));
         } catch (NBTException e) {
             loadCustomNBT(new NBTTagCompound());
-            info("Ошибка Json: "+ e.getMessage());
+            info("Json exception: "+ e.getMessage());
         }
     }
     
     public void loadDefaults() {
+        nameField.setText(keepName.isSelected() ? nameField.getText() : "");
+        loreField.setText(keepName.isSelected() ? loreField.getText() : "");
         effDurationField.setText(String.valueOf(Integer.MAX_VALUE));
         effAmpliferField.setText(String.valueOf(Byte.MAX_VALUE));
         enchLevelField.setText(String.valueOf(Short.MAX_VALUE));
-        nameField.setText(nameField.getText());
-        loreField.setText(loreField.getText());
         editableNBT = new NBTTagCompound();
         onItem.setSelected(true);
         processDisplayNBT();
-        checkInputs();
+        save();
     }
 
     @Override public void actionPerformed(ActionEvent e) {
-        Object button = e.getSource();
-        if (button == accept) {
-            if (checkInputs()) {
-                try { 
-                    outNBT = (NBTTagCompound) JsonToNBT.func_150315_a(nbtArea.getText());
-                    dispose();
-                } catch (NBTException ex) {}
-            }
-        } else if (button == clear) {
+        Object src = e.getSource();
+        if (src == clear) {
             loadDefaults();
-        } else if (button == color) {
-            Xeno.utils.clipboardMessage("§");
-            info("Символ \"§\" скопирован в буфер обмена");
-        } else if (button == addEnch) {
+            return;
+        } else if (src == addEnch) {
             if (checkInputs()) {
                 NBTTagCompound tag = new NBTTagCompound();
                 tag.setShort("id", Short.parseShort(getChantID(enchBox)));
                 tag.setShort("lvl", Short.parseShort(enchLevelField.getText()));
                 addChantNBT(onItem.isSelected() ? "ench" : "StoredEnchantments", tag);
+                updateNBTArea();
             }
-            updateNBTArea();
-        } else if (button == addEff) {
+        } else if (src == addEff) {
             if (checkInputs()) {
                 NBTTagCompound tag = new NBTTagCompound();
                 tag.setByte("Id", Byte.parseByte(getChantID(effectBox)));
                 tag.setByte("Amplifier", Byte.parseByte(effAmpliferField.getText()));
                 tag.setInteger("Duration", Integer.parseInt(effDurationField.getText()));
                 addChantNBT("CustomPotionEffects", tag);
+                updateNBTArea();
             }
-            updateNBTArea();
-        } else if (button == ffGift) {
+        } else if (src == ffGift) {
             loadCustomNBT("{CustomPotionEffects:[0:{Duration:2147483647,Id:5b,Amplifier:127b},1:{Duration:2147483647,Id:6b,Amplifier:127b},2:{Duration:2147483647,Id:11b,Amplifier:127b},3:{Duration:2147483647,Id:12b,Amplifier:127b},4:{Duration:2147483647,Id:13b,Amplifier:127b},5:{Duration:2147483647,Id:23b,Amplifier:127b},6:{Duration:2147483647,Id:10b,Amplifier:127b}],display:{Lore:[0:Не подписался - без чита остался],Name:§4By FF-Team ( §3vk.com/forgefuck§4 )}}");
+            return;
         }
+        save();
     }
     
     @Override public void keyReleased(KeyEvent e) {
@@ -335,7 +348,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         if (field == nameField || field == loreField) {
             processDisplayNBT();
         }
-        checkInputs();
+        save();
     }
 
     @Override public void keyPressed(KeyEvent e) {}
