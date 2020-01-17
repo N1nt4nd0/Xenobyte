@@ -27,8 +27,11 @@ public class ScreenProtect extends CheatModule {
     public ScreenProtect() {
         super("ScreenProtect", Category.MISC, PerformMode.TOGGLE);
         channels = new ArrayList<String>();
+        channels.add("ScreenMod");
         channels.add("screener");
+        channels.add("scr_mcs");
         channels.add("nGuard");
+        channels.add("scrs");
         isReady = true;
         delay = 2;
     }
