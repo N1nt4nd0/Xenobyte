@@ -16,6 +16,7 @@ public class RenderControl extends CheatModule {
     
     public RenderControl() {
         super("RenderControl", Category.WORLD, PerformMode.TOGGLE);
+        living = true;
     }
 
     @SubscribeEvent public void worldRender(RenderLivingEvent.Pre e) {
@@ -25,7 +26,7 @@ public class RenderControl extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Откоючение рендера объектов в мире";
+        return "Включение рендера объектов в мире";
     }
     
     @Override public Panel settingPanel() {
