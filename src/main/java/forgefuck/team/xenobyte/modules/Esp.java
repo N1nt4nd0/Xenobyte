@@ -14,12 +14,15 @@ import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class Esp extends CheatModule {
     
     @Cfg("bindLines") private boolean bindLines;
+    @Cfg("villagers") private boolean villagers;
+    @Cfg("minecarts") private boolean minecarts;
+    @Cfg("customnpc") private boolean customnpc;
     @Cfg("monsters") private boolean monsters;
     @Cfg("players") private boolean players;
     @Cfg("animals") private boolean animals;
@@ -53,19 +56,25 @@ public class Esp extends CheatModule {
                     out.add(new EspObject(e, 1, 0, 0));
                 } else if (animals && utils.isAnimal(e)) {
                     out.add(new EspObject(e, 0, 1, 0));
-                } else if (drop && e instanceof EntityItem) {
+                } else if (drop && utils.isDrop(e)) {
                     out.add(new EspObject(e, 1, 1, 0));
+                } else if (villagers && utils.isVillager(e)) {
+                	out.add(new EspObject(e, 0, 1, 1));
+                } else if (customnpc && utils.isCustom(e)) {
+                	out.add(new EspObject(e, 0, 0, 1));
+                } else if (minecarts && e instanceof EntityMinecart) {
+                	out.add(new EspObject(e, 1, 1, 1));
                 }
             });
-            objects.clear();
-            objects.addAll(out);
-            utils.mc().gameSettings.viewBobbing =  !lines || !bindLines || objects.isEmpty();
+            objects = out;
+            utils.mc().gameSettings.viewBobbing = !lines || !bindLines || objects.isEmpty();
         }
     }
     
     @Override public void onDisabled() {
         utils.mc().gameSettings.viewBobbing = true;
         startLines = new double[3];
+        objects.clear();
     }
     
     @SubscribeEvent public void worldRender(RenderWorldLastEvent e) {
@@ -118,6 +127,22 @@ public class Esp extends CheatModule {
                     return "Отображать животных";
                 }
             },
+            new Button("Villagers", villagers) {
+                @Override public void onLeftClick() {
+                    buttonValue(villagers = !villagers);
+                }
+                @Override public String elementDesc() {
+                    return "Отображать жителей";
+                }
+            },
+            new Button("CustomNPC", customnpc) {
+                @Override public void onLeftClick() {
+                    buttonValue(customnpc = !customnpc);
+                }
+                @Override public String elementDesc() {
+                    return "Отображать неписей";
+                }
+            },
             new Button("Players", players) {
                 @Override public void onLeftClick() {
                     buttonValue(players = !players);
@@ -132,6 +157,14 @@ public class Esp extends CheatModule {
                 }
                 @Override public String elementDesc() {
                     return "Отображать выброшенные предметов";
+                }
+            },
+            new Button("Minecarts", minecarts) {
+                @Override public void onLeftClick() {
+                    buttonValue(minecarts = !minecarts);
+                }
+                @Override public String elementDesc() {
+                    return "Отображать вагонетки";
                 }
             },
             new ScrollSlider("Radius", radius, 200) {
