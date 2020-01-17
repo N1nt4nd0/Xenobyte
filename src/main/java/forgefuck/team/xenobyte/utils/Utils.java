@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.JOptionPane;
@@ -22,6 +23,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.modules.GiveSelect;
+import forgefuck.team.xenobyte.modules.XRaySelect;
 import gnu.trove.map.hash.TByteObjectHashMap;
 import gnu.trove.map.hash.TObjectByteHashMap;
 import io.netty.buffer.ByteBuf;
@@ -41,11 +43,13 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAmbientCreature;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -90,8 +94,8 @@ public class Utils {
         return new int[] { curTile.xCoord, curTile.yCoord, curTile.zCoord };
     }
     
-    public String formatCoords(int [] crd) {
-        return crd[0] + ", " + crd[1] + ", " + crd[2];
+    public String formatCoords(int ... crd) {
+    	return String.format("[%s, %s, %s]", crd[0], crd[1], crd[2]);
     }
     
     public EntityPlayer player(String nick) {
@@ -161,7 +165,7 @@ public class Utils {
         NBTBase base = null;
         try { base = JsonToNBT.func_150315_a(json);
         } catch (NBTException err) {
-            XenoLogger.info(err.getMessage());
+        	XenoLogger.getLogger().error(err.getMessage());
         }
         return (NBTTagCompound) base;
     }
@@ -221,6 +225,10 @@ public class Utils {
     
     public void setHardness(int hardness) {
         setHardness(block(), hardness);
+    }
+    
+    public int blockMeta() {
+        return blockMeta(mop());
     }
     
     public int blockMeta(int[] mop) {
@@ -437,6 +445,10 @@ public class Utils {
         return "[" + entity.getCommandSenderName() + ": UUID(" + uuid(entity) + "), ID("+ id(entity) + ")]";
     }
     
+    public List<String> tabList() {
+    	return ((List<GuiPlayerInfo>) player().sendQueue.playerInfoList).stream().map(r -> r.name).collect(Collectors.toList());
+    }
+    
     public List<TileEntity> nearTiles() {
         List<TileEntity> out = new ArrayList<TileEntity>();
         IChunkProvider chunkProvider = world().getChunkProvider();
@@ -526,32 +538,28 @@ public class Utils {
         return e instanceof EntityPlayer;
     }
     
+    public boolean isVillager(Entity e) {
+    	return e instanceof EntityVillager;
+    }
+    
     public boolean isMonster(Entity e) {
-        return e instanceof EntityMob || e instanceof IMob;
+    	return e instanceof EntityMob || e instanceof IMob;
+    }
+    
+    public boolean isDrop(Entity e) {
+        return e instanceof EntityItem;
     }
     
     public boolean isAnimal(Entity e) {
-        return e instanceof EntityAnimal || e instanceof EntityAmbientCreature || e instanceof EntityWaterMob || e instanceof EntityGolem;
+    	return e instanceof EntityAnimal || e instanceof EntityAmbientCreature || e instanceof EntityWaterMob || e instanceof EntityGolem;
     }
     
     public boolean isCustom(Entity e) {
-        try {
-            return Class.forName("noppes.npcs.entity.EntityNPCInterface").isInstance(e);
-        } catch(Exception ex) {
-            return false;
-        }
-    }
-    
-    private double boxHeight;
-    public void verticalTeleport(int yPos, boolean sound) {
-        if (boxHeight == 0) {
-            boxHeight = player().boundingBox.maxY - player().boundingBox.minY; 
-        }
-        player().boundingBox.minY = yPos;
-        player().boundingBox.maxY = yPos + boxHeight;
-        if (sound) {
-            playSound("mob.endermen.portal", 1);
-        }
+    	try {
+    		return Class.forName("noppes.npcs.entity.EntityNPCInterface").isInstance(e);
+    	} catch(Exception ex) {
+    		return false;
+    	}
     }
     
     private double lastCoord = Double.MAX_VALUE;
@@ -580,7 +588,7 @@ public class Utils {
         return root;
     }
     
-    public List<int[]> nukerList(int[] c, int r) {
+    public List<int[]> nukerList(int[] c, int r, XRaySelect selector) {
         r --;
         List<int[]> list = new ArrayList<int[]>();
         for (int i = r; i >= -r; i--) {
@@ -590,7 +598,8 @@ public class Utils {
                     int y = c[1] + j;
                     int z = c[2] + k;
                     Block block = block(x, y, z);
-                    if (block instanceof BlockAir) {
+                    int meta = blockMeta(x, y, z);
+                    if (selector != null ? selector.getBlock(block, meta) == null : block instanceof BlockAir) {
                         continue;
                     }
                     list.add(new int[] { x, y, z });
@@ -637,6 +646,32 @@ public class Utils {
     
     public void openGui(GuiScreen gui) {
         openGui(gui, false);
+    }
+    
+    private double boxHeight;
+    public void verticalTeleport(int yPos, boolean sound) {
+        if (boxHeight == 0) {
+            boxHeight = player().boundingBox.maxY - player().boundingBox.minY; 
+        }
+        player().boundingBox.minY = yPos;
+        player().boundingBox.maxY = yPos + boxHeight;
+        if (sound) {
+            playSound("mob.endermen.portal", 1);
+        }
+    }
+
+    private double boxWidth;
+    public void horizontalTeleport(int xPos, int zPos, boolean sound) {
+        if (boxWidth == 0) {
+            boxWidth = player().boundingBox.maxX - player().boundingBox.minX; 
+        }
+        player().boundingBox.minX = xPos;
+        player().boundingBox.maxX = xPos + boxWidth;
+        player().boundingBox.minZ = zPos;
+        player().boundingBox.maxZ = zPos + boxWidth;
+        if (sound) {
+            playSound("mob.endermen.portal", 1);
+        }
     }
     
     public void openGui(GuiScreen gui, boolean silent) {
