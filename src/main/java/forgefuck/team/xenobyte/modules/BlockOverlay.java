@@ -10,8 +10,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class BlockOverlay extends CheatModule {
-	
-	public BlockOverlay() {
+    
+    public BlockOverlay() {
         super("BlockOverlay", Category.WORLD, PerformMode.TOGGLE);
     }
 

@@ -52,39 +52,39 @@ public class GiveSelect extends CheatModule {
     }
     
     @Override public void onPerform(PerformSource src) {
-    	if (src == PerformSource.KEY) {
+        if (src == PerformSource.KEY) {
             ItemStack checkItem = NEI.getStackMouseOver();
             if (checkItem != null) {
                 widgetMessage("выбран " + (givedItem = checkItem).getDisplayName() + " [x" + count + "]", WidgetMode.INFO);
             } else if (utils.isInGameGui()) {
-            	NBTTagCompound outTag = new NBTTagCompound();
-            	String outMessage = new String();
+                NBTTagCompound outTag = new NBTTagCompound();
+                String outMessage = new String();
                 TileEntity tile = Xeno.utils.tile();
                 Entity entity = Xeno.utils.entity();
                 ItemStack item = Xeno.utils.item();
                 if (item != null) {
-                	if (item.hasTagCompound()) {
-                		outTag = item.getTagCompound();
-                		outMessage = "загружен NBT предмета " + item.getDisplayName();
-                	}
+                    if (item.hasTagCompound()) {
+                        outTag = item.getTagCompound();
+                        outMessage = "загружен NBT предмета " + item.getDisplayName();
+                    }
                 } else if (tile != null) {
-                	tile.writeToNBT(outTag);
-                	outMessage = "загружен NBT тайла " + Xeno.utils.formatCoords(tile.xCoord, tile.yCoord, tile.zCoord);
+                    tile.writeToNBT(outTag);
+                    outMessage = "загружен NBT тайла " + Xeno.utils.formatCoords(tile.xCoord, tile.yCoord, tile.zCoord);
                 } else if (entity != null) {
-                	entity.writeToNBT(outTag);
-                	outMessage = "загружен NBT моба " + entity.getCommandSenderName();
+                    entity.writeToNBT(outTag);
+                    outMessage = "загружен NBT моба " + entity.getCommandSenderName();
                 }
                 if (!outTag.hasNoTags()) {
-                	widgetMessage(outMessage, WidgetMode.INFO);
-                	chanter.loadCustomNBT(outTag);
-                	chanter.showFrame();
+                    widgetMessage(outMessage, WidgetMode.INFO);
+                    chanter.loadCustomNBT(outTag);
+                    chanter.showFrame();
                 } else {
-                	widgetMessage("предмет в руке/блок/моб не содержат NBT", WidgetMode.FAIL);
+                    widgetMessage("предмет в руке/блок/моб не содержат NBT", WidgetMode.FAIL);
                 }
             }
-    	} else {
-    		widgetMessage("для выбора предмета необходимо навести на него и нажать кейбинд", WidgetMode.FAIL);
-    	}
+        } else {
+            widgetMessage("для выбора предмета необходимо навести на него и нажать кейбинд", WidgetMode.FAIL);
+        }
     }
     
     @Override public boolean isWorking() {

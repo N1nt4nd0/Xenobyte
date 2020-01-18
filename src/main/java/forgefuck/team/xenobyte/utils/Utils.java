@@ -95,7 +95,7 @@ public class Utils {
     }
     
     public String formatCoords(int ... crd) {
-    	return String.format("[%s, %s, %s]", crd[0], crd[1], crd[2]);
+        return String.format("[%s, %s, %s]", crd[0], crd[1], crd[2]);
     }
     
     public EntityPlayer player(String nick) {
@@ -165,7 +165,7 @@ public class Utils {
         NBTBase base = null;
         try { base = JsonToNBT.func_150315_a(json);
         } catch (NBTException err) {
-        	XenoLogger.getLogger().error(err.getMessage());
+            XenoLogger.getLogger().error(err.getMessage());
         }
         return (NBTTagCompound) base;
     }
@@ -446,7 +446,7 @@ public class Utils {
     }
     
     public List<String> tabList() {
-    	return ((List<GuiPlayerInfo>) player().sendQueue.playerInfoList).stream().map(r -> r.name).collect(Collectors.toList());
+        return ((List<GuiPlayerInfo>) player().sendQueue.playerInfoList).stream().map(r -> r.name).collect(Collectors.toList());
     }
     
     public List<TileEntity> nearTiles() {
@@ -539,11 +539,11 @@ public class Utils {
     }
     
     public boolean isVillager(Entity e) {
-    	return e instanceof EntityVillager;
+        return e instanceof EntityVillager;
     }
     
     public boolean isMonster(Entity e) {
-    	return e instanceof EntityMob || e instanceof IMob;
+        return e instanceof EntityMob || e instanceof IMob;
     }
     
     public boolean isDrop(Entity e) {
@@ -551,15 +551,15 @@ public class Utils {
     }
     
     public boolean isAnimal(Entity e) {
-    	return e instanceof EntityAnimal || e instanceof EntityAmbientCreature || e instanceof EntityWaterMob || e instanceof EntityGolem;
+        return e instanceof EntityAnimal || e instanceof EntityAmbientCreature || e instanceof EntityWaterMob || e instanceof EntityGolem;
     }
     
     public boolean isCustom(Entity e) {
-    	try {
-    		return Class.forName("noppes.npcs.entity.EntityNPCInterface").isInstance(e);
-    	} catch(Exception ex) {
-    		return false;
-    	}
+        try {
+            return Class.forName("noppes.npcs.entity.EntityNPCInterface").isInstance(e);
+        } catch(Exception ex) {
+            return false;
+        }
     }
     
     private double lastCoord = Double.MAX_VALUE;

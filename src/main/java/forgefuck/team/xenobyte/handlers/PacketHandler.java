@@ -9,7 +9,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.Packet;
 
 public class PacketHandler {
-	
+    
     public PacketHandler(ModuleHandler handler, NetHandlerPlayClient clientHandler) {
         if (handler != null && clientHandler != null) {
             clientHandler.getNetworkManager().channel().pipeline().addBefore("packet_handler", Rand.str(), new ChannelDuplexHandler() {
@@ -24,7 +24,7 @@ public class PacketHandler {
                     }
                 }
                 @Override public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-                	XenoLogger.getLogger().info("XenoPacketHandler registered: " + ctx.name());
+                    XenoLogger.getLogger().info("XenoPacketHandler registered: " + ctx.name());
                 }
             });
         }

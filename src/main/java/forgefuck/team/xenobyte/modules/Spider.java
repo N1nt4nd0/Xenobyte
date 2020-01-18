@@ -10,7 +10,7 @@ import forgefuck.team.xenobyte.utils.Keys;
 
 public class Spider extends CheatModule {
     
-	@Cfg("vSpeed") private float vSpeed;
+    @Cfg("vSpeed") private float vSpeed;
     private boolean spiding = false;
     
     public Spider() {

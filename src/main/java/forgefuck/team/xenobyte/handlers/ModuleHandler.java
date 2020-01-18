@@ -31,13 +31,13 @@ public class ModuleHandler  {
     public ModuleHandler() {
         modulesList = new ArrayList<CheatModule>();
         new ModulesList().forEach(m -> {
-        	if (modulesList.contains(m)) {
-        		DuplicateModuleException dEx = new DuplicateModuleException(m);
-        		XenoLogger.getLogger().error(dEx);
-        		dEx.printStackTrace();
-        		throw dEx;
-        	}
-        	modulesList.add(m);
+            if (modulesList.contains(m)) {
+                DuplicateModuleException dEx = new DuplicateModuleException(m);
+                XenoLogger.getLogger().error(dEx);
+                dEx.printStackTrace();
+                throw dEx;
+            }
+            modulesList.add(m);
         });
         enabledList = new CopyOnWriteArrayList<CheatModule>();
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
@@ -146,7 +146,7 @@ public class ModuleHandler  {
     }
     
     public void perform(CheatModule module, Button button) {
-    	WidgetMessage mess = new WidgetMessage(module, "выполнен", WidgetMode.INFO);
+        WidgetMessage mess = new WidgetMessage(module, "выполнен", WidgetMode.INFO);
         if (module.getMode() == PerformMode.TOGGLE) {
             if (isEnabled(module)) {
                 disable(module);
@@ -160,7 +160,7 @@ public class ModuleHandler  {
             mess = new WidgetMessage(module, enabled ? "ON" : "OFF", enabled ? WidgetMode.SUCCESS : WidgetMode.FAIL);
         }
         if (module.allowStateMessages()) {
-        	widgets().widgetMessage(mess);
+            widgets().widgetMessage(mess);
         }
         module.onPerform(button == null ? PerformSource.KEY : PerformSource.BUTTON);
     }

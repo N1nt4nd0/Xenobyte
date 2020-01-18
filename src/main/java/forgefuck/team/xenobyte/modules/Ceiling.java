@@ -7,8 +7,8 @@ import forgefuck.team.xenobyte.api.module.PerformSource;
 import net.minecraft.block.material.Material;
 
 public class Ceiling extends CheatModule {
-	
-	public Ceiling() {
+    
+    public Ceiling() {
         super("Ceiling", Category.MOVE, PerformMode.SINGLE);
     }
     

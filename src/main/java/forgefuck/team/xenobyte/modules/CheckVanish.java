@@ -44,9 +44,9 @@ public class CheckVanish extends CheatModule {
             @Override public void handleServerInfo(S00PacketServerInfo infoPacket) {
                 ServerStatusResponse response = infoPacket.func_149294_c();
                 if (response.func_151318_b() != null) {
-                	int vCount = response.func_151318_b().func_151333_b() - utils.tabList().size();
-                	int count = vCount > 0 ? vCount : 0;
-                	outMessage = new WidgetMessage(CheckVanish.this, count + (withNames ? " " + vanishNames : ""), count > 0 ? WidgetMode.FAIL : WidgetMode.SUCCESS);
+                    int vCount = response.func_151318_b().func_151333_b() - utils.tabList().size();
+                    int count = vCount > 0 ? vCount : 0;
+                    outMessage = new WidgetMessage(CheckVanish.this, count + (withNames ? " " + vanishNames : ""), count > 0 ? WidgetMode.FAIL : WidgetMode.SUCCESS);
                 }
             }
             @Override public void onConnectionStateTransition(EnumConnectionState e, EnumConnectionState e1) {}
@@ -58,7 +58,7 @@ public class CheckVanish extends CheatModule {
         doMcsrv = true;
     }
 
-	private void simpleRequest(String ip) {
+    private void simpleRequest(String ip) {
         try {
             ServerAddress addr = ServerAddress.func_78860_a(ip);
             NetworkManager manager = NetworkManager.provideLanClient(InetAddress.getByName(addr.getIP()), addr.getPort());
@@ -69,46 +69,46 @@ public class CheckVanish extends CheatModule {
     }
     
     private List<String> mcsrvRequest(String ip) {
-    	List<String> pls = new ArrayList<String>();
-    	JsonObject check = NetUtils.getServerInfo(ip);
-    	if (check != null && check.has("players")) {
-    		JsonObject players = check.getAsJsonObject("players");
-    		if (players != null && players.has("list")) {
-    			players.getAsJsonArray("list").forEach(p -> {
-        			pls.add(p.getAsString());
-        		});
-    		}
-    	}
-    	return pls;
+        List<String> pls = new ArrayList<String>();
+        JsonObject check = NetUtils.getServerInfo(ip);
+        if (check != null && check.has("players")) {
+            JsonObject players = check.getAsJsonObject("players");
+            if (players != null && players.has("list")) {
+                players.getAsJsonArray("list").forEach(p -> {
+                    pls.add(p.getAsString());
+                });
+            }
+        }
+        return pls;
     }
     
     @Override public void onPostInit() {
         new Thread(() -> {
-        	while (true) {
-        		if (utils.isInGame()) {
-                	ServerData data = utils.mc().func_147104_D();
-                	if (data != null) {
-                		simpleRequest(data.serverIP);
-                		if (doMcsrv && withNames) {
-                			List<String> check = mcsrvRequest(data.serverIP);
-                			doMcsrv = !check.isEmpty();
-                			vanishNames.clear();
-                			check.stream().filter(n -> !utils.tabList().contains(n)).forEach(vanishNames::add);
-                		}
-                	} else {
-                		outMessage = new WidgetMessage(this, "SP", WidgetMode.INFO);
-                	}
-        		}
-            	try {
-            		Thread.sleep(5000);
-            	} catch(Exception e) {}
-        	}
+            while (true) {
+                if (utils.isInGame()) {
+                    ServerData data = utils.mc().func_147104_D();
+                    if (data != null) {
+                        simpleRequest(data.serverIP);
+                        if (doMcsrv && withNames) {
+                            List<String> check = mcsrvRequest(data.serverIP);
+                            doMcsrv = !check.isEmpty();
+                            vanishNames.clear();
+                            check.stream().filter(n -> !utils.tabList().contains(n)).forEach(vanishNames::add);
+                        }
+                    } else {
+                        outMessage = new WidgetMessage(this, "SP", WidgetMode.INFO);
+                    }
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch(Exception e) {}
+            }
         }).start();
     }
     
     @Override public void onTick(boolean inGame) {
         if (inGame) {
-        	moduleHandler().widgets().infoMessage(outMessage);
+            moduleHandler().widgets().infoMessage(outMessage);
         }
     }
     

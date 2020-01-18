@@ -9,8 +9,8 @@ import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
 
 public class Rocket extends CheatModule {
-	
-	@Cfg("strength") private int strength;
+    
+    @Cfg("strength") private int strength;
     public Rocket() {
         super("Rocket", Category.MOVE, PerformMode.SINGLE);
         strength = 2;

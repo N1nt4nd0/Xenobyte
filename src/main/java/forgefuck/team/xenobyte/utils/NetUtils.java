@@ -13,13 +13,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 public class NetUtils {
-	
+    
     public static JsonObject getServerInfo(String ip) {
-    	try {
-    		return new GsonBuilder().create().fromJson(getContent("https://api.mcsrvstat.us/1/" + ip), JsonObject.class);
-    	} catch(Exception e) {
-    		return new JsonObject();
-    	}
+        try {
+            return new GsonBuilder().create().fromJson(getContent("https://api.mcsrvstat.us/1/" + ip), JsonObject.class);
+        } catch(Exception e) {
+            return new JsonObject();
+        }
     }
     
     public static InputStream getInputStream(String address) {

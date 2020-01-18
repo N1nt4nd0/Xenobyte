@@ -88,8 +88,8 @@ public abstract class CheatModule extends ModuleAbility implements Xeno {
     
     public void handlerInit(ModuleHandler handler) {
         this.handler = handler;
-    	xraySelector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
-    	giveSelector = (GiveSelect) moduleHandler().getModuleByClass(GiveSelect.class);
+        xraySelector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
+        giveSelector = (GiveSelect) moduleHandler().getModuleByClass(GiveSelect.class);
         onHandlerInit();
     }
     
@@ -126,14 +126,14 @@ public abstract class CheatModule extends ModuleAbility implements Xeno {
     }
     
     protected XRaySelect xraySelector() {
-    	return xraySelector;
+        return xraySelector;
     }
     
     @Override public boolean equals(Object o) {
-    	if (o instanceof CheatModule) {
-    		return ((CheatModule) o).getName().equals(getName());
-    	}
-    	return super.equals(o);
+        if (o instanceof CheatModule) {
+            return ((CheatModule) o).getName().equals(getName());
+        }
+        return super.equals(o);
     }
     
     @Override public String toString() {

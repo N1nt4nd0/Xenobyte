@@ -59,11 +59,11 @@ public class Esp extends CheatModule {
                 } else if (drop && utils.isDrop(e)) {
                     out.add(new EspObject(e, 1, 1, 0));
                 } else if (villagers && utils.isVillager(e)) {
-                	out.add(new EspObject(e, 0, 1, 1));
+                    out.add(new EspObject(e, 0, 1, 1));
                 } else if (customnpc && utils.isCustom(e)) {
-                	out.add(new EspObject(e, 0, 0, 1));
+                    out.add(new EspObject(e, 0, 0, 1));
                 } else if (minecarts && e instanceof EntityMinecart) {
-                	out.add(new EspObject(e, 1, 1, 1));
+                    out.add(new EspObject(e, 1, 1, 1));
                 }
             });
             objects = out;

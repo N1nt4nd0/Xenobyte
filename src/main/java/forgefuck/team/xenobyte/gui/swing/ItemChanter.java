@@ -89,7 +89,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         ffGift.setToolTipText("Имбовая зелька");
         nbtScrollPane.setViewportView(nbtArea);
         onTop.addActionListener(e -> {
-        	setAlwaysOnTop(onTop.isSelected());
+            setAlwaysOnTop(onTop.isSelected());
         });
         effAmpliferField.addKeyListener(this);
         effDurationField.addKeyListener(this);
@@ -143,9 +143,9 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         enchBar.add(onBook);
         enchBar.add(addEnch);
         buttonsBar.add(ffGift);
-    	buttonsBar.add(clear);
-    	buttonsBar.add(keepName);
-    	buttonsBar.add(onTop);
+        buttonsBar.add(clear);
+        buttonsBar.add(keepName);
+        buttonsBar.add(onTop);
         add(nameField);
         add(loreField);
         add(colorBar);
@@ -173,8 +173,8 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     public void save() {
         if (checkInputs()) {
             try {
-				outNBT = (NBTTagCompound) JsonToNBT.func_150315_a(nbtArea.getText());
-			} catch (Exception e) {}
+                outNBT = (NBTTagCompound) JsonToNBT.func_150315_a(nbtArea.getText());
+            } catch (Exception e) {}
         }
     }
     
@@ -248,7 +248,7 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
     }
     
     public boolean checkInputs() {
-    	Exception ex = null;
+        Exception ex = null;
         try {
             Short.parseShort(enchLevelField.getText());
             enchLevelField.setBackground(WHITE);
@@ -278,8 +278,8 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
             ex = e;
         }
         if (ex != null) {
-        	info(ex.getMessage());
-        	return false;
+            info(ex.getMessage());
+            return false;
         }
         clearInfo();
         return true;
