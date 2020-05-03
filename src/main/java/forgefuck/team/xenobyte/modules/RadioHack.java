@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.internal.FMLProxyPacket;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.gui.InputType;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.swing.UserInput;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.event.MouseEvent;
 
 public class RadioHack extends CheatModule {
     
@@ -25,7 +21,7 @@ public class RadioHack extends CheatModule {
     @Cfg("kick") private boolean kick;
     
     public RadioHack() {
-        super("RadioHack", Category.MODS, PerformMode.TOGGLE);
+        super("RadioHack", Category.MODS, PerformMode.SINGLE);
         urls = new ArrayList<String>();
         urls.add("https://files.catbox.moe/s0wkfi.mp3");
     }
@@ -45,16 +41,18 @@ public class RadioHack extends CheatModule {
         }
     }
     
-    @SubscribeEvent public void mouseEvent(MouseEvent e) {
-        if (e.button == 1 && e.buttonstate) {
-            for (TileEntity tile : utils.nearTiles()) {
-                if (kick && !isRadioTile(tile)) {
-                    sendRadioPacket(tile, true);
-                    break;
-                } else if (isRadioTile(tile)) {
-                    sendRadioPacket(tile, false);
-                    sendRadioPacket(tile, true);
-                }
+    public boolean getKick() {
+        return kick;
+    }
+    
+    @Override public void onPerform(PerformSource src) {
+        for (TileEntity tile : utils.nearTiles()) {
+            if (kick && !isRadioTile(tile)) {
+                sendRadioPacket(tile, true);
+                break;
+            } else if (isRadioTile(tile)) {
+                sendRadioPacket(tile, false);
+                sendRadioPacket(tile, true);
             }
         }
     }
@@ -63,19 +61,8 @@ public class RadioHack extends CheatModule {
         return Loader.isModLoaded("DragonsRadioMod");
     }
     
-    @Override public boolean doReceivePacket(Packet packet) {
-        if (kick) {
-            if (packet instanceof FMLProxyPacket) {
-                if ("DragonsRadioMod".equals(((FMLProxyPacket) packet).channel())) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    
     @Override public String moduleDesc() {
-        return "Замена ссылки в находящихся вблизи блоках радио по ПКМ";
+        return "Замена ссылки в находящихся вблизи блоках радио";
     }
     
     @Override public Panel settingPanel() {

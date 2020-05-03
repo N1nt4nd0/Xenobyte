@@ -1,15 +1,14 @@
 package forgefuck.team.xenobyte.modules;
 
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import forgefuck.team.xenobyte.api.config.Cfg;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.event.MouseEvent;
 
 public class OCShutDown extends CheatModule {
     
@@ -17,7 +16,7 @@ public class OCShutDown extends CheatModule {
     private boolean state;
     
     public OCShutDown() {
-        super("OCShutDown", Category.MODS, PerformMode.TOGGLE);
+        super("OCShutDown", Category.MODS, PerformMode.SINGLE);
     }
     
     private boolean shutDownPacket(TileEntity comp) {
@@ -35,14 +34,12 @@ public class OCShutDown extends CheatModule {
         return false;
     }
     
-    @SubscribeEvent public void mouseEvent(MouseEvent e) {
-        if (e.button == 1 && e.buttonstate) {
-            state = !state;
-            if (inRadius) {
-                utils.nearTiles().forEach(this::shutDownPacket);
-            } else {
-                e.setCanceled(shutDownPacket(utils.tile()));
-            }
+    @Override public void onPerform(PerformSource src) {
+        state = !state;
+        if (inRadius) {
+            utils.nearTiles().forEach(this::shutDownPacket);
+        } else {
+            shutDownPacket(utils.tile());
         }
     }
     
@@ -51,7 +48,7 @@ public class OCShutDown extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Перезагрузка компов из OpenComputers по ПКМ";
+        return "Перезагрузка компов из OpenComputers по кейбинду";
     }
     
     @Override public Panel settingPanel() {
