@@ -1,5 +1,6 @@
 package forgefuck.team.xenobyte.gui.click;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
@@ -119,9 +120,15 @@ public class XenoGuiScreen extends GuiScreen {
         drawGradientRect(0, 0, width, height, Colors.WHITE_BG, Colors.NONE);
         GL11.glPushMatrix();
         GuiScaler.setGuiScale();
-        elements.forEach(GuiElement::draw);
+        Iterator<GuiElement> iterator = elements.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().draw();
+        }
         if (Keys.isShiftDown()) {
-            elements.forEach(GuiElement::drawDesc);
+            Iterator<GuiElement> descIterator = elements.iterator();
+            while (descIterator.hasNext()) {
+                descIterator.next().drawDesc();
+            }
         }
         GL11.glPopMatrix();
     }

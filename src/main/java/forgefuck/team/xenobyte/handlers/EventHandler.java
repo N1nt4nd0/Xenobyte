@@ -1,5 +1,7 @@
 package forgefuck.team.xenobyte.handlers;
 
+import java.util.Iterator;
+
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -60,7 +62,10 @@ public class EventHandler {
             GL11.glPushMatrix();
             GuiScaler.setOnTop();
             GuiScaler.setGuiScale();
-            handler.enabledModules().forEach(CheatModule::onDrawGuiOverlay);
+            Iterator<CheatModule> iterator = handler.enabledModules().iterator();
+            while (iterator.hasNext()) {
+                iterator.next().onDrawGuiOverlay();
+            }
             GL11.glPopMatrix();
         }
     }
@@ -76,7 +81,10 @@ public class EventHandler {
                 GuiScaler.setOnTop();
                 GuiScaler.setGuiScale();
                 GL11.glDisable(GL11.GL_LIGHTING);
-                handler.enabledModules().forEach(CheatModule::onDrawGuiLast);
+                Iterator<CheatModule> iterator = handler.enabledModules().iterator();
+                while (iterator.hasNext()) {
+                    iterator.next().onDrawGuiLast();
+                }
                 GL11.glPopMatrix();
             }
         }

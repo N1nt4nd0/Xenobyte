@@ -1,8 +1,8 @@
 package forgefuck.team.xenobyte.gui.click.elements;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -12,7 +12,6 @@ import forgefuck.team.xenobyte.api.gui.GuiElement;
 import forgefuck.team.xenobyte.api.gui.PanelLayout;
 import forgefuck.team.xenobyte.api.gui.PanelSorting;
 import forgefuck.team.xenobyte.render.Colors;
-import forgefuck.team.xenobyte.utils.Delimitter;
 
 public class Panel extends GuiElement {
     
@@ -112,12 +111,18 @@ public class Panel extends GuiElement {
     
     @Override public void draw() {
         super.draw();
-        elements.forEach(GuiElement::draw);
+        Iterator<GuiElement> iterator = elements.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().draw();
+        }
     }
     
     @Override public void drawDesc() {
         super.drawDesc();
-        elements.forEach(GuiElement::drawDesc);
+        Iterator<GuiElement> iterator = elements.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().drawDesc();
+        }
     }
     
     @Override public void setSelected(boolean selected) {
