@@ -38,7 +38,7 @@ public class WayLine extends CheatModule {
     }
     
     @Override public int tickDelay() {
-        return 10;
+        return 5;
     }
     
     @Override public void onTick(boolean inGame) {
@@ -51,7 +51,7 @@ public class WayLine extends CheatModule {
     }
     
     @SubscribeEvent public void worldRender(RenderWorldLastEvent e) {
-        render.WORLD.drawWayLine(poses, picker.rf, picker.gf, picker.bf, picker.af);
+        render.WORLD.drawWayLine(poses, picker.rf, picker.gf, picker.bf, picker.af, 3);
     }
     
     @Override public String moduleDesc() {

@@ -46,7 +46,7 @@ public class Config {
         try {
             data = gson.fromJson(fileProvider.readFile(), ConfigData.class);
         } catch (JsonSyntaxException e) {
-            XenoLogger.getLogger().error("Config сброшен изза ошибки чтения из файла: " + e.getMessage());
+            Xeno.logger.error("Config сброшен изза ошибки чтения из файла: " + e.getMessage());
             save();
         }
     }
@@ -102,7 +102,7 @@ public class Config {
                             values.add(parseModuleValue(value));
                             data.moduleData.get(id).put(fName, values);
                         } catch(Exception e) {
-                            XenoLogger.getLogger().error("ошибка при сохранении поля ModuleConfig: " + module + " -> " + field.getName() + " [" + e.getMessage() + "]");
+                            Xeno.logger.error("ошибка при сохранении поля ModuleConfig: " + module + " -> " + field.getName() + " [" + e.getMessage() + "]");
                             e.printStackTrace();
                         }
                     }
@@ -131,7 +131,7 @@ public class Config {
                             }
                         }
                     } catch (Exception e) {
-                        XenoLogger.getLogger().error("ошибка при чтении поля ModuleConfig: " + module + " -> " + cField + " [" + e.getMessage() + "]");
+                        Xeno.logger.error("ошибка при чтении поля ModuleConfig: " + module + " -> " + cField + " [" + e.getMessage() + "]");
                         e.printStackTrace();
                     }
                 });

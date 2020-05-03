@@ -1,6 +1,5 @@
 package forgefuck.team.xenobyte.api.gui;
 
-import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 
 public class WidgetMessage {

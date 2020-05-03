@@ -17,7 +17,7 @@ public class ZtonesMeta extends CheatModule {
         super("ZtonesMeta", Category.MODS, PerformMode.SINGLE);
     }
     
-    @Override public void onPerform(PerformSource type) {
+    @Override public void onPerform(PerformSource src) {
         utils.sendPacket("Ztones", 0, metaUp);
     }
     

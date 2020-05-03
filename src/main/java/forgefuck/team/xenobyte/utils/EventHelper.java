@@ -18,7 +18,6 @@ import cpw.mods.fml.common.eventhandler.EventBus;
 import cpw.mods.fml.common.eventhandler.IEventListener;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-import forgefuck.team.xenobyte.api.Xeno;
 import net.minecraftforge.common.MinecraftForge;
 
 public class EventHelper {

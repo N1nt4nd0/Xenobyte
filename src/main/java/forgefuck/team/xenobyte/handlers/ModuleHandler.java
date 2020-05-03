@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import org.lwjgl.input.Keyboard;
 
 import forgefuck.team.xenobyte.ModulesList;
+import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.exceptions.DuplicateModuleException;
 import forgefuck.team.xenobyte.api.gui.WidgetMessage;
 import forgefuck.team.xenobyte.api.gui.WidgetMode;
@@ -21,7 +22,6 @@ import forgefuck.team.xenobyte.modules.Widgets;
 import forgefuck.team.xenobyte.modules.XenoGui;
 import forgefuck.team.xenobyte.utils.Config;
 import forgefuck.team.xenobyte.utils.EventHelper;
-import forgefuck.team.xenobyte.utils.XenoLogger;
 import net.minecraft.client.Minecraft;
 
 public class ModuleHandler  {
@@ -33,7 +33,7 @@ public class ModuleHandler  {
         new ModulesList().forEach(m -> {
             if (modulesList.contains(m)) {
                 DuplicateModuleException dEx = new DuplicateModuleException(m);
-                XenoLogger.getLogger().error(dEx);
+                Xeno.logger.error(dEx);
                 dEx.printStackTrace();
                 throw dEx;
             }
@@ -43,7 +43,7 @@ public class ModuleHandler  {
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
         allModules().forEach(m -> m.handlerInit(this));
         new Config(this);
-        enabledList = workingModules().filter(m -> m.cfgState || m.getMode() == PerformMode.ON_START).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+        enabledList = workingModules().peek(m -> m.cfgState = m.getMode() == PerformMode.SINGLE ? false : m.getMode() == PerformMode.ON_START ? true : m.cfgState).filter(m -> m.cfgState).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
         allModules().forEach(CheatModule::onPostInit);
         new PacketHandler(this, Minecraft.getMinecraft().getNetHandler());
         new EventHandler(this);
@@ -91,6 +91,15 @@ public class ModuleHandler  {
     
     public boolean isEnabled(CheatModule module) {
         return module == null ? false : enabledList.contains(module);
+    }
+    
+    public boolean toggle(CheatModule module) {
+        if (isEnabled(module)) {
+            disable(module);
+        } else {
+            enable(module);
+        }
+        return isEnabled(module);
     }
     
     public void enable(CheatModule module) {
@@ -148,12 +157,7 @@ public class ModuleHandler  {
     public void perform(CheatModule module, Button button) {
         WidgetMessage mess = new WidgetMessage(module, "выполнен", WidgetMode.INFO);
         if (module.getMode() == PerformMode.TOGGLE) {
-            if (isEnabled(module)) {
-                disable(module);
-            } else {
-                enable(module);
-            }
-            boolean enabled = isEnabled(module);
+            boolean enabled = toggle(module);
             if (button != null) {
                 button.setSelected(enabled);
             }

@@ -107,7 +107,6 @@ public class ItemChanter extends XenoJFrame implements KeyListener {
         effAmpliferField.setFont(FONT);
         effDurationField.setFont(FONT);
         ffGift.addActionListener(this);
-        onTop.addActionListener(this);
         enchLevelField.setFont(FONT);
         nbtArea.addKeyListener(this);
         inputBar.setFloatable(false);

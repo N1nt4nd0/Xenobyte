@@ -1,6 +1,5 @@
 package forgefuck.team.xenobyte.gui.swing;
 
-import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;

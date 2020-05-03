@@ -1,5 +1,6 @@
 package forgefuck.team.xenobyte.render;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
@@ -143,7 +144,8 @@ public class WorldRender {
         GL11.glPopMatrix();
     }
     
-    public void drawWayLine(List<double[]> poses, float r, float g, float b, float a) {
+    public void drawWayLine(List<double[]> poses, float r, float g, float b, float a, float w) {
+        Iterator<double[]> iterator = poses.iterator();
         double pX = RenderManager.renderPosX;
         double pY = RenderManager.renderPosY;
         double pZ = RenderManager.renderPosZ;
@@ -155,11 +157,12 @@ public class WorldRender {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glColor4f(r, g, b, a);
-        GL11.glLineWidth(2);
+        GL11.glLineWidth(w);
         GL11.glBegin(GL11.GL_LINE_STRIP);
-        poses.forEach(p -> {
+        while(iterator.hasNext()) {
+            double[] p = iterator.next();
             GL11.glVertex3d(p[0] - pX, p[1] - pY, p[2] - pZ);
-        });
+        }
         GL11.glEnd();
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GL11.glEnable(GL11.GL_DEPTH_TEST);

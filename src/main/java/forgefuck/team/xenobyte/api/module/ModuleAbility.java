@@ -1,6 +1,5 @@
 package forgefuck.team.xenobyte.api.module;
 
-import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import net.minecraft.network.Packet;
 

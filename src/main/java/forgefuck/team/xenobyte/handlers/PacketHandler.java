@@ -1,7 +1,7 @@
 package forgefuck.team.xenobyte.handlers;
 
+import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.utils.Rand;
-import forgefuck.team.xenobyte.utils.XenoLogger;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
@@ -24,7 +24,7 @@ public class PacketHandler {
                     }
                 }
                 @Override public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-                    XenoLogger.getLogger().info("XenoPacketHandler registered: " + ctx.name());
+                    Xeno.logger.info("XenoPacketHandler registered: " + ctx.name());
                 }
             });
         }
