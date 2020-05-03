@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.swing.JCheckBox;
 import javax.swing.JSlider;
 
 import forgefuck.team.xenobyte.api.config.Cfg;
@@ -42,7 +43,7 @@ import net.minecraftforge.common.util.RotationHelper;
 
 public class XRaySelect extends CheatModule {
     
-    @Cfg("configBlocks") private List<String> configBlocks;
+    @Cfg("xrayBlocks") private List<String> xrayBlocks;
     @Cfg("guiHint") public boolean guiHint;
     private List<String> missingBlocks;
     public List<SelectedBlock> blocks;
@@ -52,7 +53,7 @@ public class XRaySelect extends CheatModule {
         super("XRaySelect", Category.NEI, PerformMode.SINGLE);
         blocks = new CopyOnWriteArrayList<SelectedBlock>();
         missingBlocks = new ArrayList<String>();
-        configBlocks = new ArrayList<String>();
+        xrayBlocks = new ArrayList<String>();
         neiSubset = "X-Ray";
         guiHint = true;
     }
@@ -87,13 +88,18 @@ public class XRaySelect extends CheatModule {
                 MinecraftForgeClient.registerItemRenderer((Item) obj, new XRayHintRender(this));
             }
         }
-        for (String cBlock : configBlocks) {
+        for (String cBlock : xrayBlocks) {
             String[] data = cBlock.split(":");
             Block block = (Block) Block.blockRegistry.getObject(data[0] + ":" + data[1]);
             if (block instanceof BlockAir) {
                 missingBlocks.add(cBlock);
             } else {
-                blocks.add(new SelectedBlock(new ItemStack(block, 1, Integer.parseInt(data[2])), Integer.parseInt(data[3]), Float.parseFloat(data[4])));
+                int meta = Integer.parseInt(data[2]);
+                int color = Integer.parseInt(data[3]);
+                float scale = Float.parseFloat(data[4]);
+                boolean hidden = Boolean.parseBoolean(data[5]);
+                boolean tracer = Boolean.parseBoolean(data[6]);
+                blocks.add(new SelectedBlock(new ItemStack(block, 1, meta), color, scale, hidden, tracer));
             }
         }
         updateNEI();
@@ -110,7 +116,7 @@ public class XRaySelect extends CheatModule {
                 if (stack.getItem() instanceof ItemBlock) {
                     SelectedBlock block = getBlock(stack);
                     if (block == null) {
-                        block = new SelectedBlock(stack, Colors.BLACK, 1);
+                        block = new SelectedBlock(stack, Colors.BLACK, 1, false, false);
                     }
                     new XRaySettings(block).showFrame();
                 }
@@ -153,6 +159,7 @@ public class XRaySelect extends CheatModule {
     
     class XRaySettings extends ColorPickerGui {
         
+        JCheckBox hidden, tracer;
         SelectedBlock block;
         JSlider s;
 
@@ -162,12 +169,24 @@ public class XRaySelect extends CheatModule {
             s = new JSlider(0, 100);
             s.setPreferredSize(new Dimension(350, 50));
             s.setBorder(customTitledBorder("Размер"));
-            s.setValue((int)(block.scale * 100));
+            s.setValue((int)(this.block.scale * 100));
             s.addChangeListener((e) -> {
-                block.scale = (float) s.getValue() / 100;
+                this.block.scale = (float) s.getValue() / 100;
+            });
+            hidden = new JCheckBox("Hidden", block.hidden);
+            hidden.setToolTipText("Скрыть отрисовку блока в мире");
+            hidden.addActionListener((e) -> {
+                this.block.hidden = hidden.isSelected();
+            });
+            tracer = new JCheckBox("Tracer", block.tracer);
+            tracer.setToolTipText("Рисовать трасер линию к блоку");
+            tracer.addActionListener((e) -> {
+                this.block.tracer = tracer.isSelected();
             });
             clear.setText("Удалить");
             buttonsBar.add(clear);
+            buttonsBar.add(hidden);
+            buttonsBar.add(tracer);
             sliders.add(s, GBC);
             pack();
         }
@@ -180,9 +199,9 @@ public class XRaySelect extends CheatModule {
             } else if (e.getSource() == clear) {
                 blocks.remove(block);
             }
-            configBlocks.clear();
-            configBlocks.addAll(blocks.stream().map(SelectedBlock::toString).collect(Collectors.toList()));
-            configBlocks.addAll(missingBlocks);
+            xrayBlocks.clear();
+            xrayBlocks.addAll(blocks.stream().map(SelectedBlock::toString).collect(Collectors.toList()));
+            xrayBlocks.addAll(missingBlocks);
             Config.save();
             updateNEI();
             dispose();
@@ -191,15 +210,18 @@ public class XRaySelect extends CheatModule {
     
     public class SelectedBlock extends ColorPicker {
         
+        public boolean hidden, tracer;
         final ItemStack itemBlock;
         public float scale;
         final Block block;
         final String id;
         final int meta;
         
-        SelectedBlock(ItemStack itemBlock, int color, float scale) {
+        SelectedBlock(ItemStack itemBlock, int color, float scale, boolean hidden, boolean tracer) {
             super(color);
             this.scale = scale;
+            this.hidden = hidden;
+            this.tracer = tracer;
             this.itemBlock = itemBlock;
             this.id = itemBlock.getItem().delegate.name();
             this.block = Block.getBlockFromItem(itemBlock.getItem());
@@ -207,7 +229,7 @@ public class XRaySelect extends CheatModule {
         }
         
         @Override public String toString() {
-            return id + ":" + meta + ":" + rgba + ":" + scale;
+            return String.format("%s:%s:%s:%s:%s:%s", id, meta, rgba, scale, hidden, tracer);
         }
         
     }
