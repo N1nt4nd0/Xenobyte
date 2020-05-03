@@ -2,6 +2,7 @@ package forgefuck.team.xenobyte.modules;
 
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,23 +115,36 @@ public class Widgets extends CheatModule {
     }
     
     @SubscribeEvent public void guiInit(InitGuiEvent.Pre e) {
+        onEnabled();
+    }
+    
+    @Override public void onEnabled() {
         updateWidgetPoses();
         updateInfoPoses();
     }
     
     @Override public void onDrawGuiLast() {
-         if (showWidget) {
-              infoWidgets.forEach(GuiWidget::draw);
-         }
+        if (showWidget) {
+            Iterator<GuiWidget> iterator = infoWidgets.iterator();
+            while (iterator.hasNext()) {
+                iterator.next().draw();
+            }
+        }
     }
     
     @Override public void onDrawGuiOverlay() {
-         try {
-             if (showInfo) {
-                  modulesInfo.values().forEach(GuiWidget::draw);
-             }
+        try {
+            if (showInfo) {
+                Iterator<GuiWidget> iterator = modulesInfo.values().iterator();
+                while (iterator.hasNext()) {
+                    iterator.next().draw();
+                }
+            }
             if (showKeyabled) {
-                keyabled.values().forEach(GuiWidget::draw);
+                Iterator<GuiWidget> iterator = keyabled.values().iterator();
+                while (iterator.hasNext()) {
+                    iterator.next().draw();
+                }
             }
          } catch (ConcurrentModificationException e) {}
     }
