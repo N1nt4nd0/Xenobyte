@@ -1,5 +1,6 @@
 package forgefuck.team.xenobyte.modules;
 
+import forgefuck.team.xenobyte.api.gui.WidgetMode;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
@@ -11,17 +12,21 @@ public class Ceiling extends CheatModule {
     public Ceiling() {
         super("Ceiling", Category.MOVE, PerformMode.SINGLE);
     }
+
+    private boolean isHeight(int y) {
+        return y > 0 && y < 255;
+    }
     
-    private boolean isAcceptableMaterial(Material material) {
-        return material == Material.air || material == Material.water || material == Material.web || material == Material.lava;
+    private Material getMaterial(int x, int y, int z) {
+        return utils.block(x, y, z).getMaterial();
     }
 
-    private boolean isAcceptableBlocks(int x, int y, int z) {
-        return isAcceptableMaterial(utils.block(x, y, z).getMaterial()) && isAcceptableMaterial(utils.block(x, y + 1, z).getMaterial());
+    private boolean isAir(int x, int y, int z) {
+        return getMaterial(x, y, z) == Material.air && getMaterial(x, y + 1, z) == Material.air;
     }
     
-    private boolean isAcceptableCoordinates(int x, int y, int z) {
-        return 0 < y && y < 255;
+    private boolean isLava(int x, int y, int z) {
+        return getMaterial(x, y - 1, z) == Material.lava || getMaterial(x, y, z) == Material.lava || getMaterial(x, y + 1, z) == Material.lava;
     }
     
     @Override public void onPerform(PerformSource src) {
@@ -30,11 +35,17 @@ public class Ceiling extends CheatModule {
         int y = coords[1];
         int z = coords[2];
         int step = utils.player().rotationPitch < 0 ? 1 : -1;
-        do y += step; while( isAcceptableBlocks(x, y, z) && isAcceptableCoordinates(x, y, z));
-        do y += step; while(!isAcceptableBlocks(x, y, z) && isAcceptableCoordinates(x, y, z));
-        do y--;       while( isAcceptableBlocks(x, y, z) && isAcceptableCoordinates(x, y, z));
-        if (isAcceptableCoordinates(x, y++, z)) {
-            utils.verticalTeleport(y, true);
+        do y += step; while( isAir(x, y, z) && isHeight(y));
+        do y += step; while(!isAir(x, y, z) && isHeight(y));
+        do y --;      while( isAir(x, y, z) && isHeight(y));
+        if (isHeight(y)) {
+            if (isLava(x, y, z)) {
+                widgetMessage("- лава на пути!", WidgetMode.FAIL);
+            } else {
+                utils.verticalTeleport(y + 1, true);
+            }
+        } else {
+            widgetMessage("- подходящий блок не найден", WidgetMode.FAIL);
         }
     }
     
