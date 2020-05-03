@@ -77,10 +77,8 @@ public class GiveSelect extends CheatModule {
                 if (!outTag.hasNoTags()) {
                     widgetMessage(outMessage, WidgetMode.INFO);
                     chanter.loadCustomNBT(outTag);
-                    chanter.showFrame();
-                } else {
-                    widgetMessage("предмет в руке/блок/моб не содержат NBT", WidgetMode.FAIL);
                 }
+                chanter.showFrame();
             }
         } else {
             widgetMessage("для выбора предмета необходимо навести на него и нажать кейбинд", WidgetMode.FAIL);
@@ -100,7 +98,7 @@ public class GiveSelect extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выбор предмета в NEI по кейбинду для выдачи через эксплойты";
+        return "Выбор предмета в NEI по кейбинду для выдачи через эксплойты (" + givedItem.getDisplayName() + ")";
     }
     
     @Override public Panel settingPanel() {

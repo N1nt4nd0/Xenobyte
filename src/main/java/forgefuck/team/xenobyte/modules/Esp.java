@@ -1,6 +1,7 @@
 package forgefuck.team.xenobyte.modules;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -13,7 +14,6 @@ import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.gui.click.elements.ScrollSlider;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -30,13 +30,13 @@ public class Esp extends CheatModule {
     @Cfg("lines") private boolean lines;
     @Cfg("radius") private int radius;
     @Cfg("drop") private boolean drop;
-    private List<EspObject> objects;
+    private List<IDraw> objects;
     private double startLines[];
     private boolean bobbing;
     
     public Esp() {
         super("Esp", Category.WORLD, PerformMode.TOGGLE);
-        objects = new ArrayList<EspObject>();
+        objects = new ArrayList<IDraw>();
         startLines = new double[3];
         bindLines = true;
         players = true;
@@ -47,27 +47,42 @@ public class Esp extends CheatModule {
     
     @Override public void onTick(boolean inGame) {
         if (inGame) {
-            List<EspObject> out = new ArrayList<EspObject>();
+            List<IDraw> out = new ArrayList<IDraw>();
             utils.nearEntityes(radius)
             .forEach(e -> {
+                final float[] col = new float[3];
                 if (players && utils.isPlayer(e)) {
-                    out.add(new EspObject(e, 1, 0, 1));
+                    col[0] = 1; col[1] = 0; col[2] = 1;
                 } else if (monsters && utils.isMonster(e)) {
-                    out.add(new EspObject(e, 1, 0, 0));
+                    col[0] = 1; col[1] = 0; col[2] = 0;
                 } else if (animals && utils.isAnimal(e)) {
-                    out.add(new EspObject(e, 0, 1, 0));
+                    col[0] = 0; col[1] = 1; col[2] = 0;
                 } else if (drop && utils.isDrop(e)) {
-                    out.add(new EspObject(e, 1, 1, 0));
+                    col[0] = 1; col[1] = 1; col[2] = 0;
                 } else if (villagers && utils.isVillager(e)) {
-                    out.add(new EspObject(e, 0, 1, 1));
+                    col[0] = 0; col[1] = 1; col[2] = 1;
                 } else if (customnpc && utils.isCustom(e)) {
-                    out.add(new EspObject(e, 0, 0, 1));
+                    col[0] = 0; col[1] = 0; col[2] = 1;
                 } else if (minecarts && e instanceof EntityMinecart) {
-                    out.add(new EspObject(e, 1, 1, 1));
+                    col[0] = 1; col[1] = 1; col[2] = 1;
+                } else {
+                    return;
                 }
+                out.add(() -> {
+                    if ((bindLines) || (startLines[0] == 0D && startLines[1] == 0D && startLines[2] == 0D)) {
+                        startLines[0] = RenderManager.instance.viewerPosX;
+                        startLines[1] = RenderManager.instance.viewerPosY;
+                        startLines[2] = RenderManager.instance.viewerPosZ;
+                    }
+                    if (lines) {
+                        render.WORLD.drawEspLine(startLines[0], startLines[1], startLines[2], e.posX, e.posY, e.posZ, col[0], col[1], col[2], 0.6F, 1.5F);
+                    }
+                    if (blocks) {
+                        render.WORLD.drawEspBlock(e.posX - 0.5, e.posY, e.posZ - 0.5, col[0], col[1], col[2], 0.4F, 1);
+                    }
+                });
             });
             objects = out;
-            utils.mc().gameSettings.viewBobbing = !lines || !bindLines || objects.isEmpty();
         }
     }
     
@@ -78,7 +93,11 @@ public class Esp extends CheatModule {
     }
     
     @SubscribeEvent public void worldRender(RenderWorldLastEvent e) {
-        objects.forEach(EspObject::draw);
+        utils.mc().gameSettings.viewBobbing = !lines || !bindLines || objects.isEmpty();
+        Iterator<IDraw> iterator = objects.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().draw();
+        }
     }
     
     @Override public String moduleDesc() {
@@ -100,7 +119,7 @@ public class Esp extends CheatModule {
                     buttonValue(lines = !lines);
                 }
                 @Override public String elementDesc() {
-                    return "Отрисовка линий";
+                    return "Отрисовка трасер линий";
                 }
             },
             new Button("BindLines", bindLines) {
@@ -108,7 +127,7 @@ public class Esp extends CheatModule {
                     buttonValue(bindLines = !bindLines);
                 }
                 @Override public String elementDesc() {
-                    return "Привязка линий к курсору";
+                    return "Привязка трасер линий к курсору";
                 }
             },
             new Button("Monsters", monsters) {
@@ -176,36 +195,6 @@ public class Esp extends CheatModule {
                 }
             }
         );
-    }
-    
-    class EspObject implements IDraw {
-        
-        final double x, y, z;
-        final float r, g, b;
-        
-        EspObject(Entity ent, float r, float g, float b) {
-            this.x = ent.posX;
-            this.y = ent.posY;
-            this.z = ent.posZ;
-            this.r = r;
-            this.g = g;
-            this.b = b;
-        }
-        
-        @Override public void draw() {
-            if ((bindLines) || (startLines[0] == 0D && startLines[1] == 0D && startLines[2] == 0D)) {
-                startLines[0] = RenderManager.instance.viewerPosX;
-                startLines[1] = RenderManager.instance.viewerPosY;
-                startLines[2] = RenderManager.instance.viewerPosZ;
-            }
-            if (blocks) {
-                render.WORLD.drawEspBlock(x - 0.5, y, z - 0.5, r, g, b, 0.4F, 1);
-            }
-            if (lines) {
-                render.WORLD.drawEspLine(startLines[0], startLines[1], startLines[2], x, y, z, r, g, b, 0.6F, 1.5F);
-            }
-        }
-        
     }
 
 }
