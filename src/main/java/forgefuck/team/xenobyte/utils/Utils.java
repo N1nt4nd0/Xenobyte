@@ -165,7 +165,7 @@ public class Utils {
         NBTBase base = null;
         try { base = JsonToNBT.func_150315_a(json);
         } catch (NBTException err) {
-            XenoLogger.getLogger().error(err.getMessage());
+            Xeno.logger.error(err.getMessage());
         }
         return (NBTTagCompound) base;
     }
@@ -447,6 +447,12 @@ public class Utils {
     
     public List<String> tabList() {
         return ((List<GuiPlayerInfo>) player().sendQueue.playerInfoList).stream().map(r -> r.name).collect(Collectors.toList());
+    }
+    
+    public void useHandItem() {
+        if (isInGame() && item() != null) {
+            mc().playerController.sendUseItem(player(), world(), item());
+        }
     }
     
     public List<TileEntity> nearTiles() {
