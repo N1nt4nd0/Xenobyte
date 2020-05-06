@@ -14,6 +14,7 @@ import forgefuck.team.xenobyte.modules.BiblioSignEdit;
 import forgefuck.team.xenobyte.modules.BiblioTableGive;
 import forgefuck.team.xenobyte.modules.BlinkCam;
 import forgefuck.team.xenobyte.modules.BlockOverlay;
+import forgefuck.team.xenobyte.modules.BobbingControl;
 import forgefuck.team.xenobyte.modules.BuildMarkerGive;
 import forgefuck.team.xenobyte.modules.BunnyHop;
 import forgefuck.team.xenobyte.modules.CacheGive;
@@ -104,6 +105,7 @@ public class ModulesList extends ArrayList<CheatModule>  {
         add(new PacketProtector());
         add(new BiblioSignEdit());
         add(new TravellersGive());
+        add(new BobbingControl());
         add(new MatterGiveItem());
         add(new RenderControl());
         add(new AntiKnockBack());
