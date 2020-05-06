@@ -43,7 +43,7 @@ public class ModuleHandler  {
         workingList = allModules().filter(CheatModule::isWorking).collect(Collectors.toList());
         allModules().forEach(m -> m.handlerInit(this));
         new Config(this);
-        enabledList = workingModules().peek(m -> m.cfgState = m.getMode() == PerformMode.SINGLE ? false : m.getMode() == PerformMode.ON_START ? true : m.cfgState).filter(m -> m.cfgState).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+        enabledList = workingModules().peek(m -> m.cfgState = m.getMode() == PerformMode.SINGLE || m.getMode() == PerformMode.DISABLED_ON_START ? false : m.getMode() == PerformMode.ENABLED_ON_START ? true : m.cfgState).filter(m -> m.cfgState).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
         allModules().forEach(CheatModule::onPostInit);
         new PacketHandler(this, Minecraft.getMinecraft().getNetHandler());
         new EventHandler(this);
@@ -156,7 +156,12 @@ public class ModuleHandler  {
     
     public void perform(CheatModule module, Button button) {
         WidgetMessage mess = new WidgetMessage(module, "выполнен", WidgetMode.INFO);
-        if (module.getMode() == PerformMode.TOGGLE) {
+        switch (module.getMode()) {
+        case SINGLE:
+            break;
+        case TOGGLE:
+        case ENABLED_ON_START:
+        case DISABLED_ON_START:
             boolean enabled = toggle(module);
             if (button != null) {
                 button.setSelected(enabled);

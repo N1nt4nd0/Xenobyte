@@ -13,7 +13,7 @@ public class PacketProtector extends CheatModule {
     private RadioHack radiohack;
     
     public PacketProtector() {
-        super("PacketProtector", Category.NONE, PerformMode.ON_START);
+        super("PacketProtector", Category.NONE, PerformMode.ENABLED_ON_START);
     }
     
     @Override public void onPostInit() {

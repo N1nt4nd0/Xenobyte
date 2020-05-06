@@ -13,7 +13,7 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 public class GuiReplacer extends CheatModule {
     
     public GuiReplacer() {
-        super("GuiReplacer", Category.NONE, PerformMode.ON_START);
+        super("GuiReplacer", Category.NONE, PerformMode.ENABLED_ON_START);
     }
     
     private void replaceSplash(GuiScreen gui) {

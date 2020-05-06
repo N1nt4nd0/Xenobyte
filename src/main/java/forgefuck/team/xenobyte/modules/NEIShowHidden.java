@@ -11,7 +11,7 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 public class NEIShowHidden extends CheatModule {
     
     public NEIShowHidden() {
-        super("NEIShowHidden", Category.NONE, PerformMode.ON_START);
+        super("NEIShowHidden", Category.NONE, PerformMode.ENABLED_ON_START);
     }
     
     @Override public boolean isWorking() {
