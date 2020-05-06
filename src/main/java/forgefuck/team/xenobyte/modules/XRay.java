@@ -18,26 +18,36 @@ import forgefuck.team.xenobyte.utils.TickHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.BlockDropper;
+import net.minecraft.block.BlockLever;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.common.util.RotationHelper;
 
 public class XRay extends CheatModule {
     
-    @Cfg("bindLines") private boolean bindLines;
-    @Cfg("lines") private boolean lines;
+    @Cfg("bindLines") public boolean bindLines;
+    @Cfg("lines") public boolean lines;
     @Cfg("radius") private int radius;
     @Cfg("height") private int height;
     private List<IDraw> blocks;
-    private double startLines[];
+    private double lx, ly, lz;
+    public boolean linesCheck;
     
     public XRay() {
         super("XRay", Category.WORLD, PerformMode.TOGGLE);
         blocks = new ArrayList<IDraw>();
-        startLines = new double[3];
         bindLines = true;
         height = 100;
         radius = 25;
+    }
+    
+    private boolean ignoreMetaFor(Block block) {
+        return RotationHelper.getValidVanillaBlockRotations(block) != ForgeDirection.VALID_DIRECTIONS || block instanceof BlockTorch || block instanceof BlockLever || block instanceof BlockDropper || block instanceof BlockDispenser;
     }
     
     private void updateBlocks() {
@@ -52,21 +62,19 @@ public class XRay extends CheatModule {
                         if (block instanceof BlockAir || block instanceof BlockDirt) {
                             continue;
                         }
-                        int meta = world.getBlockMetadata(x, y, z);
-                        SelectedBlock sel = xraySelector().getBlock(block, xraySelector().resetMetaFor(block, meta));
+                        SelectedBlock sel = xraySelector().getBlock(block, ignoreMetaFor(block) ? 0 : world.getBlockMetadata(x, y, z));
                         if (sel != null) {
                             double dX = (double) x;
                             double dY = (double) y;
                             double dZ = (double) z;
                             out.add(() -> {
-                                if ((bindLines) || (startLines[0] == 0D && startLines[1] == 0D && startLines[2] == 0D)) {
-                                    startLines[0] = RenderManager.instance.viewerPosX;
-                                    startLines[1] = RenderManager.instance.viewerPosY;
-                                    startLines[2] = RenderManager.instance.viewerPosZ;
-                                }
+                                lx = bindLines ? RenderManager.instance.viewerPosX : lx;
+                                ly = bindLines ? RenderManager.instance.viewerPosY : ly;
+                                lz = bindLines ? RenderManager.instance.viewerPosZ : lz;
                                 if (!sel.hidden) {
                                     if (lines && sel.tracer) {
-                                        render.WORLD.drawEspLine(startLines[0], startLines[1], startLines[2], dX + 0.5, dY + 0.5, dZ + 0.5, sel.rf, sel.gf, sel.bf, sel.af, 3);
+                                        render.WORLD.drawEspLine(lx, ly, lz, dX + 0.5, dY + 0.5, dZ + 0.5, sel.rf, sel.gf, sel.bf, 0.6F, 3);
+                                        linesCheck = true;
                                     }
                                     render.WORLD.drawEspBlock(dX, dY, dZ, sel.rf, sel.gf, sel.bf, sel.af, sel.scale);
                                 }
@@ -80,8 +88,6 @@ public class XRay extends CheatModule {
     }
     
     @Override public void onDisabled() {
-        utils.mc().gameSettings.viewBobbing = true;
-        startLines = new double[3];
         blocks.clear();
     }
     
@@ -96,7 +102,6 @@ public class XRay extends CheatModule {
     }
     
     @SubscribeEvent public void worldRender(RenderWorldLastEvent e) {
-        utils.mc().gameSettings.viewBobbing = !lines || !bindLines || blocks.isEmpty();
         Iterator<IDraw> iterator = blocks.iterator();
         while (iterator.hasNext()) {
             iterator.next().draw();

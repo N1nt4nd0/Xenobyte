@@ -28,22 +28,15 @@ import forgefuck.team.xenobyte.utils.Config;
 import forgefuck.team.xenobyte.utils.Reflections;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.BlockDropper;
-import net.minecraft.block.BlockLever;
-import net.minecraft.block.BlockMobSpawner;
-import net.minecraft.block.BlockTorch;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.util.RotationHelper;
 
 public class XRaySelect extends CheatModule {
     
-    @Cfg("xrayBlocks") private List<String> xrayBlocks;
+    @Cfg("configBlocks") private List<String> configBlocks;
     @Cfg("guiHint") public boolean guiHint;
     private List<String> missingBlocks;
     public List<SelectedBlock> blocks;
@@ -53,7 +46,7 @@ public class XRaySelect extends CheatModule {
         super("XRaySelect", Category.NEI, PerformMode.SINGLE);
         blocks = new CopyOnWriteArrayList<SelectedBlock>();
         missingBlocks = new ArrayList<String>();
-        xrayBlocks = new ArrayList<String>();
+        configBlocks = new ArrayList<String>();
         neiSubset = "X-Ray";
         guiHint = true;
     }
@@ -74,13 +67,6 @@ public class XRaySelect extends CheatModule {
         return blocks.stream().filter(predicate).findFirst().orElse(null);
     }
     
-    public int resetMetaFor(Block block, int meta) {
-        if (RotationHelper.getValidVanillaBlockRotations(block) != ForgeDirection.VALID_DIRECTIONS || block instanceof BlockTorch || block instanceof BlockMobSpawner || block instanceof BlockLever || block instanceof BlockDropper || block instanceof BlockDispenser) {
-            return 0;
-        }
-        return meta;
-    }
-    
     @Override public void onPostInit() {
         IdentityHashMap<Item, IItemRenderer> customRender = Reflections.getPrivateValue(MinecraftForgeClient.class, null, 0);
         for (Object obj : Item.itemRegistry) {
@@ -88,7 +74,7 @@ public class XRaySelect extends CheatModule {
                 MinecraftForgeClient.registerItemRenderer((Item) obj, new XRayHintRender(this));
             }
         }
-        for (String cBlock : xrayBlocks) {
+        for (String cBlock : configBlocks) {
             String[] data = cBlock.split(":");
             Block block = (Block) Block.blockRegistry.getObject(data[0] + ":" + data[1]);
             if (block instanceof BlockAir) {
@@ -97,8 +83,8 @@ public class XRaySelect extends CheatModule {
                 int meta = Integer.parseInt(data[2]);
                 int color = Integer.parseInt(data[3]);
                 float scale = Float.parseFloat(data[4]);
-                boolean hidden = Boolean.parseBoolean(data[5]);
-                boolean tracer = Boolean.parseBoolean(data[6]);
+                boolean hidden = data.length <= 5 ? false : Boolean.parseBoolean(data[5]);
+                boolean tracer = data.length <= 5 ? false : Boolean.parseBoolean(data[6]);
                 blocks.add(new SelectedBlock(new ItemStack(block, 1, meta), color, scale, hidden, tracer));
             }
         }
@@ -199,9 +185,9 @@ public class XRaySelect extends CheatModule {
             } else if (e.getSource() == clear) {
                 blocks.remove(block);
             }
-            xrayBlocks.clear();
-            xrayBlocks.addAll(blocks.stream().map(SelectedBlock::toString).collect(Collectors.toList()));
-            xrayBlocks.addAll(missingBlocks);
+            configBlocks.clear();
+            configBlocks.addAll(blocks.stream().map(SelectedBlock::toString).collect(Collectors.toList()));
+            configBlocks.addAll(missingBlocks);
             Config.save();
             updateNEI();
             dispose();
@@ -212,10 +198,10 @@ public class XRaySelect extends CheatModule {
         
         public boolean hidden, tracer;
         final ItemStack itemBlock;
-        public float scale;
         final Block block;
         final String id;
         final int meta;
+        float scale;
         
         SelectedBlock(ItemStack itemBlock, int color, float scale, boolean hidden, boolean tracer) {
             super(color);
@@ -223,9 +209,9 @@ public class XRaySelect extends CheatModule {
             this.hidden = hidden;
             this.tracer = tracer;
             this.itemBlock = itemBlock;
+            this.meta = itemBlock.getItemDamage();
             this.id = itemBlock.getItem().delegate.name();
             this.block = Block.getBlockFromItem(itemBlock.getItem());
-            this.meta = resetMetaFor(block, itemBlock.getItemDamage());
         }
         
         @Override public String toString() {

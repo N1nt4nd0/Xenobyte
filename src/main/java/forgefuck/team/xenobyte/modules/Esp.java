@@ -19,25 +19,24 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 public class Esp extends CheatModule {
     
-    @Cfg("bindLines") private boolean bindLines;
     @Cfg("villagers") private boolean villagers;
     @Cfg("minecarts") private boolean minecarts;
     @Cfg("customnpc") private boolean customnpc;
+    @Cfg("bindLines") public boolean bindLines;
     @Cfg("monsters") private boolean monsters;
     @Cfg("players") private boolean players;
     @Cfg("animals") private boolean animals;
     @Cfg("blocks") private boolean blocks;
-    @Cfg("lines") private boolean lines;
+    @Cfg("lines") public boolean lines;
     @Cfg("radius") private int radius;
     @Cfg("drop") private boolean drop;
     private List<IDraw> objects;
-    private double startLines[];
-    private boolean bobbing;
+    private double lx, ly, lz;
+    public boolean linesCheck;
     
     public Esp() {
         super("Esp", Category.WORLD, PerformMode.TOGGLE);
         objects = new ArrayList<IDraw>();
-        startLines = new double[3];
         bindLines = true;
         players = true;
         blocks = true;
@@ -69,16 +68,15 @@ public class Esp extends CheatModule {
                     return;
                 }
                 out.add(() -> {
-                    if ((bindLines) || (startLines[0] == 0D && startLines[1] == 0D && startLines[2] == 0D)) {
-                        startLines[0] = RenderManager.instance.viewerPosX;
-                        startLines[1] = RenderManager.instance.viewerPosY;
-                        startLines[2] = RenderManager.instance.viewerPosZ;
-                    }
+                    lx = bindLines ? RenderManager.instance.viewerPosX : lx;
+                    ly = bindLines ? RenderManager.instance.viewerPosY : ly;
+                    lz = bindLines ? RenderManager.instance.viewerPosZ : lz;
                     if (lines) {
-                        render.WORLD.drawEspLine(startLines[0], startLines[1], startLines[2], e.posX, e.posY, e.posZ, col[0], col[1], col[2], 0.6F, 1.5F);
+                        render.WORLD.drawEspLine(lx, ly, lz, e.posX, e.posY, e.posZ, col[0], col[1], col[2], 0.6F, 1.5F);
+                        linesCheck = true;
                     }
                     if (blocks) {
-                        render.WORLD.drawEspBlock(e.posX - 0.5, e.posY, e.posZ - 0.5, col[0], col[1], col[2], 0.4F, 1);
+                        render.WORLD.drawEspBlock(e.posX - 0.5, e.posY - 0.3, e.posZ - 0.5, col[0], col[1], col[2], 0.4F, 0.5F);
                     }
                 });
             });
@@ -87,13 +85,10 @@ public class Esp extends CheatModule {
     }
     
     @Override public void onDisabled() {
-        utils.mc().gameSettings.viewBobbing = true;
-        startLines = new double[3];
         objects.clear();
     }
     
     @SubscribeEvent public void worldRender(RenderWorldLastEvent e) {
-        utils.mc().gameSettings.viewBobbing = !lines || !bindLines || objects.isEmpty();
         Iterator<IDraw> iterator = objects.iterator();
         while (iterator.hasNext()) {
             iterator.next().draw();

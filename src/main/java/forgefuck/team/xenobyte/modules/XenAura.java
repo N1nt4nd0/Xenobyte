@@ -132,7 +132,7 @@ public class XenAura extends CheatModule {
                     buttonValue(criticals = !criticals);
                 }
                 @Override public String elementDesc() {
-                    return "Наносить удары с критами";
+                    return "Наносить удары с критами (может пролагивать)";
                 }
             },
             new Button("Players", players) {

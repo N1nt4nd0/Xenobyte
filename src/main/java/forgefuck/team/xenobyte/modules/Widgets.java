@@ -52,8 +52,10 @@ public class Widgets extends CheatModule {
     }
     
     public void widgetMessage(WidgetMessage mess) {
-        infoWidgets.add(0, new GuiWidget(mess.getMessage(), mess.getMode(), ElementAligment.LEFT, Colors.TRANSPARENT_DARKEST, infoWidgetsDelay));
-        updateWidgetPoses();
+        if (showWidget) {
+            infoWidgets.add(0, new GuiWidget(mess.getMessage(), mess.getMode(), ElementAligment.LEFT, Colors.TRANSPARENT_DARKEST, infoWidgetsDelay));
+            updateWidgetPoses();
+        }
     }
     
     public void infoMessage(WidgetMessage mess) {

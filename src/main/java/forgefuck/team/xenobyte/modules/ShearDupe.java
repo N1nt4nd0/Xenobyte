@@ -21,7 +21,7 @@ public class ShearDupe extends CheatModule {
             Entity ent = utils.entity();
             ItemStack handItem = utils.item();
             if (ent != null && !utils.isInCreative() && handItem != null && handItem.getItem() instanceof ItemShears) {
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 2000; i++) {
                     utils.sendPacket(new C02PacketUseEntity(ent, C02PacketUseEntity.Action.INTERACT));
                 }
             }
