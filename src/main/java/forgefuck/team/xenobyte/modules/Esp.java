@@ -27,7 +27,7 @@ public class Esp extends CheatModule {
     @Cfg("players") private boolean players;
     @Cfg("animals") private boolean animals;
     @Cfg("blocks") private boolean blocks;
-    @Cfg("lines") public boolean lines;
+    @Cfg("lines") private boolean lines;
     @Cfg("radius") private int radius;
     @Cfg("drop") private boolean drop;
     private List<IDraw> objects;

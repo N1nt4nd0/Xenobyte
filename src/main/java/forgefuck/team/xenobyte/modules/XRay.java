@@ -31,17 +31,18 @@ import net.minecraftforge.common.util.RotationHelper;
 public class XRay extends CheatModule {
     
     @Cfg("bindLines") public boolean bindLines;
-    @Cfg("lines") public boolean lines;
+    @Cfg("lines") private boolean lines;
     @Cfg("radius") private int radius;
     @Cfg("height") private int height;
     private List<IDraw> blocks;
-    private double lx, ly, lz;
     public boolean linesCheck;
+    private double lx, ly, lz;
     
     public XRay() {
         super("XRay", Category.WORLD, PerformMode.TOGGLE);
         blocks = new ArrayList<IDraw>();
         bindLines = true;
+        lines = true;
         height = 100;
         radius = 25;
     }
@@ -73,7 +74,7 @@ public class XRay extends CheatModule {
                                 lz = bindLines ? RenderManager.instance.viewerPosZ : lz;
                                 if (!sel.hidden) {
                                     if (lines && sel.tracer) {
-                                        render.WORLD.drawEspLine(lx, ly, lz, dX + 0.5, dY + 0.5, dZ + 0.5, sel.rf, sel.gf, sel.bf, 0.6F, 3);
+                                        render.WORLD.drawEspLine(lx, ly, lz, dX + 0.5, dY + 0.5, dZ + 0.5, sel.rf, sel.gf, sel.bf, 0.8F, 3);
                                         linesCheck = true;
                                     }
                                     render.WORLD.drawEspBlock(dX, dY, dZ, sel.rf, sel.gf, sel.bf, sel.af, sel.scale);
