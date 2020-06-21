@@ -95,10 +95,26 @@ public abstract class ModuleAbility {
     }
     
     /**
+     * Определяет будет ли модуль отображаться в информационных виджетах
+     * @return boolean
+     */
+    public boolean isWidgetable() {
+        return true;
+    }
+    
+    /**
      * Определяет будет ли модуль вызывать события о своём состоянии {@link #onEnabled()}, {@link #onDisabled()} и такие как {@link #onModuleEnabled(CheatModule module)}}
      * @return boolean
      */
     public boolean provideStateEvents() {
+        return true;
+    }
+    
+    /**
+     * Определяет будет ли модуль вызывать события о кейбинде {@link #onModuleUnBinded(CheatModule module)}
+     * @return boolean
+     */
+    public boolean provideBindEvents() {
         return true;
     }
     
