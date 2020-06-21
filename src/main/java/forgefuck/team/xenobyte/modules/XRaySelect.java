@@ -56,11 +56,11 @@ public class XRaySelect extends CheatModule {
     }
     
     public SelectedBlock getBlock(ItemStack stack) {
-        return getBlock(b -> b.itemBlock.isItemEqual(stack));
+        return getBlock(b -> b.itemBlockEquals(stack));
     }
     
     public SelectedBlock getBlock(Block block, int meta) {
-        return getBlock(b -> Block.isEqualTo(b.block, block) && b.meta == meta);
+        return getBlock(b -> b.blockEquals(block, meta));
     }
     
     private SelectedBlock getBlock(Predicate<SelectedBlock> predicate) {
@@ -97,19 +97,10 @@ public class XRaySelect extends CheatModule {
                NEI.openGui("@" + neiSubset);
             break;
         case KEY:
-            ItemStack stack = NEI.getStackMouseOver();
-            if (stack != null) {
-                if (stack.getItem() instanceof ItemBlock) {
-                    SelectedBlock block = getBlock(stack);
-                    if (block == null) {
-                        block = new SelectedBlock(stack, Colors.BLACK, 1, false, false);
-                    }
-                    new XRaySettings(block).showFrame();
-                }
-            } else {
-                if (utils.isInGameGui()) {
-                    NEI.openGui("@" + neiSubset);
-                }
+            ItemStack stack = utils.isInGameGui() ? utils.getStackFromView() : NEI.getStackMouseOver();
+            if (stack != null && stack.getItem() instanceof ItemBlock) {
+                SelectedBlock block = getBlock(stack);
+                new XRaySettings(block == null ? new SelectedBlock(stack, Colors.BLACK, 1, false, false) : block).showFrame();
             }
         }
     }
@@ -127,7 +118,7 @@ public class XRaySelect extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выбор блока в NEI по кейбинду для X-Ray (также добавляет вкладку @" + neiSubset + ")";
+        return "Выбор блока для X-Ray в NEI или по взгляду на блок по кейбинду. Также добавляет вкладку @" + neiSubset;
     }
     
     @Override public Panel settingPanel() {
@@ -212,6 +203,22 @@ public class XRaySelect extends CheatModule {
             this.meta = itemBlock.getItemDamage();
             this.id = itemBlock.getItem().delegate.name();
             this.block = Block.getBlockFromItem(itemBlock.getItem());
+        }
+        
+        boolean itemBlockEquals(ItemStack stack) {
+            return itemBlock.isItemEqual(stack);
+        }
+        
+        boolean blockEquals(Block block, int meta) {
+            return Block.isEqualTo(this.block, block);
+        }
+        
+        @Override public boolean equals(Object o) {
+            if (o instanceof SelectedBlock) {
+                SelectedBlock sel = (SelectedBlock) o;
+                return itemBlockEquals(sel.itemBlock) && blockEquals(sel.block, sel.meta);
+            }
+            return false;
         }
         
         @Override public String toString() {

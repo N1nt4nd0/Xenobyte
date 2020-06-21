@@ -654,6 +654,16 @@ public class Utils {
         openGui(gui, false);
     }
     
+    public ItemStack getStackFromView() {
+        Block block = block();
+        int meta = blockMeta();
+        if (block instanceof BlockAir) {
+            return null;
+        } else {
+            return new ItemStack(block, 1, meta);
+        }
+    }
+    
     private double boxHeight;
     public void verticalTeleport(int yPos, boolean sound) {
         if (boxHeight == 0) {
