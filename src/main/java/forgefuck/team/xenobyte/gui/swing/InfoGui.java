@@ -48,7 +48,7 @@ public class InfoGui extends XenoJFrame {
         };
         author = new JLabel("  " + Xeno.mod_name + " version " + Xeno.mod_version + " (C) " + Xeno.author + "  ");
         gitHubLink = new JLabel("https://github.com/N1nt4nd0/Xenobyte");
-        disLink = new JLabel("https://discord.gg/dtQGYZa");
+        disLink = new JLabel("https://discord.gg/HMMKfWp");
         desc = new JLabel("Special for ForgeFuck - Team");
         vkLink = new JLabel("https://vk.com/forgefuck");
         fieldsPanel = new JPanel();
