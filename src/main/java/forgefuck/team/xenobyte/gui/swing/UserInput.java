@@ -23,23 +23,31 @@ public class UserInput extends XenoJFrame {
 
     public UserInput(String title, List<String> list, InputType type) {
         super(title, DISPOSE_ON_CLOSE);
-        this.type = type;
-        this.list = list;
-        if (this.type == InputType.COORDS) {
-            if (this.list.size() < 3) {
-                for (int i = 0; i < 3; i++) {
-                    this.list.add("0");
-                } 
+        if (type == InputType.COORDS) {
+            if (list.size() < 3) {
+                for (int i = list.size(); i < 3; i++) {
+                    list.add("0");
+                }
+            } else if (list.size() > 3) {
+                for (int i = 2; i < list.size(); i++) {
+                    list.remove(i);
+                }
             }
-        } else if (this.type == InputType.SINGLE_STRING) {
-            if (this.list.size() < 1) {
-                this.list.add("");
+        } else if (type == InputType.SINGLE_STRING) {
+            if (list.size() == 0) {
+                list.add("");
+            } else if (list.size() > 1) {
+                for (int i = 1; i < list.size(); i++) {
+                    list.remove(i);
+                }
             }
         }
-        if (this.type == InputType.CUSTOM) {
+        if (type == InputType.CUSTOM) {
             buttonsBar.add(add);
         }
-        this.list.forEach(this::addTextBar);
+        list.forEach(this::addTextBar);
+        this.type = type;
+        this.list = list;
         packFrame();
     }
 
