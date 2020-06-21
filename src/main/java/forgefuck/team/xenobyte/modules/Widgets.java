@@ -1,6 +1,5 @@
 package forgefuck.team.xenobyte.modules;
 
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -35,7 +34,7 @@ public class Widgets extends CheatModule {
     private int infoWidgetsDelay;
     
     public Widgets() {
-        super("Widgets", Category.MISC, PerformMode.TOGGLE);
+        super("Widgets", Category.MISC, PerformMode.ENABLED_ON_START);
         modulesInfo = new HashMap<CheatModule, GuiWidget>();
         infoWidgets = new CopyOnWriteArrayList<GuiWidget>();
         keyabled = new HashMap<CheatModule, GuiWidget>();
@@ -48,7 +47,7 @@ public class Widgets extends CheatModule {
     
     @Override public void onPostInit() {
         keyabledMessage(moduleHandler().xenoGui());
-        moduleHandler().categoryedModules().filter(CheatModule::provideStateEvents).forEach(this::keyabledMessage);
+        moduleHandler().categoryedModules().filter(CheatModule::isWidgetable).forEach(this::keyabledMessage);
     }
     
     public void widgetMessage(WidgetMessage mess) {
@@ -59,7 +58,7 @@ public class Widgets extends CheatModule {
     }
     
     public void infoMessage(WidgetMessage mess) {
-        if (mess.hasModule()) {
+        if (mess.hasModule() && mess.getModule().isWidgetable()) {
             modulesInfo.put(mess.getModule(), new GuiWidget(mess.getMessage(), mess.getMode(), ElementAligment.LEFT, Colors.TRANSPARENT_DARKEST, 0));
             updateInfoPoses();
         }
@@ -73,21 +72,23 @@ public class Widgets extends CheatModule {
     }
     
     private void keyabledMessage(CheatModule m) {
-        String out = moduleHandler().isEnabled(m) || m.hasKeyBind() ? m.getName() + (m.hasKeyBind() ? "-" + m.getKeyName() : "") : null;
-        int height = 0;
-        if (out != null) {
-            keyabled.put(m, new GuiWidget(out, m.getMode() == PerformMode.SINGLE ? WidgetMode.INFO : moduleHandler().isEnabled(m) ? WidgetMode.SUCCESS : WidgetMode.FAIL, ElementAligment.LEFT, Colors.TRANSPARENT_DARK, 0));
-        } else {
-            if (keyabled.containsKey(m)) {
-                keyabled.remove(m);
+        if (m.isWidgetable()) {
+            String out = moduleHandler().isEnabled(m) || m.hasKeyBind() ? m.getName() + (m.hasKeyBind() ? "-" + m.getKeyName() : "") : null;
+            int height = 0;
+            if (out != null) {
+                keyabled.put(m, new GuiWidget(out, m.getMode() == PerformMode.SINGLE ? WidgetMode.INFO : moduleHandler().isEnabled(m) ? WidgetMode.SUCCESS : WidgetMode.FAIL, ElementAligment.LEFT, Colors.TRANSPARENT_DARK, 0));
             } else {
-                return;
+                if (keyabled.containsKey(m)) {
+                    keyabled.remove(m);
+                } else {
+                    return;
+                }
             }
-        }
-        keyabled = sorted(keyabled);
-        for (GuiWidget w : keyabled.values()) {
-            w.setY(height);
-            height += w.getHeight(); 
+            keyabled = sorted(keyabled);
+            for (GuiWidget w : keyabled.values()) {
+                w.setY(height);
+                height += w.getHeight(); 
+            }
         }
     }
     
@@ -116,11 +117,20 @@ public class Widgets extends CheatModule {
         .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
     
+    @Override public boolean isWidgetable() {
+        return false;
+    }
+    
     @SubscribeEvent public void guiInit(InitGuiEvent.Pre e) {
         onEnabled();
     }
     
+    @Override public void onDisabled() {
+        infoWidgets.clear();
+    }
+    
     @Override public void onEnabled() {
+        onDisabled();
         updateWidgetPoses();
         updateInfoPoses();
     }
@@ -135,28 +145,22 @@ public class Widgets extends CheatModule {
     }
     
     @Override public void onDrawGuiOverlay() {
-        try {
-            if (showInfo) {
-                Iterator<GuiWidget> iterator = modulesInfo.values().iterator();
-                while (iterator.hasNext()) {
-                    iterator.next().draw();
-                }
+        if (showInfo) {
+            Iterator<GuiWidget> iterator = modulesInfo.values().iterator();
+            while (iterator.hasNext()) {
+                iterator.next().draw();
             }
-            if (showKeyabled) {
-                Iterator<GuiWidget> iterator = keyabled.values().iterator();
-                while (iterator.hasNext()) {
-                    iterator.next().draw();
-                }
+        }
+        if (showKeyabled) {
+            Iterator<GuiWidget> iterator = keyabled.values().iterator();
+            while (iterator.hasNext()) {
+                iterator.next().draw();
             }
-         } catch (ConcurrentModificationException e) {}
+        }
     }
     
     @Override public void onTick(boolean inGame) {
         infoWidgets.removeIf(w -> -- w.delay <= 0);
-    }
-    
-    @Override public boolean provideStateEvents() {
-        return false;
     }
     
     @Override public void onModuleBinded(CheatModule m) {

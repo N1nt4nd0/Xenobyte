@@ -18,7 +18,7 @@ public class NEIShowHidden extends CheatModule {
         return NEI.isAvailable();
     }
     
-    @Override public boolean provideStateEvents() {
+    @Override public boolean isWidgetable() {
         return false;
     }
     

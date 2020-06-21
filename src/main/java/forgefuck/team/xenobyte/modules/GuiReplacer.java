@@ -28,7 +28,7 @@ public class GuiReplacer extends CheatModule {
         replaceSplash(utils.currentScreen());
     }
     
-    @Override public boolean provideStateEvents() {
+    @Override public boolean isWidgetable() {
         return false;
     }
     

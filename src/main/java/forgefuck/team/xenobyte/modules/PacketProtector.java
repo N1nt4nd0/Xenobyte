@@ -16,6 +16,10 @@ public class PacketProtector extends CheatModule {
         super("PacketProtector", Category.NONE, PerformMode.ENABLED_ON_START);
     }
     
+    @Override public boolean isWidgetable() {
+        return false;
+    }
+    
     @Override public void onPostInit() {
         teleporter = (EIOTeleport) moduleHandler().getModuleByClass(EIOTeleport.class);
         radiohack = (RadioHack) moduleHandler().getModuleByClass(RadioHack.class);
