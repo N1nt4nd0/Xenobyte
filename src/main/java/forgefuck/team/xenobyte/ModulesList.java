@@ -61,6 +61,7 @@ import forgefuck.team.xenobyte.modules.OCShutDown;
 import forgefuck.team.xenobyte.modules.OneWayTicket;
 import forgefuck.team.xenobyte.modules.OpenCreative;
 import forgefuck.team.xenobyte.modules.PacketProtector;
+import forgefuck.team.xenobyte.modules.PortalHelper;
 import forgefuck.team.xenobyte.modules.QuestGive;
 import forgefuck.team.xenobyte.modules.RFCellDupe;
 import forgefuck.team.xenobyte.modules.RadioHack;
@@ -131,6 +132,7 @@ public class ModulesList extends ArrayList<CheatModule>  {
         add(new OneWayTicket());
         add(new MachineChaos());
         add(new BlockOverlay());
+        add(new PortalHelper());
         add(new TurretNuker());
         add(new GuiReplacer());
         add(new VanilaNuker());
