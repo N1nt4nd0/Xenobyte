@@ -140,14 +140,14 @@ public class ModuleHandler  {
                 if (!module.equals(xenoGui())) {
                     module.resetKeyBind();
                     button.buttonValue(null);
-                    if (module.provideStateEvents()) {
+                    if (module.provideBindEvents()) {
                         workingModules().forEach(m -> m.onModuleUnBinded(module));
                     }
                 }
             } else {
                 module.setKeyBind(key);
                 button.buttonValue(module.getKeyName());
-                if (module.provideStateEvents()) {
+                if (module.provideBindEvents()) {
                     workingModules().forEach(m -> m.onModuleBinded(module));
                 }
             }
@@ -168,7 +168,7 @@ public class ModuleHandler  {
             }
             mess = new WidgetMessage(module, enabled ? "ON" : "OFF", enabled ? WidgetMode.SUCCESS : WidgetMode.FAIL);
         }
-        if (module.allowStateMessages()) {
+        if (module.isWidgetable() && module.allowStateMessages()) {
             widgets().widgetMessage(mess);
         }
         module.onPerform(button == null ? PerformSource.KEY : PerformSource.BUTTON);
