@@ -5,7 +5,7 @@
 Релизы версий и их краткие описания находятся <a href="https://github.com/N1nt4nd0/Xenobyte/releases"><b>ЗДЕСЬ</b></a>.
 
 <b>xenobyte.jar</b> - в виде мода. Способы установки:
-  - <a href="https://github.com/TheQmaks/JavaInjector/releases/v2.1">JavaInjector by Qmaks</a> - по инструкции на <a href="https://www.youtube.com/watch?v=hmquFs06PlU">ВИДЕО</a>, только инжектить <b>ПОСЛЕ</b> загрузки клиента (в главном меню или в самой игре)
+  - <a href="https://github.com/TheQmaks/JavaInjector/releases">JavaInjector by Qmaks</a> - по инструкции на <a href="https://www.youtube.com/watch?v=hmquFs06PlU">ВИДЕО</a>, только инжектить <b>ПОСЛЕ</b> загрузки клиента (в главном меню или в самой игре)
   - <a href="https://yadi.sk/d/VRL1rF5E3KQHzb">Старый добрый HZR</a> - инструкция внутри архива
   - Положив JAR файл в папку mods
   
@@ -32,7 +32,7 @@
   
 # Ссылки
 
-  - Discord - https://discord.gg/dtQGYZa
+  - Discord - https://discord.gg/HMMKfWp
   - VK - https://vk.com/forgefuck
 
 # Благодарности
