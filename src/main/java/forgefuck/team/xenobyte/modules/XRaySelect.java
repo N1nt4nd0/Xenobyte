@@ -210,7 +210,7 @@ public class XRaySelect extends CheatModule {
         }
         
         boolean blockEquals(Block block, int meta) {
-            return Block.isEqualTo(this.block, block);
+            return Block.isEqualTo(this.block, block) && this.meta == meta;
         }
         
         @Override public boolean equals(Object o) {
