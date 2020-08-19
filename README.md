@@ -32,8 +32,8 @@
   
 # Ссылки
 
-  - Discord - https://discord.gg/HMMKfWp
-  - VK - https://vk.com/forgefuck
+  - Discord - N1nt4nd0#0613
+  - Telegram https://t.me/feodorkekovich
 
 # Благодарности
 
