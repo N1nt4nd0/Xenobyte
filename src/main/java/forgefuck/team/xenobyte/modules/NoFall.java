@@ -18,7 +18,7 @@ public class NoFall extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Отключает урон от падения";
+        return lang.get("Disables fall damage", "Отключает урон от падения");
     }
 
 }

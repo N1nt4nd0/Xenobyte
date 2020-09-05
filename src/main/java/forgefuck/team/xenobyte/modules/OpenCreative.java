@@ -71,7 +71,7 @@ public class OpenCreative extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Изменение своего Gamemode или игроков (если кикает при выполнении - фикс)";
+        return lang.get("Changing your Gamemode or players (if kicks during execution - fixed)", "Изменение своего Gamemode или игроков (если кикает при выполнении - фикс)");
     }
     
     @Override public Panel settingPanel() {
@@ -81,7 +81,7 @@ public class OpenCreative extends CheatModule {
                     buttonValue(inRadius = !inRadius);
                 }
                 @Override public String elementDesc() {
-                    return "По радиусу или взгляду";
+                    return lang.get("By radius or sight", "По радиусу или взгляду");
                 }
             }
         );

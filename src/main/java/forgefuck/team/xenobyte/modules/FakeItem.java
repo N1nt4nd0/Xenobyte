@@ -24,7 +24,7 @@ public class FakeItem extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Игроки будут видеть в руке предмет из заданного слота";
+        return lang.get("Players will see an item from the specified slot in their hand", "Игроки будут видеть в руке предмет из заданного слота");
     }
     
     @Override public Panel settingPanel() {

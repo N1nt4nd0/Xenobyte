@@ -17,7 +17,7 @@ public class NoRain extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Когда комп говно";
+        return lang.get("When the PC is shit", "Когда комп говно");
     }
 
 }

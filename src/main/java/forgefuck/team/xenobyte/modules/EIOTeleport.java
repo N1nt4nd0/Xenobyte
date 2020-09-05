@@ -60,17 +60,17 @@ public class EIOTeleport extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Телепортирует объект с заданными настройками";
+        return lang.get("Teleports an object with the specified settings", "Телепортирует объект с заданными настройками");
     }
     
     @Override public Panel settingPanel() {
         return new Panel(
             new Button("Coords") {
                 @Override public void onLeftClick() {
-                    new UserInput("Координаты", coords, InputType.COORDS).showFrame();
+                    new UserInput(lang.get("Coords", "Координаты"), coords, InputType.COORDS).showFrame();
                 }
                 @Override public String elementDesc() {
-                    return "Заданные x y z";
+                    return lang.get("Specified x y z", "Заданные x y z");
                 }
             },
             new Button("ItemTeleport", items) {
@@ -78,7 +78,7 @@ public class EIOTeleport extends CheatModule {
                     buttonValue(items = !items);
                 }
                 @Override public String elementDesc() {
-                    return "Телепорт предметов вместо игрока";
+                    return lang.get("Teleporting items instead of the player", "Телепорт предметов вместо игрока");
                 }
             },
             new Button("OnView", onView) {
@@ -86,7 +86,7 @@ public class EIOTeleport extends CheatModule {
                     buttonValue(onView = !onView);
                 }
                 @Override public String elementDesc() {
-                    return "Телепорт по взгляду или координатам";
+                    return lang.get("Teleport by sight or coordinates", "Телепорт по взгляду или координатам");
                 }
             },
             new Button("Intercept", intercept) {
@@ -94,7 +94,7 @@ public class EIOTeleport extends CheatModule {
                     buttonValue(intercept = !intercept);
                 }
                 @Override public String elementDesc() {
-                    return "Перехват чат-команды /tp nick x y z";
+                    return lang.get("Interception of the chat command", "Перехват чат-команды") + " /tp nick x y z";
                 }
             }
         );

@@ -19,7 +19,7 @@ public class NoWeb extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Паутина больше не цепляет";
+        return lang.get("The web no longer clings", "Паутина больше не цепляет");
     }
 
 }

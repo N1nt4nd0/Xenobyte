@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import forgefuck.team.xenobyte.api.gui.ColorPicker;
+import forgefuck.team.xenobyte.api.gui.XenoJFrame;
 
 public class ColorPickerGui extends XenoJFrame implements ChangeListener {
 
@@ -43,18 +44,21 @@ public class ColorPickerGui extends XenoJFrame implements ChangeListener {
         sliders = new JPanel();
         viewer = new JPanel();
     }
-
+    
     @Override public void configurate() {
         viewer.setPreferredSize(new Dimension(25, 25));
         r.setPreferredSize(new Dimension(350, 50));
         g.setPreferredSize(new Dimension(350, 50));
         b.setPreferredSize(new Dimension(350, 50));
         a.setPreferredSize(new Dimension(350, 50));
-        a.setBorder(customTitledBorder("Прозрачность"));
-        r.setBorder(customTitledBorder("Красный"));
-        g.setBorder(customTitledBorder("Зелёный"));
-        b.setBorder(customTitledBorder("Голубой"));
         sliders.setLayout(new GridBagLayout());
+    }
+    
+    @Override public void localizeSet() {
+        a.setBorder(customTitledBorder(lang.get("Transparency", "Прозрачность")));
+        r.setBorder(customTitledBorder(lang.get("Red", "Красный")));
+        g.setBorder(customTitledBorder(lang.get("Green", "Зеленый")));
+        b.setBorder(customTitledBorder(lang.get("Blue", "Синий")));
     }
 
     @Override public void addElements() {

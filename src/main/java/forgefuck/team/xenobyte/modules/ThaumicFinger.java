@@ -21,7 +21,7 @@ public class ThaumicFinger extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Открытие дюп - верстака";
+        return lang.get("Opening the dupe workbench", "Открытие дюп - верстака");
     }
 
 }

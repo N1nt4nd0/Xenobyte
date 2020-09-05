@@ -7,10 +7,10 @@ import java.util.Map;
 
 import cpw.mods.fml.common.Loader;
 import forgefuck.team.xenobyte.api.config.Cfg;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import forgefuck.team.xenobyte.utils.Reflections;
@@ -107,7 +107,7 @@ public class ThaumResearch extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Магистр ёба";
+        return lang.get("All aspects and researches are opened", "Магистр ёба");
     }
     
     @Override public Panel settingPanel() {
@@ -117,7 +117,7 @@ public class ThaumResearch extends CheatModule {
                     buttonValue(aspectMode = !aspectMode);
                 }
                 @Override public String elementDesc() {
-                    return "Выдаёт аспекты, иначе открывает изучения";
+                    return lang.get("Gives out aspects, otherwise opens researches", "Выдаёт аспекты, иначе открывает изучения");
                 }
             }
         );

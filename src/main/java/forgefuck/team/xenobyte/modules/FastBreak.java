@@ -29,7 +29,7 @@ public class FastBreak extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Быстрое ломание блоков";
+        return lang.get("Fast breaking blocks", "Быстрое ломание блоков");
     }
 
 }

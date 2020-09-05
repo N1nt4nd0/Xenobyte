@@ -58,7 +58,7 @@ public class VanillaMagic extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Мгновенное: поедание, самотушение и дебаф";
+        return lang.get("Instant: eat, self-extinguish and debuff", "Мгновенное: поедание, самотушение и дебаф");
     }
 
 }

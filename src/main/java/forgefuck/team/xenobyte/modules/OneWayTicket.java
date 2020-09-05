@@ -28,7 +28,7 @@ public class OneWayTicket extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Применение NBT из Chanter'a к Билету или Таблице Маршрутизации находящейся в руке";
+        return lang.get("Applying NBT from Chanter to a Ticket or Routing Table in hand", "Применение NBT из Chanter'a к Билету или Таблице Маршрутизации находящейся в руке");
     }
     
     @Override public boolean isWorking() {

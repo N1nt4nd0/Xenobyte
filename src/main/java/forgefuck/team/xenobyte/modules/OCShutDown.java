@@ -48,7 +48,7 @@ public class OCShutDown extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Перезагрузка компов из OpenComputers по кейбинду";
+        return lang.get("Restarting PC's from OpenComputers by keybind", "Перезагрузка компов из OpenComputers по кейбинду");
     }
     
     @Override public Panel settingPanel() {
@@ -58,7 +58,7 @@ public class OCShutDown extends CheatModule {
                     buttonValue(inRadius = !inRadius);
                 }
                 @Override public String elementDesc() {
-                    return "По радиусу или взгляду";
+                    return lang.get("By radius or sight", "По радиусу или взгляду");
                 }
             }
         );

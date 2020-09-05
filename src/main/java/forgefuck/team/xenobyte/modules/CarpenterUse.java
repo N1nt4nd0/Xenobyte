@@ -22,7 +22,7 @@ public class CarpenterUse extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "В большинстве случаев позволяет использовать ПКМ в привате";
+        return lang.get("In most cases, allows you to use right click in clamed area", "В большинстве случаев позволяет использовать ПКМ в привате");
     }
 
     @Override public boolean isWorking() {

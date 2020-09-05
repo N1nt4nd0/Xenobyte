@@ -57,7 +57,7 @@ public class FakeBreak extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Фейк разрушение блока (пройти через них можно только с BlinkCam)";
+        return lang.get("Fake destruction of the block (you can only go through them with BlinkCam)", "Фейк разрушение блока (пройти через них можно только с BlinkCam)");
     }
     
     @Override public Panel settingPanel() {
@@ -67,7 +67,7 @@ public class FakeBreak extends CheatModule {
                     buttonValue(drawEsp = !drawEsp);
                 }
                 @Override public String elementDesc() {
-                    return "Подсветка сломанных блоков";
+                    return lang.get("Highlighting broken blocks", "Подсветка сломанных блоков");
                 }
             }
         );

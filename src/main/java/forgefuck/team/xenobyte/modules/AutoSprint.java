@@ -17,7 +17,7 @@ public class AutoSprint extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Постоянный спринт";
+        return lang.get("Non-stop sprint", "Постоянный спринт");
     }
 
 }

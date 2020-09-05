@@ -21,7 +21,7 @@ public class TinkerChest extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Открытие дорожной сумки без её наличия в инвентаре";
+        return lang.get("Opening a travel bag without having it in your inventory", "Открытие дорожной сумки без её наличия в инвентаре");
     }
 
 }

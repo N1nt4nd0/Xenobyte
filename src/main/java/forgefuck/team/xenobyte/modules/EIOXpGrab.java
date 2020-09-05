@@ -30,7 +30,7 @@ public class EIOXpGrab extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Высасывает опыт из всех обелисков опыта в радиусе";
+        return lang.get("Drains experience from all experience obelisks in the radius", "Высасывает опыт из всех обелисков опыта в радиусе");
     }
 
 }

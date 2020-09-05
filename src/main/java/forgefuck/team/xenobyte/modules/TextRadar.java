@@ -28,12 +28,12 @@ public class TextRadar extends CheatModule {
                 out.append("[" + utils.name(e) + " " + dist + "]");
             });
             boolean empty = out.length() == 0;
-            infoMessage(empty ? "пусто" : out.toString(), empty ? WidgetMode.SUCCESS : WidgetMode.FAIL);
+            infoMessage(empty ? lang.get("nobody", "пусто") : out.toString(), empty ? WidgetMode.SUCCESS : WidgetMode.FAIL);
         }
     }
     
     @Override public String moduleDesc() {
-        return "Выводит на инфопанель ближайших игроков и расстояние до них";
+        return lang.get("Displays the nearest players and the distance to them on the info panel", "Выводит на инфопанель ближайших игроков и расстояние до них");
     }
 
 }

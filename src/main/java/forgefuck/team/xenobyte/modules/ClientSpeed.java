@@ -35,7 +35,7 @@ public class ClientSpeed extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Изменение скорости клиентских тиков";
+        return lang.get("Changing the speed of client ticks", "Изменение скорости клиентских тиков");
     }
     
     @Override public Panel settingPanel() {
@@ -45,7 +45,7 @@ public class ClientSpeed extends CheatModule {
                     tickRate = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Модификатор частоты тиков";
+                    return lang.get("Tick modifier", "Модификатор частоты тиков");
                 }
             }
         );

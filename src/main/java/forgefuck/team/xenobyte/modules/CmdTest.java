@@ -13,7 +13,7 @@ public class CmdTest extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Проверка командного блока на работоспособность";
+        return lang.get("Checking the command block for operability", "Проверка командного блока на работоспособность");
     }
     
     @Override public void onPerform(PerformSource src) {

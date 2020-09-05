@@ -40,7 +40,7 @@ public class BlinkCam extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Он же Blink, он же FreeCam";
+        return lang.get("Aka Blink, aka FreeCam", "Он же Blink, он же FreeCam");
     }
     
 }

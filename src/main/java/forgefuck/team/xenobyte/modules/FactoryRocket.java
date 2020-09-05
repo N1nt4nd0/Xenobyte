@@ -38,7 +38,7 @@ public class FactoryRocket extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Запуск ракет по ЛКМ";
+        return lang.get("Launching rocket on left mouse click", "Запуск ракет по ЛКМ");
     }
     
     @Override public Panel settingPanel() {
@@ -48,7 +48,7 @@ public class FactoryRocket extends CheatModule {
                     buttonValue(inRadius = !inRadius);
                 }
                 @Override public String elementDesc() {
-                    return "По живности в радиусе или взгляду";
+                    return lang.get("By living creatures in radius or sight", "По живности в радиусе или взгляду");
                 }
             }
         );

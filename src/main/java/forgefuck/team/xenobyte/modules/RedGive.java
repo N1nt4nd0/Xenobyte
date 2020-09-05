@@ -21,7 +21,7 @@ public class RedGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в активный слот (заменит текущий предмет)";
+        return lang.get("Issuing an item to the active slot (will replace the current item)", "Выдача предмета в активный слот (заменит текущий предмет)");
     }
 
 }

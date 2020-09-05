@@ -74,7 +74,7 @@ public class XRay extends CheatModule {
                                 lz = bindLines ? RenderManager.instance.viewerPosZ : lz;
                                 if (!sel.hidden) {
                                     if (lines && sel.tracer) {
-                                        render.WORLD.drawEspLine(lx, ly, lz, dX + 0.5, dY + 0.5, dZ + 0.5, sel.rf, sel.gf, sel.bf, 0.8F, 3);
+                                        render.WORLD.drawEspLine(lx, ly, lz, dX + 0.5, dY + 0.5, dZ + 0.5, sel.rf, sel.gf, sel.bf, sel.af, 3);
                                         linesCheck = true;
                                     }
                                     render.WORLD.drawEspBlock(dX, dY, dZ, sel.rf, sel.gf, sel.bf, sel.af, sel.scale);
@@ -110,7 +110,7 @@ public class XRay extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Отрисовка блоков в мире выбранных в NEI/XRaySelect";
+        return lang.get("Rendering blocks in the world selected in NEI/XRaySelect", "Отрисовка блоков в мире выбранных в NEI/XRaySelect");
     }
     
     @Override public Panel settingPanel() {
@@ -120,7 +120,7 @@ public class XRay extends CheatModule {
                     buttonValue(lines = !lines);
                 }
                 @Override public String elementDesc() {
-                    return "Отрисовка всех трасер линий";
+                    return lang.get("Drawing all tracer lines", "Отрисовка всех трасер линий");
                 }
             },
             new Button("BindLines", bindLines) {
@@ -128,7 +128,7 @@ public class XRay extends CheatModule {
                     buttonValue(bindLines = !bindLines);
                 }
                 @Override public String elementDesc() {
-                    return "Привязка трасер линий к курсору";
+                    return lang.get("Snap line tracers to cursor", "Привязка трасер линий к курсору");
                 }
             },
             new ScrollSlider("Radius", radius, 100) {
@@ -136,7 +136,7 @@ public class XRay extends CheatModule {
                     radius = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Радиус проверки блоков";
+                    return lang.get("Blocks check radius", "Радиус проверки блоков");
                 }
             },
             new ScrollSlider("Height", height, 256) {
@@ -144,7 +144,7 @@ public class XRay extends CheatModule {
                     height = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Высота проверки блоков";
+                    return lang.get("Blocks check height", "Высота проверки блоков");
                 }
             }
         );

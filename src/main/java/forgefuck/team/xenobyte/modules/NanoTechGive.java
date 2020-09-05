@@ -25,7 +25,7 @@ public class NanoTechGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в обычный сундук на который смотрит игрок";
+        return lang.get("Item give into a vanilla chest that the player is looking at", "Выдача предмета в обычный сундук на который смотрит игрок");
     }
     
     @Override public boolean isWorking() {

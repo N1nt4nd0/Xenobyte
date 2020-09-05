@@ -66,7 +66,7 @@ public class BunnyHop extends CheatModule {
     }
 
     @Override public String moduleDesc() {
-        return "Ускорение через распрыжку";
+        return lang.get("Acceleration through the bunny", "Ускорение через распрыжку");
     }
 
     @Override public Panel settingPanel() {
@@ -78,7 +78,7 @@ public class BunnyHop extends CheatModule {
 
             @Override
             public String elementDesc() {
-                return "Cкорость распрыжки";
+                return lang.get("Bounce speed", "Cкорость распрыжки");
             }
         });
     }

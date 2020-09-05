@@ -4,7 +4,7 @@ import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
 import forgefuck.team.xenobyte.api.module.PerformMode;
 import forgefuck.team.xenobyte.api.module.PerformSource;
-import forgefuck.team.xenobyte.gui.swing.InfoGui;
+import forgefuck.team.xenobyte.gui.swing.CreditsGui;
 
 public class Credits extends CheatModule {
     
@@ -13,11 +13,11 @@ public class Credits extends CheatModule {
     }
     
     @Override public void onPerform(PerformSource src) {
-        new InfoGui().showFrame();
+        new CreditsGui().showFrame();
     }
     
     @Override public String moduleDesc() {
-        return "Информация о продукте + ссылки";
+        return lang.get("Product information + links", "Информация о продукте + ссылки");
     }
 
 }

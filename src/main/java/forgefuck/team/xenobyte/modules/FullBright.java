@@ -40,7 +40,7 @@ public class FullBright extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Да будет свет!";
+        return lang.get("Let there be light!", "Да будет свет!");
     }
     
     @Override public Panel settingPanel() {
@@ -50,7 +50,7 @@ public class FullBright extends CheatModule {
                     buttonValue(withPotion = !withPotion);
                 }
                 @Override public String elementDesc() {
-                    return "Запасной вариант - с применением зелья";
+                    return lang.get("Fallback - using a potion", "Запасной вариант - с применением зелья");
                 }
             }
         );

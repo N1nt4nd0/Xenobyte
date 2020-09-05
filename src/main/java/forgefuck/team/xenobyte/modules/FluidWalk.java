@@ -23,7 +23,7 @@ public class FluidWalk extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Прогулки по жидкостям";
+        return lang.get("Walking on liquids", "Прогулки по жидкостям");
     }
 
 }

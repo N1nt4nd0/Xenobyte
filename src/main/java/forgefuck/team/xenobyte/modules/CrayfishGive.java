@@ -31,7 +31,7 @@ public class CrayfishGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в посылке в активный слот (заменит текущий предмет)";
+        return lang.get("Issuing an item in a package to the active slot (will replace the current item)", "Выдача предмета в посылке в активный слот (заменит текущий предмет)");
     }
     
     @Override public boolean isWorking() {

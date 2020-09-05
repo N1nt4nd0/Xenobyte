@@ -2,10 +2,10 @@ package forgefuck.team.xenobyte.modules;
 
 import cpw.mods.fml.common.Loader;
 import forgefuck.team.xenobyte.api.config.Cfg;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 
@@ -26,7 +26,7 @@ public class ZtonesMeta extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Меняет мету предмета вверх до 15 или вниз до 0 (главное не переборщить)";
+        return lang.get("Changes the item meta up to 15 or down to 0 (the main thing is not to overdo it)", "Меняет мету предмета вверх до 15 или вниз до 0 (главное не переборщить)");
     }
     
     @Override public Panel settingPanel() {
@@ -36,7 +36,7 @@ public class ZtonesMeta extends CheatModule {
                     buttonValue(metaUp = !metaUp);
                 }
                 @Override public String elementDesc() {
-                    return "Листать мету вверх или вниз";
+                    return lang.get("Scroll meta up or down", "Листать мету вверх или вниз");
                 }
             }    
         );

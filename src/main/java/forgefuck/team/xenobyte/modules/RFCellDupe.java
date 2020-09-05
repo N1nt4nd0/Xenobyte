@@ -5,10 +5,10 @@ import java.lang.reflect.Array;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import net.minecraft.item.ItemStack;
 
 public class RFCellDupe extends CheatModule {
@@ -31,7 +31,7 @@ public class RFCellDupe extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Создание бесконечных предметов в ME ячейке в руке";
+        return lang.get("Creating infinite items in a ME cell in hand", "Создание бесконечных предметов в ME ячейке в руке");
     }
     
     @Override public boolean isWorking() {

@@ -41,7 +41,7 @@ public class BlockOverlay extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Показывает можно ли взаимодействовать с блоком";
+        return lang.get("Shows whether you can interact with the block", "Показывает можно ли взаимодействовать с блоком");
     }
 
 }

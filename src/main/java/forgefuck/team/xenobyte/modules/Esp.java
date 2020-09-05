@@ -96,7 +96,7 @@ public class Esp extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Подсветка заданных объектов в мире";
+        return lang.get("Highlighting specified objects in the world", "Подсветка заданных объектов в мире");
     }
     
     @Override public Panel settingPanel() {
@@ -106,7 +106,7 @@ public class Esp extends CheatModule {
                     buttonValue(blocks = !blocks);
                 }
                 @Override public String elementDesc() {
-                    return "Отрисовка блока";
+                    return lang.get("Rendering a block", "Отрисовка блока");
                 }
             },
             new Button("TracerLine", lines) {
@@ -114,7 +114,7 @@ public class Esp extends CheatModule {
                     buttonValue(lines = !lines);
                 }
                 @Override public String elementDesc() {
-                    return "Отрисовка трасер линий";
+                    return lang.get("Drawing tracer lines", "Отрисовка трасер линий");
                 }
             },
             new Button("BindLines", bindLines) {
@@ -122,7 +122,7 @@ public class Esp extends CheatModule {
                     buttonValue(bindLines = !bindLines);
                 }
                 @Override public String elementDesc() {
-                    return "Привязка трасер линий к курсору";
+                    return lang.get("Snap line tracers to cursor", "Привязка трасер линий к курсору");
                 }
             },
             new Button("Monsters", monsters) {
@@ -130,7 +130,7 @@ public class Esp extends CheatModule {
                     buttonValue(monsters = !monsters);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать монстров";
+                    return lang.get("Display monsters", "Отображать монстров");
                 }
             },
             new Button("Animals", animals) {
@@ -138,7 +138,7 @@ public class Esp extends CheatModule {
                     buttonValue(animals = !animals);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать животных";
+                    return lang.get("Display animals", "Отображать животных");
                 }
             },
             new Button("Villagers", villagers) {
@@ -146,7 +146,7 @@ public class Esp extends CheatModule {
                     buttonValue(villagers = !villagers);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать жителей";
+                    return lang.get("Display villagers", "Отображать жителей");
                 }
             },
             new Button("CustomNPC", customnpc) {
@@ -154,7 +154,7 @@ public class Esp extends CheatModule {
                     buttonValue(customnpc = !customnpc);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать неписей";
+                    return lang.get("Display custom npc", "Отображать неписей");
                 }
             },
             new Button("Players", players) {
@@ -162,7 +162,7 @@ public class Esp extends CheatModule {
                     buttonValue(players = !players);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать игроков";
+                    return lang.get("Display players", "Отображать игроков");
                 }
             },
             new Button("Drop", drop) {
@@ -170,7 +170,7 @@ public class Esp extends CheatModule {
                     buttonValue(drop = !drop);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать выброшенные предметов";
+                    return lang.get("Display drop", "Отображать выброшенные предметов");
                 }
             },
             new Button("Minecarts", minecarts) {
@@ -178,7 +178,7 @@ public class Esp extends CheatModule {
                     buttonValue(minecarts = !minecarts);
                 }
                 @Override public String elementDesc() {
-                    return "Отображать вагонетки";
+                    return lang.get("Display minecarts", "Отображать вагонетки");
                 }
             },
             new ScrollSlider("Radius", radius, 200) {
@@ -186,7 +186,7 @@ public class Esp extends CheatModule {
                     radius = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Радиус поиска объектов";
+                    return lang.get("Object search radius", "Радиус поиска объектов");
                 }
             }
         );

@@ -27,7 +27,7 @@ public class BiblioTableGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в Письменный Стол на который смотрит игрок (в центральном слоте должна находиться книга)";
+        return lang.get("Item spawn to the Writing Table which the player is looking at (there must be a book in the central slot)", "Выдача предмета в Письменный Стол на который смотрит игрок (в центральном слоте должна находиться книга)");
     }
     
     @Override public boolean isWorking() {

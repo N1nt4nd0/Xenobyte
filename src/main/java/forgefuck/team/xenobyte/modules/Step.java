@@ -27,7 +27,7 @@ public class Step extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Мгновенное взбирание на заданное количество блоков";
+        return lang.get("High step a given number of blocks", "Мгновенное взбирание на заданное количество блоков");
     }
     
     @Override public Panel settingPanel() {
@@ -37,7 +37,7 @@ public class Step extends CheatModule {
                     stepHeight = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Высота взбирания";
+                    return lang.get("Step height", "Высота взбирания");
                 }
             }
         );

@@ -6,96 +6,96 @@ import net.minecraft.network.Packet;
 public abstract class ModuleAbility {
     
     /**
-     * Вызывается при активации модуля в режиме PerformMode.TOGGLE
+     * Called when the module is activated in the PerformMode.TOGGLE mode
      */
     public void onEnabled() {}
     
     /**
-     * Вызывается при загрузке модуля (после конфига и до загрузки EventHandler)
+     * Called when the module is loaded (after config and before loading EventHandler)
      */
     public void onPostInit() {}
     
     /**
-     * Вызывается включении модуля в режиме PerformMode.TOGGLE
+     * Called by enabling a module in PerformMode.TOGGLE mode 
      */
     public void onDisabled() {}
     
     /**
-     * Вызывается при первом старте клиентских тиков
+     * Called at the first start of client ticks
      */
     public void onTicksStart() {}
     
     /**
-     * Вызывается при загрузке модуля (перед конфигом)
+     * Called when the module is loaded (before the config)
      */
     public void onHandlerInit() {}
     
     /**
-     * Последний тик отрисовки гуи элементов
+     * Last tick of drawing GUI elements
      */
     public void onDrawGuiLast() {}
     
     /**
-     * Отрисовка InGame гуи элементов
+     * Rendering InGame GUI elements
      */
     public void onDrawGuiOverlay() {}
     
     /**
-     * Вызывается каждый тик с задержкой заданной в {@link #tickDelay()}
-     * @param inGame загружен ли мир с игроком
+     * Every tick is called with a delay specified in {@link #tickDelay()}
+     * @param inGame is the world loaded with the player
      */
     public void onTick(boolean inGame) {}
     
     /**
-     * Вызывается при активации/деактивации модуля и в режиме PerformMode.SINGLE
-     * @param src активация кейбиндом или кликом в гуи
+     * Called when the module is activated/deactivated and in the PerformMode.SINGLE mode
+     * @param src activation by keybind or click in GUI
      */
     public void onPerform(PerformSource src) {}
     
     /**
-     * Вызывается в других модулях при бинде текущего модуля
-     * @param module текущий модуль
+     * Called in other modules when the current module is bound
+     * @param module bound module
      */
     public void onModuleBinded(CheatModule module) {}
     
     /**
-     * Вызывается в других модулях при активации текущего модуля
-     * @param module текущий модуль
+     * Called in other modules when the current module is activated
+     * @param module activated module
      */
     public void onModuleEnabled(CheatModule module) {}
     
     /**
-     * Вызывается в других модулях при удалении кейбинда текущего модуля
-     * @param module текущий модуль
+     * Called in other modules when deleting the keybind of the current module
+     * @param module unbound module
      */
     public void onModuleUnBinded(CheatModule module) {}
     
     /**
-     * Вызывается в других модулях при деактивации текущего модуля
-     * @param module текущий модуль
+     * Called in other modules when the current module is deactivated
+     * @param module deactivated module
      */
     public void onModuleDisabled(CheatModule module) {}
     
     /**
-     * Обработка входящих пакетов
-     * @param packet входящий пакет
-     * @return boolean пропускать или игнорировать пакет
+     * Inbound packet processing
+     * @param packet incoming packet
+     * @return boolean skip or ignore a packet
      */
     public boolean doReceivePacket(Packet packet) {
         return true;
     }
     
     /**
-     * Обработка исходящих пакетов
-     * @param packet исходящий пакет
-     * @return boolean пропускать или игнорировать пакет
+     * Outbound packet processing
+     * @param packet outgoing packet
+     * @return boolean skip or ignore a packet
      */
     public boolean doSendPacket(Packet packet) {
         return true;
     }
     
     /**
-     * Определяет будет ли модуль отображаться в информационных виджетах
+     * Determines whether the module will be displayed in information widgets
      * @return boolean
      */
     public boolean isWidgetable() {
@@ -103,7 +103,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Определяет будет ли модуль вызывать события о своём состоянии {@link #onEnabled()}, {@link #onDisabled()} и такие как {@link #onModuleEnabled(CheatModule module)}}
+     * Determines whether the module will raise events about its state {@link #onEnabled()}, {@link #onDisabled()} and such as {@link #onModuleEnabled(CheatModule module)}}
      * @return boolean
      */
     public boolean provideStateEvents() {
@@ -111,7 +111,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Определяет будет ли модуль вызывать события о кейбинде {@link #onModuleUnBinded(CheatModule module)}
+     * Determines whether the module will trigger events about the keybind {@link #onModuleUnBinded(CheatModule module)}
      * @return boolean
      */
     public boolean provideBindEvents() {
@@ -119,7 +119,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Определяет будут ли выводится сообщения о состоянии модуля
+     * Determines whether messages about the module's status will be displayed
      * @return boolean
      */
     public boolean allowStateMessages() {
@@ -127,7 +127,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Определяет будет ли модуль срабатывать по кейбинду в GuiScreen
+     * Determines if the module will be triggered by keybind in GuiScreen
      * @return boolean
      */
     public boolean inGuiPerform() {
@@ -135,7 +135,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Панель настроек модуля
+     * Module settings panel
      * @return Panel
      */
     public Panel settingPanel() {
@@ -143,7 +143,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Описание модуля для тултипа
+     * Description of the module for the tooltip
      * @return String
      */
     public String moduleDesc() {
@@ -151,7 +151,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Определяет будет ли модуль загружен в ModuleHandler
+     * Determines if the module will be loaded into the ModuleHandler
      * @return boolean
      */
     public boolean isWorking() {
@@ -159,7 +159,7 @@ public abstract class ModuleAbility {
     }
     
     /**
-     * Задержка тиков при вызове {@link #onTick(boolean inGame)}
+     * Delay of ticks when calling {@link #onTick(boolean inGame)}
      * @return boolean
      */
     public int tickDelay() {

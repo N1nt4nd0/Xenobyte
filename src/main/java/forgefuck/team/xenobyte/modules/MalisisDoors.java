@@ -44,7 +44,7 @@ public class MalisisDoors extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Открывашка дверей по ПКМ";
+        return lang.get("Door opener by right click", "Открывашка дверей по ПКМ");
     }
     
     @Override public Panel settingPanel() {
@@ -54,7 +54,7 @@ public class MalisisDoors extends CheatModule {
                     buttonValue(inRadius = !inRadius);
                 }
                 @Override public String elementDesc() {
-                    return "По радиусу или взгляду";
+                    return lang.get("By radius or sight", "По радиусу или взгляду");
                 }
             }
         );

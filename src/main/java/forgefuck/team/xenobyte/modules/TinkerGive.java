@@ -1,10 +1,10 @@
 package forgefuck.team.xenobyte.modules;
 
 import cpw.mods.fml.common.Loader;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 
 public class TinkerGive extends CheatModule {
     
@@ -22,7 +22,7 @@ public class TinkerGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в любой инвентарь из TinkersConstruct на который смотрит игрок";
+        return lang.get("Issuing an item to any inventory from TinkersConstruct that the player is looking at", "Выдача предмета в любой инвентарь из TinkersConstruct на который смотрит игрок");
     }
     
 }

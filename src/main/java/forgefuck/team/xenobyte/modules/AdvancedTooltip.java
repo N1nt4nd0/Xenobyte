@@ -18,7 +18,7 @@ public class AdvancedTooltip extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Отображает в описании предмета его метаданные";
+        return lang.get("Displays metadata in the item description", "Отображает в описании предмета его метаданные");
     }
 
 }

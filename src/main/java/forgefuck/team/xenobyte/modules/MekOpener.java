@@ -36,7 +36,7 @@ public class MekOpener extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Открывашка некоторых блоков (даже приватных) из Mekanism по ПКМ в привате";
+        return lang.get("Opener of some blocks (even clamed ones) from Mekanism by right click in clamed area", "Открывашка некоторых блоков (даже приватных) из Mekanism по ПКМ в привате");
     }
 
     @Override public boolean isWorking() {

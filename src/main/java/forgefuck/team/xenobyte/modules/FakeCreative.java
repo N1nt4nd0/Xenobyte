@@ -25,7 +25,7 @@ public class FakeCreative extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Визуальный Gamemode 1";
+        return lang.get("Visual /gamemode 1", "Визуальный /gamemode 1");
     }
 
 }

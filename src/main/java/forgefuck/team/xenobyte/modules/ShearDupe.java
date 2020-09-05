@@ -29,7 +29,7 @@ public class ShearDupe extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Дюп коров и грибов (ПКМ ножницами по грибной корове)";
+        return lang.get("Dupe cows and mushrooms (right click with scissors on a mushroom cow)", "Дюп коров и грибов (ПКМ ножницами по грибной корове)");
     }
 
 }

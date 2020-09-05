@@ -31,7 +31,7 @@ public class BiblioAtlasGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в Атлас находящийся в руке (для повторного гива нужно скрафтить новый атлас)";
+        return lang.get("Issuing an item to the Atlas in hand (to re-give you need to craft a new atlas)", "Выдача предмета в Атлас находящийся в руке (для повторного гива нужно скрафтить новый атлас)");
     }
     
     @Override public boolean isWorking() {

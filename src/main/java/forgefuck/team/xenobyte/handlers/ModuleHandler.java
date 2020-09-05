@@ -7,8 +7,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.lwjgl.input.Keyboard;
-
 import forgefuck.team.xenobyte.ModulesList;
 import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.exceptions.DuplicateModuleException;
@@ -134,7 +132,7 @@ public class ModuleHandler  {
     public void bind(CheatModule module, Button button, int key) {
         CheatModule conflicted = moduleGetter(m -> m.hasKeyBind() && m.getKeyBind() == key);
         if (conflicted != null && ! conflicted.equals(module)) {
-            widgets().widgetMessage(new WidgetMessage("Кейбинд [" + Keyboard.getKeyName(key) + "] конфликтует с " + (conflicted.hasCategory() ? conflicted.getCategory() + "/" : "") + conflicted, WidgetMode.FAIL));
+            widgets().widgetMessage(new WidgetMessage(Xeno.lang.get("Keybind conflicts with", "Кейбинд конфликтует с") + " " + (conflicted.hasCategory() ? conflicted.getCategory() + "/" : "") + conflicted, WidgetMode.FAIL));
         } else {
             if (module.getKeyBind() == key) {
                 if (!module.equals(xenoGui())) {
@@ -155,7 +153,7 @@ public class ModuleHandler  {
     }
     
     public void perform(CheatModule module, Button button) {
-        WidgetMessage mess = new WidgetMessage(module, "выполнен", WidgetMode.INFO);
+        WidgetMessage mess = new WidgetMessage(module, Xeno.lang.get("completed", "выполнен"), WidgetMode.INFO);
         switch (module.getMode()) {
         case SINGLE:
             break;

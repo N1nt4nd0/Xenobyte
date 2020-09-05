@@ -27,7 +27,7 @@ public class MekFire extends CheatModule {
     }
 
     @Override public String moduleDesc() {
-        return "Огни ранца Mekanism";
+        return lang.get("Mekanism backpack fire lights", "Огни ранца Mekanism");
     }
 
 }

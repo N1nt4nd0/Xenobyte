@@ -48,7 +48,7 @@ public class MachineChaos extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Рандом конфигураций механизмов и труб EnderIO в радиусе";
+        return lang.get("Randomising configurations of EnderIO mechanisms and pipes in radius", "Рандом конфигураций механизмов и труб EnderIO в радиусе");
     }
 
 }

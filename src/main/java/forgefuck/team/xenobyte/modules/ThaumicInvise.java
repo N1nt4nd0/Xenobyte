@@ -21,7 +21,7 @@ public class ThaumicInvise extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Переключение невидимости игрока";
+        return lang.get("Toggle player invisibility", "Переключение невидимости игрока");
     }
 
 }

@@ -1,16 +1,15 @@
 package forgefuck.team.xenobyte.api.gui;
 
+import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.api.render.IDraw;
 import forgefuck.team.xenobyte.render.GuiScaler;
 
-public abstract class GuiElement extends ElementAbility implements IDraw {
+public abstract class GuiElement extends ElementAbility implements IDraw, Xeno {
     
     private boolean hovered, selected, hoverCheck;
     private int x, y, width, height;
-    private String desc;
     
     public GuiElement() {
-        desc = elementDesc();
         onInit();
     }
     
@@ -102,8 +101,8 @@ public abstract class GuiElement extends ElementAbility implements IDraw {
     }
     
     public void drawDesc() {
-        if (desc != null && isHovered()) {
-            render.GUI.drawDesc(desc);
+        if (elementDesc() != null && isHovered()) {
+            render.GUI.drawDesc(elementDesc());
         }
     }
     

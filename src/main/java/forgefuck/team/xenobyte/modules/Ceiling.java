@@ -40,17 +40,17 @@ public class Ceiling extends CheatModule {
         do y --;      while( isAir(x, y, z) && isHeight(y));
         if (isHeight(y)) {
             if (isLava(x, y, z)) {
-                widgetMessage("- лава на пути!", WidgetMode.FAIL);
+                widgetMessage("- " + lang.get("lava on the way!", "лава на пути!"), WidgetMode.FAIL);
             } else {
                 utils.verticalTeleport(y + 1, true);
             }
         } else {
-            widgetMessage("- подходящий блок не найден", WidgetMode.FAIL);
+            widgetMessage("- " + lang.get("no matching block found", "подходящий блок не найден"), WidgetMode.FAIL);
         }
     }
     
     @Override public String moduleDesc() {
-        return "Телепортация по оси Y сквозь блоки вверх/вниз по взгляду";
+        return lang.get("Teleportation along the Y axis through blocks up/down by sight", "Телепортация по оси Y сквозь блоки вверх/вниз по взгляду");
     }
 
 }

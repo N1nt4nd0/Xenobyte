@@ -216,7 +216,7 @@ public class PortalHelper extends CheatModule {
     }
 
     @Override public String moduleDesc() {
-        return "Отрисовка портала в ад и точки входа в незере";
+        return lang.get("Rendering a portal to hell and an entry point in the nether", "Отрисовка портала в ад и точки входа в незере");
     }
 
     class Portal {

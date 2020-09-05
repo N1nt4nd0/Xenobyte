@@ -22,7 +22,7 @@ public class AntiKnockBack extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выключает эфект отбрасывания у игрока";
+        return lang.get("Turns off the knockback effect of the player", "Выключает эфект отбрасывания у игрока");
     }
 
 }

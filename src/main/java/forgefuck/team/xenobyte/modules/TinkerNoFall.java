@@ -22,7 +22,7 @@ public class TinkerNoFall extends CheatModule {
     }
 
     @Override public String moduleDesc() {
-        return "Убирает урон от падения";
+        return lang.get("Removes fall damage", "Убирает урон от падения");
     }
     
 }

@@ -32,7 +32,7 @@ public class MatterGiveItem extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в Тритановый Ящик на который смотрит игрок";
+        return lang.get("Issuing an item to the Tritanium Crate that the player is looking at", "Выдача предмета в Тритановый Ящик на который смотрит игрок");
     }
     
     @Override public boolean isWorking() {

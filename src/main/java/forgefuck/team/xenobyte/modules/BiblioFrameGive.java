@@ -27,7 +27,7 @@ public class BiblioFrameGive extends CheatModule {
                     checkTile.yCoord,
                     checkTile.zCoord
                 };
-                widgetMessage(String.format("блок карты сохранён по координатам [%s, %s, %s]", coords[0], coords[1], coords[2]), WidgetMode.INFO);
+                widgetMessage(String.format(lang.get("map frame block saved by coords", "блок карты сохранён по координатам") + " [%s, %s, %s]", coords[0], coords[1], coords[2]), WidgetMode.INFO);
             } else if (coords != null) {
                 TileEntity frameTile = utils.tile(coords);
                 if (frameTile != null) {
@@ -38,19 +38,19 @@ public class BiblioFrameGive extends CheatModule {
                         utils.item(out, "{Inventory:[]}");
                         utils.sendPacket("BiblioAtlasWPT", false, coords[0], coords[1], coords[2], out);
                     } else {
-                        widgetMessage("карта в рамке не найдена!", WidgetMode.FAIL);
+                        widgetMessage(lang.get("no found map in map frame!", "карта в рамке не найдена!"), WidgetMode.FAIL);
                     }
                 } else {
-                    widgetMessage("блок рамки не найден в пределах клиента!", WidgetMode.FAIL);
+                    widgetMessage(lang.get("map frame block not found within client!", "блок рамки не найден в пределах клиента!"), WidgetMode.FAIL);
                 }
             } else {
-                widgetMessage("блок рамки не задан! (задать по взгляду и кейбинду)", WidgetMode.FAIL);
+                widgetMessage(lang.get("map frame block not set! (set by look and press keybind)", "блок рамки не задан! (задать по взгляду и кейбинду)"), WidgetMode.FAIL);
             }
         } catch(Exception e) {}
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в руку с использованием рамки с картой";
+        return lang.get("Issuing an item to hand using a map frame", "Выдача предмета в руку с использованием рамки с картой");
     }
     
     @Override public boolean isWorking() {

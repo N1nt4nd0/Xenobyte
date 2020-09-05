@@ -40,7 +40,7 @@ public class CacheGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в Тайник на который смотрит игрок";
+        return lang.get("Issuance of an item to the cache that the player is looking at", "Выдача предмета в Тайник на который смотрит игрок");
     }
     
     @Override public boolean isWorking() {

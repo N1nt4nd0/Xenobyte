@@ -5,66 +5,66 @@ import forgefuck.team.xenobyte.api.Xeno;
 public abstract class ElementAbility implements Xeno {
     
     /**
-     * Вызывается при инициализации элемента
+     * Called when an element is initialized
      */
     public void onInit() {}
 
     /**
-     * Отрисовка элемента
+     * Rendering an element
      */
     public void onDraw() {}
     
     /**
-     * Вызывается при добавлении элемента в список отрисовки
+     * Called when an item is added to the render list
      */
     public void onShow() {}
     
     /**
-     * Вызывается при удалении элемента из списка отрисовки
+     * Called when an item is removed from the render list
      */
     public void onHide() {}
     
     /**
-     * Вызывается при наведении курсора на элемент
+     * Called when hovering over an element
      */
     public void onHovered() {}
     
     /**
-     * Вызывается по клику левой кнопки мыши по элементу
+     * Called by clicking the left mouse button on an element
      */
     public void onLeftClick() {}
     
     /**
-     * Вызывается когда курсор покидает элемент
+     * Called when the cursor leaves the element
      */
     public void onDishovered() {}
     
     /**
-     * Вызывается по клику правой кнопки мыши по элементу
+     * Called by right-clicking on an element
      */
     public void onRightClick() {}
     
     /**
-     * Вызывается по клику средней кнопки мыши по элементу
+     * Called by clicking the mouse wheel mouse button on an element
      */
     public void onScrollClick() {}
     
     /**
-     * Вызывается при нажатии клавиши на элементе в фокусе
-     * @param symb char символ
-     * @param key int код клавиши
+     * Called when a key is pressed on the focused element
+     * @param symb char
+     * @param key int code
      */
     public void onKeyTyped(char symb, int key) {}
     
     /**
-     * Вызывается при прокрутке скролла на элементе в фокусе
-     * @param dir int направление: 1 вниз, -1 вверх
-     * @param withShift зажата ли клавиша Shift
+     * Called when scrolling on the element with focus
+     * @param dir int direction: 1 mw down, -1 mw up
+     * @param withShift
      */
     public void onScroll(int dir, boolean withShift) {}
     
     /**
-     * Описание элемента для тултипа
+     * Description of the element for the tooltip
      * @return String
      */
     public String elementDesc() {

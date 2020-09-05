@@ -30,7 +30,7 @@ public class BuildMarkerGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в Строительную Метку на которую смотрит игрок";
+        return lang.get("Issuing an item to the Construction Marker that the player is looking at", "Выдача предмета в Строительную Метку на которую смотрит игрок");
     }
     
     @Override public boolean isWorking() {

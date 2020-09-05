@@ -2,10 +2,10 @@ package forgefuck.team.xenobyte.modules;
 
 import cpw.mods.fml.common.Loader;
 import forgefuck.team.xenobyte.api.config.Cfg;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.gui.click.elements.Button;
 import forgefuck.team.xenobyte.gui.click.elements.Panel;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -48,7 +48,7 @@ public class FactoryDupe extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Дюп предмета под курсором в инвентарях (если предмета нет, то очищает инвентари)";
+        return lang.get("Item dupe under the cursor in the inventories (if there is no item, then clears the inventory)", "Дюп предмета под курсором в инвентарях (если предмета нет, то очищает инвентари)");
     }
     
     @Override public Panel settingPanel() {
@@ -58,7 +58,7 @@ public class FactoryDupe extends CheatModule {
                     buttonValue(inRadius = !inRadius);
                 }
                 @Override public String elementDesc() {
-                    return "По радиусу или взгляду";
+                    return lang.get("By radius or sight", "По радиусу или взгляду");
                 }
             },
             new Button("FillSlots", fillSlots) {
@@ -66,7 +66,7 @@ public class FactoryDupe extends CheatModule {
                     buttonValue(fillSlots = !fillSlots);
                 }
                 @Override public String elementDesc() {
-                    return "Работа по всем слотам инвентаря";
+                    return lang.get("Across all inventory slots", "Работа по всем слотам инвентаря");
                 }
             }
         );

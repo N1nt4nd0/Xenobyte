@@ -181,7 +181,7 @@ public class Widgets extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-         return "Отображение заданных информационных виджетов";
+         return lang.get("Display setted information widgets", "Отображение заданных информационных виджетов");
     }
     
     @Override public Panel settingPanel() {
@@ -191,7 +191,7 @@ public class Widgets extends CheatModule {
                     buttonValue(showKeyabled = !showKeyabled);
                 }
                 @Override public String elementDesc() {
-                    return "Активные и забинженные модули";
+                    return lang.get("Active and binded modules", "Активные и забинженные модули");
                 }
             },
             new Button("Messages", showWidget) {
@@ -199,7 +199,7 @@ public class Widgets extends CheatModule {
                     buttonValue(showWidget = !showWidget);
                 }
                 @Override public String elementDesc() {
-                    return "Краткие виджет-сообщения (снизу слева)";
+                    return lang.get("Brief widget messages (bottom left)", "Краткие виджет-сообщения (снизу слева)");
                 }
             },
             new Button("InfoPanels", showInfo) {
@@ -207,7 +207,7 @@ public class Widgets extends CheatModule {
                     buttonValue(showInfo = !showInfo);
                 }
                 @Override public String elementDesc() {
-                    return "Инфо панели (снизу справа)";
+                    return lang.get("Info panels (bottom right)", "Инфо панели (снизу справа)");
                 }
             }
         );

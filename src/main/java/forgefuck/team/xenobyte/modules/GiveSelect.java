@@ -55,33 +55,35 @@ public class GiveSelect extends CheatModule {
         if (src == PerformSource.KEY) {
             ItemStack checkItem = NEI.getStackMouseOver();
             if (checkItem != null) {
-                widgetMessage("выбран " + (givedItem = checkItem).getDisplayName() + " [x" + count + "]", WidgetMode.INFO);
+                widgetMessage(lang.get("selected ", "выбран ") + (givedItem = checkItem).getDisplayName() + " [x" + count + "]", WidgetMode.INFO);
             } else if (utils.isInGameGui()) {
-                NBTTagCompound outTag = new NBTTagCompound();
-                String outMessage = new String();
-                TileEntity tile = Xeno.utils.tile();
-                Entity entity = Xeno.utils.entity();
-                ItemStack item = Xeno.utils.item();
-                if (item != null) {
-                    if (item.hasTagCompound()) {
-                        outTag = item.getTagCompound();
-                        outMessage = "загружен NBT предмета " + item.getDisplayName();
+                if (chanter.isCheckMode()) {
+                    NBTTagCompound outTag = new NBTTagCompound();
+                    String outMessage = new String();
+                    TileEntity tile = Xeno.utils.tile();
+                    Entity entity = Xeno.utils.entity();
+                    ItemStack item = Xeno.utils.item();
+                    if (item != null) {
+                        if (item.hasTagCompound()) {
+                            outTag = item.getTagCompound();
+                            outMessage = lang.get("loaded NBT of item ", "загружен NBT предмета ") + item.getDisplayName();
+                        }
+                    } else if (tile != null) {
+                        tile.writeToNBT(outTag);
+                        outMessage = lang.get("loaded NBT of tile ", "загружен NBT тайла ") + Xeno.utils.formatCoords(tile.xCoord, tile.yCoord, tile.zCoord);
+                    } else if (entity != null) {
+                        entity.writeToNBT(outTag);
+                        outMessage = lang.get("loaded NBT of mob ", "загружен NBT моба ") + entity.getCommandSenderName();
                     }
-                } else if (tile != null) {
-                    tile.writeToNBT(outTag);
-                    outMessage = "загружен NBT тайла " + Xeno.utils.formatCoords(tile.xCoord, tile.yCoord, tile.zCoord);
-                } else if (entity != null) {
-                    entity.writeToNBT(outTag);
-                    outMessage = "загружен NBT моба " + entity.getCommandSenderName();
-                }
-                if (!outTag.hasNoTags()) {
-                    widgetMessage(outMessage, WidgetMode.INFO);
-                    chanter.loadCustomNBT(outTag);
+                    if (!outTag.hasNoTags()) {
+                        widgetMessage(outMessage, WidgetMode.INFO);
+                        chanter.loadCustomNBT(outTag);
+                    }
                 }
                 chanter.showFrame();
             }
         } else {
-            widgetMessage("для выбора предмета необходимо навести на него и нажать кейбинд", WidgetMode.FAIL);
+            widgetMessage(lang.get("to select an item, you need to hover over it and press the keybind", "для выбора предмета необходимо навести на него и нажать кейбинд"), WidgetMode.FAIL);
         }
     }
     
@@ -98,7 +100,7 @@ public class GiveSelect extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выбор предмета в NEI по кейбинду для выдачи через эксплойты (" + givedItem.getDisplayName() + ")";
+        return lang.get("Selecting an item in NEI by keybind for issuance via exploits", "Выбор предмета в NEI по кейбинду для выдачи через эксплойты") + " (" + givedItem.getDisplayName() + ")";
     }
     
     @Override public Panel settingPanel() {
@@ -108,7 +110,7 @@ public class GiveSelect extends CheatModule {
                     count = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Количество выдаваемого предмета";
+                    return lang.get("Count of the issued item", "Количество выдаваемого предмета");
                 }
             },
             new Button("FillSlots", fillSlots) {
@@ -116,7 +118,7 @@ public class GiveSelect extends CheatModule {
                     buttonValue(fillSlots = !fillSlots);
                 }
                 @Override public String elementDesc() {
-                    return "По возможности заполнить все слоты в инвентаре при выдаче";
+                    return lang.get("If possible, fill all the slots in the inventory when issuing", "По возможности заполнить все слоты в инвентаре при выдаче");
                 }
             },
             new Button("WithChant", withChant) {
@@ -124,7 +126,7 @@ public class GiveSelect extends CheatModule {
                     buttonValue(withChant = !withChant);
                 }
                 @Override public String elementDesc() {
-                    return "С применением NBT из Chanter'a";
+                    return lang.get("With NBT from Chanter", "С применением NBT из Chanter");
                 }
             },
             new Button("Chanter") {
@@ -132,7 +134,7 @@ public class GiveSelect extends CheatModule {
                     chanter.showFrame();
                 }
                 @Override public String elementDesc() {
-                    return "Редактор NBT (по кейбинду GiveSelect'a загрузится NBT предмета в рукe, моба или блока в фокусе)";
+                    return lang.get("NBT editor (will open by GiveSelect keybind)", "Редактор NBT (открывается по кейбинду GiveSelect)");
                 }
             }
         );

@@ -62,14 +62,14 @@ public class RadioHack extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Замена ссылки в находящихся вблизи блоках радио";
+        return lang.get("Replacing links in nearby radio blocks", "Замена ссылки в находящихся вблизи блоках радио");
     }
     
     @Override public Panel settingPanel() {
         return new Panel(
             new Button("RadioUrl") {
                 @Override public void onLeftClick() {
-                    new UserInput("Radio url", urls, InputType.SINGLE_STRING).showFrame();
+                    new UserInput(lang.get("Url", "Ссылка"), urls, InputType.SINGLE_STRING).showFrame();
                 }
             },
             new Button("KickMode", kick) {
@@ -77,7 +77,7 @@ public class RadioHack extends CheatModule {
                     buttonValue(kick = !kick);
                 }
                 @Override public String elementDesc() {
-                    return "Режим кика ближайших игроков";
+                    return lang.get("Kick nearby players", "Режим кика ближайших игроков");
                 }
             }
         );

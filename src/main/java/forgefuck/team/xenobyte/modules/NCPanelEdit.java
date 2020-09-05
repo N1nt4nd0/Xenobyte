@@ -35,7 +35,7 @@ public class NCPanelEdit extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Открывашка блоков из IC2NuclearControl в привате по ПКМ";
+        return lang.get("Opener of blocks from IC2NuclearControl in clamed area by right click", "Открывашка блоков из IC2NuclearControl в привате по ПКМ");
     }
     
     @Override public boolean isWorking() {

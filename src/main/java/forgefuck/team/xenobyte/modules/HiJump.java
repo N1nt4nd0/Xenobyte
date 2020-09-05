@@ -39,7 +39,7 @@ public class HiJump extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Прыжок с заданной мощностью";
+        return lang.get("Jump with a given power", "Прыжок с заданной мощностью");
     }
     
     @Override public Panel settingPanel() {

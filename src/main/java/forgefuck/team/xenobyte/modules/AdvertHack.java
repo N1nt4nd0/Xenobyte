@@ -39,14 +39,14 @@ public class AdvertHack extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Замена всех рекламных картинок в MalisisAdvert на картинку из ссылки";
+        return lang.get("Replacing all advertising images in MalisisAdvert with an image from the link", "Замена всех рекламных картинок в MalisisAdvert на картинку из ссылки");
     }
     
     @Override public Panel settingPanel() {
         return new Panel(
             new Button("AdvertUrl") {
                 @Override public void onLeftClick() {
-                    new UserInput("Ссылки", urls, InputType.SINGLE_STRING).showFrame();
+                    new UserInput(lang.get("Links", "Ссылки"), urls, InputType.SINGLE_STRING).showFrame();
                 }
             }
         );

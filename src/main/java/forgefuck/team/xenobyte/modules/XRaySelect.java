@@ -118,7 +118,7 @@ public class XRaySelect extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выбор блока для X-Ray в NEI или по взгляду на блок по кейбинду. Также добавляет вкладку @" + neiSubset;
+        return lang.get("Selecting by keybind a block for X-Ray in NEI, or by looking at block. Adds NEI @X-Ray tab", "Выбор по кейбинду блока для X-Ray в NEI, или по взгляду на блок. Добавляет вкладку @X-Ray");
     }
     
     @Override public Panel settingPanel() {
@@ -128,7 +128,7 @@ public class XRaySelect extends CheatModule {
                     buttonValue(guiHint = !guiHint);
                 }
                 @Override public String elementDesc() {
-                    return "Подсветка выбранных предметов в инвентаре";
+                    return lang.get("Highlighting selected items in inventory", "Подсветка выбранных предметов в инвентаре");
                 }
             }
         );
@@ -145,27 +145,30 @@ public class XRaySelect extends CheatModule {
             this.block = block;
             s = new JSlider(0, 100);
             s.setPreferredSize(new Dimension(350, 50));
-            s.setBorder(customTitledBorder("Размер"));
             s.setValue((int)(this.block.scale * 100));
             s.addChangeListener((e) -> {
                 this.block.scale = (float) s.getValue() / 100;
             });
             hidden = new JCheckBox("Hidden", block.hidden);
-            hidden.setToolTipText("Скрыть отрисовку блока в мире");
             hidden.addActionListener((e) -> {
                 this.block.hidden = hidden.isSelected();
             });
             tracer = new JCheckBox("Tracer", block.tracer);
-            tracer.setToolTipText("Рисовать трасер линию к блоку");
             tracer.addActionListener((e) -> {
                 this.block.tracer = tracer.isSelected();
             });
-            clear.setText("Удалить");
             buttonsBar.add(clear);
             buttonsBar.add(hidden);
             buttonsBar.add(tracer);
             sliders.add(s, GBC);
-            pack();
+        }
+        
+        @Override public void localizeSet() {
+            super.localizeSet();
+            tracer.setToolTipText(lang.get("Draw tracer line to block", "Рисовать трасер линию к блоку"));
+            hidden.setToolTipText(lang.get("Hide block from render", "Скрыть блок из отрисовки"));
+            s.setBorder(customTitledBorder(lang.get("Size", "Размер")));
+            clear.setText(lang.get("Delete", "Удалить"));
         }
         
         @Override public void actionPerformed(ActionEvent e) {

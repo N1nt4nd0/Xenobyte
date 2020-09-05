@@ -36,7 +36,7 @@ public class TurretNuker extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Разрушает блоки в радиусе по ЛКМ";
+        return lang.get("Destroys blocks in a radius by left mouse click", "Разрушает блоки в радиусе по ЛКМ");
     }
     
     @Override public Panel settingPanel() {
@@ -51,7 +51,7 @@ public class TurretNuker extends CheatModule {
                     buttonValue(onView = !onView);
                 }
                 @Override public String elementDesc() {
-                    return "По взгляду или вокруг игрока";
+                    return lang.get("By sight or around the player", "По взгляду или вокруг игрока");
                 }
             },
             new Button("OnlyXRay", onlyXRay) {
@@ -59,7 +59,7 @@ public class TurretNuker extends CheatModule {
                     buttonValue(onlyXRay = !onlyXRay);
                 }
                 @Override public String elementDesc() {
-                    return "Разрушение только XRay блоков";
+                    return lang.get("Breaking only XRay blocks", "Разрушение только XRay блоков");
                 }
             }
         );

@@ -1,10 +1,10 @@
 package forgefuck.team.xenobyte.modules;
 
 import cpw.mods.fml.common.Loader;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 
@@ -22,7 +22,7 @@ public class TravellersGive extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача предмета в обычный сундук на который смотрит игрок";
+        return lang.get("Issuing an item into a vanilla chest that the player is looking at", "Выдача предмета в обычный сундук на который смотрит игрок");
     }
     
     @Override public boolean isWorking() {

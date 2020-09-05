@@ -21,7 +21,7 @@ public class Rocket extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Ускорение в небо";
+        return lang.get("Acceleration to the sky", "Ускорение в небо");
     }
     
     @Override public Panel settingPanel() {
@@ -31,7 +31,7 @@ public class Rocket extends CheatModule {
                         strength = processSlider(dir, withShift);
                     }
                     @Override public String elementDesc() {
-                        return "Величина ускорения";
+                        return lang.get("Acceleration amount", "Величина ускорения");
                     }
                 }
         );

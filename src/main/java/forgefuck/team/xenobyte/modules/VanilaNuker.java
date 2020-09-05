@@ -47,7 +47,7 @@ public class VanilaNuker extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Вскапывание блоков в радиусе (в тике)";
+        return lang.get("Digging blocks in a radius (in tick)", "Вскапывание блоков в радиусе (в тике)");
     }
     
     @Override public Panel settingPanel() {
@@ -62,7 +62,7 @@ public class VanilaNuker extends CheatModule {
                     delay = processSlider(dir, withShift);
                 }
                 @Override public String elementDesc() {
-                    return "Задержка копания";
+                    return lang.get("Digging delay", "Задержка копания");
                 }
             },
             new Button("OnView", onView) {
@@ -70,7 +70,7 @@ public class VanilaNuker extends CheatModule {
                     buttonValue(onView = !onView);
                 }
                 @Override public String elementDesc() {
-                    return "По взгляду или вокруг игрока";
+                    return lang.get("By sight or around the player", "По взгляду или вокруг игрока");
                 }
             },
             new Button("OnlyXRay", onlyXRay) {
@@ -78,7 +78,7 @@ public class VanilaNuker extends CheatModule {
                     buttonValue(onlyXRay = !onlyXRay);
                 }
                 @Override public String elementDesc() {
-                    return "Вскапывание только XRay блоков";
+                    return lang.get("Digging in only XRay blocks", "Вскапывание только XRay блоков");
                 }
             },
             new Button("HandShake", handshake) {
@@ -86,7 +86,7 @@ public class VanilaNuker extends CheatModule {
                     buttonValue(handshake = !handshake);
                 }
                 @Override public String elementDesc() {
-                    return "Взмах руки";
+                    return lang.get("Wave of the hand", "Взмах руки");
                 }
             }
         );

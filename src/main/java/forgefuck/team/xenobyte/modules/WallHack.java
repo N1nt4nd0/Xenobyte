@@ -52,7 +52,7 @@ public class WallHack extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Просвечивание чанка в котором находится игрок";
+        return lang.get("Translucent chunk in which the player is", "Просвечивание чанка в котором находится игрок");
     }
 
 }

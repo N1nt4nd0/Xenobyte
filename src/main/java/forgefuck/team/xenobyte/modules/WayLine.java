@@ -55,7 +55,7 @@ public class WayLine extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Отрисовка путевой линии за игроком";
+        return lang.get("Drawing the trackline behind the player", "Отрисовка путевой линии за игроком");
     }
     
     @Override public Panel settingPanel() {
@@ -65,7 +65,7 @@ public class WayLine extends CheatModule {
                     new ColorPickerGui("Цвет линии", picker).showFrame();
                 }
                 @Override public String elementDesc() {
-                    return "Цвет линии";
+                    return lang.get("Line color", "Цвет линии");
                 }
             },
             new Button("Clear") {
@@ -73,7 +73,7 @@ public class WayLine extends CheatModule {
                     poses.clear();
                 }
                 @Override public String elementDesc() {
-                    return "Очистить линию";
+                    return lang.get("Clear line", "Очистить линию");
                 }
             }
         );

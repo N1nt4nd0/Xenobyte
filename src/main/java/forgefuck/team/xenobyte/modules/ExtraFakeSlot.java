@@ -1,10 +1,10 @@
 package forgefuck.team.xenobyte.modules;
 
 import cpw.mods.fml.common.Loader;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import net.minecraft.tileentity.TileEntity;
 
 public class ExtraFakeSlot extends CheatModule {
@@ -23,7 +23,7 @@ public class ExtraFakeSlot extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Выдача фейк предмета в жидкостный заполнитель на который смотрит игрок";
+        return lang.get("Issuing a fake item into a liquid filler that the player is looking at", "Выдача фейк предмета в жидкостный заполнитель на который смотрит игрок");
     }
     
     @Override public boolean isWorking() {

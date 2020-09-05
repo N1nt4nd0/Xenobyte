@@ -66,7 +66,7 @@ public class XenoFly extends CheatModule {
     }
     
     @Override public String moduleDesc() {
-        return "Полёт с заданными параметрами";
+        return lang.get("Flight with setted parameters", "Полёт с заданными параметрами");
     }
     
     @Override public Panel settingPanel() {
@@ -76,7 +76,7 @@ public class XenoFly extends CheatModule {
                     vSpeed = (float) processSlider(dir, withShift) / 10;
                 }
                 @Override public String elementDesc() {
-                    return "Вертикальная скорость полёта";
+                    return lang.get("Vertical flight speed", "Вертикальная скорость полёта");
                 }
             },
             new ScrollSlider("HSpeed", (int) (hSpeed * 10), 100) {
@@ -84,7 +84,7 @@ public class XenoFly extends CheatModule {
                     hSpeed = (float) processSlider(dir, withShift) / 10;
                 }
                 @Override public String elementDesc() {
-                    return "Горизонтальная скорость полёта";
+                    return lang.get("Horizontal flight speed", "Горизонтальная скорость полёта");
                 }
             },
             new Button("NoClip", noclip) {
@@ -92,7 +92,7 @@ public class XenoFly extends CheatModule {
                     buttonValue(noclip = !noclip);
                 }
                 @Override public String elementDesc() {
-                    return "Сквозь стены (лучше работает в BlinkCam)";
+                    return lang.get("Through walls (works best in BlinkCam)", "Сквозь стены (лучше работает в BlinkCam)");
                 }
             },
             new Button("InGui", inGui) {
@@ -100,7 +100,7 @@ public class XenoFly extends CheatModule {
                     buttonValue(inGui = !inGui);
                 }
                 @Override public String elementDesc() {
-                    return "Полёт при открытом Gui";
+                    return lang.get("Flying with an open GUI", "Полёт при открытом GUI");
                 }
             }
         );
