@@ -37,9 +37,9 @@ public class GuiRender extends Gui {
         int height = xenoFont().fontHeight();
         int xStart = GuiScaler.mouseX() - 6;
         int yStart = GuiScaler.mouseY() - 16;
-        if (xStart + width + 10 >= GuiScaler.scaledScreenWidth()) {
-            xStart = GuiScaler.scaledScreenWidth() - width - 10;
-        }
+        xStart = xStart + width + 10 >= GuiScaler.scaledScreenWidth() ? GuiScaler.scaledScreenWidth() - width - 10 : xStart;
+        yStart = yStart <= 10 ? 10 : yStart;
+        drawRect(xStart + 4, yStart + 4, xStart + width + 4, yStart + height + 4, Colors.TRANSPARENT_DARK);
         drawBorderRect(xStart, yStart, xStart + width, yStart + height, 1, Colors.BLACK, Colors.ORANGE);
         xenoFont().drawString(text, xStart, yStart, Colors.WHITE);
     }

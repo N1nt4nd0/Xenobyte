@@ -24,20 +24,23 @@ import forgefuck.team.xenobyte.utils.Config;
 import forgefuck.team.xenobyte.utils.Keys;
 import net.minecraft.client.gui.GuiScreen;
 
-public class XenoGuiScreen extends GuiScreen {
+public class XenoGuiScreen extends GuiScreen implements Xeno {
     
     private Panel mainPanel, tempSetting;
     private List<GuiElement> elements;
     
     public XenoGuiScreen(ModuleHandler HAND) {
         elements = new CopyOnWriteArrayList<GuiElement>();
-        mainPanel = new Panel(new Button(Xeno.mod_name, HAND.xenoGui().getKeyName(), ElementAligment.CENTER, Colors.ORANGE, Colors.ORANGE, Colors.ORANGE, Colors.WHITE, Colors.WHITE, Colors.WHITE) {
+        mainPanel = new Panel(new Button(mod_name, HAND.xenoGui().getKeyName(), ElementAligment.CENTER, Colors.ORANGE, Colors.ORANGE, Colors.ORANGE, Colors.WHITE, Colors.WHITE, Colors.WHITE) {
             @Override public void playClick() {}
             @Override public void onHovered() {
                 hideElements();
             }
             @Override public void onKeyTyped(char symb, int key) {
                 HAND.bind(HAND.xenoGui(), this, key);
+            }
+            @Override public String elementDesc() {
+                return lang.get("Version", "Версия") + " " + mod_version;
             }
         }, PanelLayout.HORIZONTAL, PanelSorting.DEFAULT);
         for (Category CAT : Category.values()) {
@@ -62,8 +65,7 @@ public class XenoGuiScreen extends GuiScreen {
                         @Override public void onDraw() {
                             super.onDraw();
                             if (settingsPanel != null) {
-                                int startX = isShowing(settingsPanel) ? getMaxX() + settingsPanel.getWidth() : getMaxX() - 1;
-                                render.GUI.drawRect(startX , getY(), startX + 1, isShowing(settingsPanel) ? settingsPanel.getMaxY() : getMaxY(), Colors.ORANGE);
+                                render.GUI.drawRect(getMaxX() -1, getY() + 3, getMaxX(), getMaxY() - 3, isShowing(settingsPanel) ? Colors.TRANSPARENT : Colors.ORANGE);
                             }
                         }
                         @Override public void onHovered() {
@@ -72,7 +74,9 @@ public class XenoGuiScreen extends GuiScreen {
                             }
                             if (settingsPanel != null && !isShowing(settingsPanel)) {
                                 tempSetting = settingsPanel;
-                                settingsPanel.setPos(getMaxX() + settingsPanel.getWidth() > GuiScaler.scaledScreenWidth() ? getX() - settingsPanel.getWidth() : getMaxX(), getY() + settingsPanel.getHeight() > GuiScaler.scaledScreenHeight() ? getMaxY() - settingsPanel.getHeight() : getY());
+                                boolean widthUnfit = getMaxX() + settingsPanel.getWidth() > GuiScaler.scaledScreenWidth();
+                                settingsPanel.setShadowAligment(widthUnfit ? ElementAligment.LEFT : ElementAligment.RIGHT);
+                                settingsPanel.setPos(widthUnfit ? getX() - settingsPanel.getWidth() : getMaxX(), getY() + settingsPanel.getHeight() > GuiScaler.scaledScreenHeight() ? getMaxY() - settingsPanel.getHeight() : getY());
                                 showElement(settingsPanel);
                             }
                         }
@@ -117,7 +121,7 @@ public class XenoGuiScreen extends GuiScreen {
     }
 
     @Override public void drawScreen(int mouseX, int mouseY, float ticks) {
-        drawGradientRect(0, 0, width, height, Colors.WHITE_BG, Colors.NONE);
+        drawGradientRect(0, 0, width, height, Colors.WHITE_BG, Colors.TRANSPARENT);
         GL11.glPushMatrix();
         GuiScaler.setGuiScale();
         Iterator<GuiElement> iterator = elements.iterator();
@@ -142,7 +146,7 @@ public class XenoGuiScreen extends GuiScreen {
     
     @Override protected void mouseClicked(int mouseX, int mouseY, int key) {
         if(!elements.stream().anyMatch(p -> p.click(key))) {
-            Xeno.utils.closeGuis();
+            utils.closeGuis();
         };
     }
     

@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import forgefuck.team.xenobyte.api.gui.ElementAligment;
 import forgefuck.team.xenobyte.api.gui.GuiElement;
 import forgefuck.team.xenobyte.api.gui.PanelLayout;
 import forgefuck.team.xenobyte.api.gui.PanelSorting;
@@ -15,14 +16,16 @@ import forgefuck.team.xenobyte.render.Colors;
 
 public class Panel extends GuiElement {
     
+    private ElementAligment shadowAligment;
     private List<GuiElement> elements;
     private PanelSorting sorting;
     private PanelLayout layout;
     private GuiElement title;
+    private boolean shadow;
     private int maxW;
     
     public Panel(GuiElement ... es) {
-        this(null, PanelLayout.VERTICAL, PanelSorting.DEFAULT);
+        this(PanelLayout.VERTICAL, PanelSorting.DEFAULT);
         add(es);
         pack();
     }
@@ -32,8 +35,14 @@ public class Panel extends GuiElement {
     }
     
     public Panel(GuiElement title, PanelLayout layout, PanelSorting sorting) {
+        this(title, layout, sorting, true, ElementAligment.RIGHT);
+    }
+    
+    public Panel(GuiElement title, PanelLayout layout, PanelSorting sorting, boolean shadow, ElementAligment shadowAligment) {
         elements = new ArrayList<GuiElement>();
+        setShadowAligment(shadowAligment);
         this.sorting = sorting;
+        this.shadow = shadow;
         this.layout = layout;
         this.title = title;
         if (title != null) {
@@ -74,6 +83,10 @@ public class Panel extends GuiElement {
                 setWidth(maxW);
             }
         }
+    }
+    
+    public void setShadowAligment(ElementAligment shadowAligment) {
+        this.shadowAligment = shadowAligment;
     }
     
     public void add(GuiElement e) {
@@ -131,6 +144,19 @@ public class Panel extends GuiElement {
     }
     
     @Override public void onDraw() {
+        if (shadow) {
+            switch (shadowAligment) {
+            case CENTER:
+                render.GUI.drawRect(getX() + 3, getY() + 3, getMaxX() - 3, getMaxY() + 3, Colors.TRANSPARENT_DARK);
+                break;
+            case LEFT:
+                render.GUI.drawRect(getX() - 3, getY() + 3, getMaxX() - 3, getMaxY() + 3, Colors.TRANSPARENT_DARK);
+                break;
+            case RIGHT:
+                render.GUI.drawRect(getX() + 3, getY() + 3, getMaxX() + 3, getMaxY() + 3, Colors.TRANSPARENT_DARK);
+                break;
+            }
+        }
         render.GUI.drawRect(getX(), getY(), getMaxX(), getMaxY(), Colors.BLACK);
     }
     
