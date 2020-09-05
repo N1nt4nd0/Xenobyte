@@ -1,4 +1,4 @@
-package forgefuck.team.xenobyte.gui.swing;
+package forgefuck.team.xenobyte.api.gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,9 +13,10 @@ import javax.swing.JToolBar;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import forgefuck.team.xenobyte.api.Xeno;
 import forgefuck.team.xenobyte.render.Images;
 
-public abstract class XenoJFrame extends JFrame implements ActionListener {
+public abstract class XenoJFrame extends JFrame implements ActionListener, Xeno {
     
     public static final Border BORDER = BorderFactory.createLineBorder(Color.BLACK);
     public static final GridBagConstraints GBC = new GridBagConstraints();
@@ -32,8 +33,8 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         GBC.gridwidth = GridBagConstraints.REMAINDER;
         setDefaultCloseOperation(closeOperation);
-        accept = new JButton("Применить");
-        clear = new JButton("Сбросить");
+        accept = new JButton();
+        clear = new JButton();
         accept.addActionListener(this);
         clear.addActionListener(this);
         buttonsBar = new JToolBar();
@@ -46,7 +47,6 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
         configurate();
         addElements();
         fillData();
-        packFrame();
     }
     
     public static Border customTitledBorder(String title, int align) {
@@ -59,7 +59,7 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
         return customTitledBorder(title, TitledBorder.LEFT);
     }
     
-    protected void packFrame() {
+    public void packFrame() {
         pack();
         setLocationRelativeTo(null);
     }
@@ -77,7 +77,11 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
             lastFrame.dispose();
         }
         lastFrame = this;
+        accept.setText(lang.get("Accept", "Применить"));
+        clear.setText(lang.get("Reset", "Сбросить"));
         setState(NORMAL);
+        localizeSet();
+        packFrame();
         setVisible(true);
         toFront();
         if (waiting) {
@@ -93,6 +97,7 @@ public abstract class XenoJFrame extends JFrame implements ActionListener {
     protected abstract void createObjects();
     protected abstract void configurate();
     protected abstract void addElements();
+    protected abstract void localizeSet();
     protected void fillData() {};
 
 }
