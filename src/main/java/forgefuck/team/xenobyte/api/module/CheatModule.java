@@ -87,10 +87,12 @@ public abstract class CheatModule extends ModuleAbility implements Xeno {
     }
     
     public void handlerInit(ModuleHandler handler) {
-        this.handler = handler;
-        xraySelector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
-        giveSelector = (GiveSelect) moduleHandler().getModuleByClass(GiveSelect.class);
-        onHandlerInit();
+        if (moduleHandler() == null) {
+            this.handler = handler;
+            xraySelector = (XRaySelect) moduleHandler().getModuleByClass(XRaySelect.class);
+            giveSelector = (GiveSelect) moduleHandler().getModuleByClass(GiveSelect.class);
+            onHandlerInit();
+        }
     }
     
     public void handleTick() {

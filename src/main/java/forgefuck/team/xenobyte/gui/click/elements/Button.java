@@ -14,7 +14,7 @@ public class Button extends TextElement {
     }
     
     public Button(String text, Object value) {
-        this(text, value,ElementAligment.CENTER, Colors.NONE, Colors.SKY, Colors.SKY, Colors.SKY, Colors.WHITE, Colors.WHITE);
+        this(text, value, ElementAligment.CENTER, Colors.TRANSPARENT, Colors.SKY, Colors.SKY, Colors.SKY, Colors.WHITE, Colors.WHITE);
     }
     
     public Button(String text, Object value, ElementAligment aligment, int bgColor, int hoverColor, int selectColor, int textColor, int selectTextColor, int hoverTextColor) {

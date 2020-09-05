@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 import forgefuck.team.xenobyte.api.gui.InputType;
+import forgefuck.team.xenobyte.api.gui.XenoJFrame;
 
 public class UserInput extends XenoJFrame {
     
@@ -23,7 +24,10 @@ public class UserInput extends XenoJFrame {
 
     public UserInput(String title, List<String> list, InputType type) {
         super(title, DISPOSE_ON_CLOSE);
-        if (type == InputType.COORDS) {
+        this.type = type;
+        this.list = list;
+        switch (this.type) {
+        case COORDS:
             if (list.size() < 3) {
                 for (int i = list.size(); i < 3; i++) {
                     list.add("0");
@@ -33,7 +37,8 @@ public class UserInput extends XenoJFrame {
                     list.remove(i);
                 }
             }
-        } else if (type == InputType.SINGLE_STRING) {
+            break;
+        case SINGLE_STRING:
             if (list.size() == 0) {
                 list.add("");
             } else if (list.size() > 1) {
@@ -41,25 +46,26 @@ public class UserInput extends XenoJFrame {
                     list.remove(i);
                 }
             }
-        }
-        if (type == InputType.CUSTOM) {
+            break;
+        case CUSTOM:
             buttonsBar.add(add);
         }
         list.forEach(this::addTextBar);
-        this.type = type;
-        this.list = list;
-        packFrame();
     }
 
     @Override public void createObjects() {
-        add = new JButton("Добавить");
         inputPanel = new JPanel();
+        add = new JButton();
     }
 
     @Override public void configurate() {
         inputPanel.setLayout(new GridBagLayout());
         add.addActionListener(this);
         add.setFont(FONT);
+    }
+    
+    @Override public void localizeSet() {
+        add.setText(lang.get("Add", "Добавить"));
     }
 
     @Override public void addElements() {

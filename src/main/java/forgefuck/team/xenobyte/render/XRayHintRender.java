@@ -38,7 +38,7 @@ public class XRayHintRender implements IItemRenderer {
         if (block.tracer) {
             Xeno.render.GUI.drawRect(8, 14, 16, 16, Colors.SKY);
         }
-        Xeno.render.GUI.drawBorderRect(1, 1, 15, 15, 1, Colors.NONE, block.rgb);
+        Xeno.render.GUI.drawBorderRect(1, 1, 15, 15, 1, Colors.TRANSPARENT, block.rgb);
         RenderHelper.enableGUIStandardItemLighting();
         RenderItem.getInstance().renderItemIntoGUI(Xeno.utils.mc().fontRenderer, Xeno.utils.mc().getTextureManager(), item, 0, 0);
         GL11.glPopMatrix();

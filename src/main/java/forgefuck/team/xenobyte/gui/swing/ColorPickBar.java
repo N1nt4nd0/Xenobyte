@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.text.BadLocationException;
 
+import forgefuck.team.xenobyte.api.gui.XenoJFrame;
+
 public class ColorPickBar extends JToolBar {
     
     private final List<ColorObject> cols;
