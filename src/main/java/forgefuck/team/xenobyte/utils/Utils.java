@@ -61,6 +61,7 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C0DPacketCloseWindow;
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -452,6 +453,12 @@ public class Utils {
     public void useHandItem() {
         if (isInGame() && item() != null) {
             mc().playerController.sendUseItem(player(), world(), item());
+        }
+    }
+    
+    public void closeWindow() {
+        if (isInGame()) {
+            sendPacket(new C0DPacketCloseWindow(windowID()));
         }
     }
     

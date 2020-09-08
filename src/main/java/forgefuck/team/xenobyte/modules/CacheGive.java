@@ -3,10 +3,10 @@ package forgefuck.team.xenobyte.modules;
 import java.util.UUID;
 
 import cpw.mods.fml.common.Loader;
-import forgefuck.team.xenobyte.api.module.PerformMode;
-import forgefuck.team.xenobyte.api.module.PerformSource;
 import forgefuck.team.xenobyte.api.module.Category;
 import forgefuck.team.xenobyte.api.module.CheatModule;
+import forgefuck.team.xenobyte.api.module.PerformMode;
+import forgefuck.team.xenobyte.api.module.PerformSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 

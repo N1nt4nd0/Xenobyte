@@ -32,6 +32,7 @@ import forgefuck.team.xenobyte.modules.EIOTeleport;
 import forgefuck.team.xenobyte.modules.EIOXpGrab;
 import forgefuck.team.xenobyte.modules.Esp;
 import forgefuck.team.xenobyte.modules.ExtraFakeSlot;
+import forgefuck.team.xenobyte.modules.FTBSatchelDupe;
 import forgefuck.team.xenobyte.modules.FactoryDupe;
 import forgefuck.team.xenobyte.modules.FactoryRocket;
 import forgefuck.team.xenobyte.modules.FakeBreak;
@@ -108,6 +109,7 @@ public class ModulesList extends ArrayList<CheatModule>  {
         add(new TravellersGive());
         add(new BobbingControl());
         add(new MatterGiveItem());
+        add(new FTBSatchelDupe());
         add(new RenderControl());
         add(new AntiKnockBack());
         add(new NEIShowHidden());
