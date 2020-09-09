@@ -11,12 +11,6 @@ import forgefuck.team.xenobyte.handlers.ModuleHandler;
 
 public class XenoByte {
     
-    private static ModuleHandler moduleHandler;
-    
-    public static ModuleHandler getModuleHandler() {
-        return moduleHandler == null ? new ModuleHandler() : moduleHandler;
-    }
-    
     @EventHandler public void init(FMLInitializationEvent e) {
         if (e == null) {
             starter(null);
@@ -24,7 +18,7 @@ public class XenoByte {
     }
     
     @EventHandler public void starter(FMLLoadCompleteEvent e) {
-        moduleHandler = getModuleHandler();
+        new ModuleHandler();
     }
     
 }
